@@ -6,25 +6,25 @@
   android:layout_height="match_parent">
     <LinearLayout android:id="@+id/linearLayout1" android:layout_height="wrap_content" android:layout_width="match_parent">
         <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:text="Ages" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView1"></TextView>
-        <Spinner android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/editStopMinAgeSpinner"></Spinner>
+        <Spinner android:layout_weight="1" android:layout_height="wrap_content" android:id="@+id/editStopMinAgeSpinner" android:layout_width="wrap_content"></Spinner>
         <TextView android:textAppearance="?android:attr/textAppearanceSmall" android:text=" to " android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView2"></TextView>
         <Spinner android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/editStopMaxAgeSpinner" android:layout_weight="1"></Spinner>
     </LinearLayout>
     <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:text="TextView" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView3"></TextView>
-    <LinearLayout android:id="@+id/linearLayout2" android:layout_height="wrap_content" android:layout_width="match_parent">
+    <LinearLayout android:id="@+id/linearLayout2" android:layout_height="wrap_content" android:layout_width="match_parent" android:gravity="center">
         <CheckBox android:text="Sum" android:id="@+id/summerCheckBox" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
         <CheckBox android:text="Aut" android:id="@+id/autumnCheckBox" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
         <CheckBox android:text="Win" android:id="@+id/winterCheckBox" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
         <CheckBox android:text="Spr" android:id="@+id/springCheckBox" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
     </LinearLayout>
     <TextView android:textAppearance="?android:attr/textAppearanceMedium" android:text="Days" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView4"></TextView>
-    <LinearLayout android:id="@+id/linearLayout3" android:layout_height="wrap_content" android:layout_width="match_parent">
+    <LinearLayout android:id="@+id/linearLayout3" android:layout_height="wrap_content" android:layout_width="match_parent" android:gravity="center">
         <CheckBox android:text="S" android:id="@+id/sunCheckBox" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
         <CheckBox android:text="M" android:id="@+id/monCheckBox" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
         <CheckBox android:text="Tu" android:id="@+id/tueCheckBox" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
         <CheckBox android:text="W" android:id="@+id/wedCheckBox" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
     </LinearLayout>
-    <LinearLayout android:id="@+id/linearLayout4" android:layout_height="wrap_content" android:layout_width="match_parent">
+    <LinearLayout android:id="@+id/linearLayout4" android:layout_height="wrap_content" android:layout_width="match_parent" android:gravity="center">
         <CheckBox android:text="Th" android:id="@+id/thurCheckBox" android:layout_height="wrap_content" android:layout_width="wrap_content"></CheckBox>
         <CheckBox android:text="F" android:id="@+id/friCheckBox" android:layout_height="wrap_content" android:layout_width="wrap_content"></CheckBox>
         <CheckBox android:text="S" android:id="@+id/satCheckBox" android:layout_height="wrap_content" android:layout_width="wrap_content"></CheckBox>
