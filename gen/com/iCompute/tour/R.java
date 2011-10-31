@@ -13,8 +13,67 @@ public final class R {
     public static final class drawable {
         public static final int icon=0x7f020000;
     }
+    public static final class id {
+        public static final int addTourImagesButton=0x7f05002f;
+        public static final int addTourStopButton=0x7f05002d;
+        public static final int additionalOptionStub=0x7f050010;
+        public static final int autumnCheckBox=0x7f050017;
+        public static final int button2=0x7f050033;
+        public static final int button3=0x7f050034;
+        public static final int createTourButton=0x7f050032;
+        public static final int discardStopButton=0x7f050013;
+        public static final int discardTourButton=0x7f050031;
+        public static final int drivingTourradioButton=0x7f05002c;
+        public static final int editStopAddOptButton=0x7f05000f;
+        public static final int editStopDescriptionEditText=0x7f050009;
+        public static final int editStopEndTime=0x7f050026;
+        public static final int editStopMaxAgeSpinner=0x7f050015;
+        public static final int editStopMediaButton=0x7f05000e;
+        public static final int editStopMinAgeSpinner=0x7f050014;
+        public static final int editStopMyLocationButton=0x7f050003;
+        public static final int editStopOtherMapButton=0x7f050005;
+        public static final int editStopPinButton=0x7f050004;
+        public static final int editStopStartTime=0x7f050024;
+        public static final int editTourStopsButton=0x7f05002e;
+        public static final int friCheckBox=0x7f050020;
+        public static final int linearLayout1=0x7f050000;
+        public static final int linearLayout2=0x7f050002;
+        public static final int linearLayout3=0x7f05000d;
+        public static final int linearLayout4=0x7f050011;
+        public static final int linearLayout5=0x7f050023;
+        public static final int mapViewHolder=0x7f050001;
+        public static final int monCheckBox=0x7f05001c;
+        public static final int satCheckBox=0x7f050021;
+        public static final int saveStopButton=0x7f050012;
+        public static final int saveTourButton=0x7f050030;
+        public static final int springCheckBox=0x7f050019;
+        public static final int stopCategorySpinner=0x7f05000b;
+        public static final int stopHandicapCheckBox=0x7f05000c;
+        public static final int stopNameEditText=0x7f050007;
+        public static final int summerCheckBox=0x7f050016;
+        public static final int sunCheckBox=0x7f05001b;
+        public static final int textView1=0x7f050006;
+        public static final int textView2=0x7f050008;
+        public static final int textView3=0x7f05000a;
+        public static final int textView4=0x7f05001a;
+        public static final int textView5=0x7f050022;
+        public static final int textView6=0x7f050025;
+        public static final int thurCheckBox=0x7f05001f;
+        public static final int tourDescriptionEditText=0x7f050028;
+        public static final int tourTagsEditText=0x7f050029;
+        public static final int tourTitleEditText=0x7f050027;
+        public static final int tourTypeRadioGroup=0x7f05002a;
+        public static final int tueCheckBox=0x7f05001d;
+        public static final int walkingTourRadioButton=0x7f05002b;
+        public static final int wedCheckBox=0x7f05001e;
+        public static final int winterCheckBox=0x7f050018;
+    }
     public static final class layout {
-        public static final int main=0x7f030000;
+        public static final int edit_stop_layout=0x7f030000;
+        public static final int edit_stop_options_stub=0x7f030001;
+        public static final int edit_tour_layout=0x7f030002;
+        public static final int image_selector_layout=0x7f030003;
+        public static final int main=0x7f030004;
     }
     public static final class string {
         public static final int app_name=0x7f040001;
