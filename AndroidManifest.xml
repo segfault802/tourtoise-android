@@ -17,6 +17,7 @@
         <activity android:name=".ImageSelectorActivity"></activity>
         <activity android:name=".EditTourStopActivity"></activity>
         <activity android:name=".ImageSelectorActivity"></activity>
+        <activity android:name=".EditTourStopsListActivity"></activity>
 
     </application>
 </manifest>

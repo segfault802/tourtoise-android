@@ -22,6 +22,7 @@ public class EditTourActivity extends Activity {
 		Button discard = (Button) findViewById(R.id.discardTourButton);
 		Button add = (Button) findViewById(R.id.addTourStopButton);
 		Button media = (Button) findViewById(R.id.addTourImagesButton);
+		Button edit = (Button) findViewById(R.id.editTourStopsButton);
 		
 		save.setOnClickListener(new View.OnClickListener(){
 			@Override
@@ -45,6 +46,12 @@ public class EditTourActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				addMedia();
+			}
+		});
+		edit.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				editStops();
 			}
 		});
 	}
@@ -97,6 +104,12 @@ public class EditTourActivity extends Activity {
 		});
 		
 		return builder.create();
+	}
+
+	
+	private void editStops()
+	{
+		startActivity(new Intent(this, EditTourStopsListActivity.class));
 	}
 	
 	private void addMedia()
