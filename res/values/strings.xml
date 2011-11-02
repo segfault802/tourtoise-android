@@ -104,4 +104,11 @@
         <item>98</item>
         <item>99</item>
     </string-array>
+    <string-array name="temp_stop_names">
+        <item>VPB</item>
+        <item>3 Needs</item>
+        <item>Magic Hat</item>
+        <item>Switchback</item>
+        <item>Zero Gravity</item>
+    </string-array>
 </resources>
