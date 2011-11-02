@@ -17,13 +17,16 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
+        public static final int addImageButton=0x7f060033;
         public static final int addTourImagesButton=0x7f06002f;
         public static final int addTourStopButton=0x7f06002d;
         public static final int additionalOptionStub=0x7f060010;
+        public static final int audioSeekBar=0x7f060034;
         public static final int autumnCheckBox=0x7f060017;
-        public static final int button2=0x7f060033;
-        public static final int button3=0x7f060034;
-        public static final int createTourButton=0x7f060032;
+        public static final int button2=0x7f06003a;
+        public static final int button3=0x7f06003b;
+        public static final int createTourButton=0x7f060039;
+        public static final int currAudioTimeTextView=0x7f060035;
         public static final int discardStopButton=0x7f060013;
         public static final int discardTourButton=0x7f060031;
         public static final int drivingTourradioButton=0x7f06002c;
@@ -39,6 +42,7 @@ public final class R {
         public static final int editStopStartTime=0x7f060024;
         public static final int editTourStopsButton=0x7f06002e;
         public static final int friCheckBox=0x7f060020;
+        public static final int linearLayout=0x7f060032;
         public static final int linearLayout1=0x7f060001;
         public static final int linearLayout2=0x7f060003;
         public static final int linearLayout3=0x7f06000d;
@@ -46,6 +50,8 @@ public final class R {
         public static final int linearLayout5=0x7f060023;
         public static final int mapViewHolder=0x7f060002;
         public static final int monCheckBox=0x7f06001c;
+        public static final int playAudioButton=0x7f060037;
+        public static final int recAudioButton=0x7f060038;
         public static final int satCheckBox=0x7f060021;
         public static final int saveStopButton=0x7f060012;
         public static final int saveTourButton=0x7f060030;
@@ -62,6 +68,7 @@ public final class R {
         public static final int textView5=0x7f060022;
         public static final int textView6=0x7f060025;
         public static final int thurCheckBox=0x7f06001f;
+        public static final int totalAudioTimeTextView=0x7f060036;
         public static final int tourDescriptionEditText=0x7f060028;
         public static final int tourTagsEditText=0x7f060029;
         public static final int tourTitleEditText=0x7f060027;

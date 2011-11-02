@@ -1,6 +1,7 @@
 package com.iCompute.tour;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,6 +24,7 @@ public class EditTourStopActivity extends Activity {
 		setContentView(R.layout.edit_stop_layout);
 		View map = findViewById(R.id.mapViewHolder);
 		addOptButton = (Button) findViewById(R.id.editStopAddOptButton);
+		Button media = (Button) findViewById(R.id.editStopMediaButton);
 		
 		addOptButton.setOnClickListener(new OnClickListener(){
 			@Override
@@ -30,9 +32,18 @@ public class EditTourStopActivity extends Activity {
 				toggleOptions();
 			}
 		});
+		media.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View view) {
+				addMedia();
+			}
+		});
 	}
 	
-	
+	private void addMedia()
+	{
+		startActivity(new Intent(this, ImageSelectorActivity.class));
+	}
 	
 	private void toggleOptions()
 	{
