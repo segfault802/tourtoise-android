@@ -11,49 +11,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class EditTourActivity extends Activity {
+public class EditTourActivity extends Activity implements View.OnClickListener{
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_tour_layout);
-		Button save = (Button) findViewById(R.id.saveTourButton);
-		Button discard = (Button) findViewById(R.id.discardTourButton);
-		Button add = (Button) findViewById(R.id.addTourStopButton);
-		Button media = (Button) findViewById(R.id.addTourImagesButton);
-		Button edit = (Button) findViewById(R.id.editTourStopsButton);
 		
-		save.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				showDialog(0);
-			}
-		});
-		discard.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				showDialog(1);
-			}
-		});
-		add.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				addTourStop();
-			}
-		});
-		media.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				addMedia();
-			}
-		});
-		edit.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				editStops();
-			}
-		});
+		((Button) findViewById(R.id.saveTourButton)).setOnClickListener(this);
+		((Button) findViewById(R.id.discardTourButton)).setOnClickListener(this);
+		((Button) findViewById(R.id.addTourStopButton)).setOnClickListener(this);
+		((Button) findViewById(R.id.addTourImagesButton)).setOnClickListener(this);
+		((Button) findViewById(R.id.editTourStopsButton)).setOnClickListener(this);
+		
 	}
 	
 	@Override
@@ -75,6 +46,29 @@ public class EditTourActivity extends Activity {
 		return dialog;
 	}
 	
+	public void onClick(View v)
+	{
+		switch(v.getId()){
+		case R.id.saveTourButton:
+			showDialog(0);
+			break;
+		case R.id.discardTourButton:
+			showDialog(1);
+			break;
+		case R.id.addTourStopButton:
+			addTourStop();
+			break;
+		case R.id.addTourImagesButton:
+			addMedia();
+			break;
+		case R.id.editTourStopsButton:
+			editStops();
+			break;
+		default:
+			break;
+		
+		}
+	}
 	private AlertDialog saveButtonClick()
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
