@@ -5,11 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 //import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
-public class ToursDBHelper extends SQLiteOpenHelper {
+public class TourDBHelper extends SQLiteOpenHelper {
 
 	private static final String CREATE_TABLE_STRING = "foo";
 	
-	public ToursDBHelper(Context context) {
+	public TourDBHelper(Context context) {
 		super(context, "foo", null, 2);
 		// TODO Auto-generated constructor stub
 	}
@@ -19,6 +19,10 @@ public class ToursDBHelper extends SQLiteOpenHelper {
 		// TODO Auto-generated method stub
 		db.execSQL(CREATE_TABLE_STRING);
 
+	}
+	
+	//not implemented
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
 	}
 
 }
