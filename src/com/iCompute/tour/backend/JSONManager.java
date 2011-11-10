@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import org.json.JSONObject;
 import java.util.Date;
+import java.util.TimeZone;
 import java.text.SimpleDateFormat;
 
 /*
@@ -36,15 +37,22 @@ public class JSONManager{
 		mHeaders = new ArrayList<NameValuePair>();
 		Date now = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy kk:mm:ss Z");
+		format.setTimeZone(TimeZone.getTimeZone("GMT"));
 		mDateString  = new StringBuilder(format.format(now)).toString();
+		Log.i("Date: " ,mDateString);
 	}
 	
 	public void getToursJSON(){
 		HttpClient client = new DefaultHttpClient();
 		HttpGet get = new HttpGet(BASE_URL);
 		
-		mHeaders.add(new BasicNameValuePair("Authorize:", AUTH_STRING));
+		mHeaders.add(new BasicNameValuePair("Authorization:", AUTH_STRING));
 		mHeaders.add(new BasicNameValuePair("Date:", mDateString));
+		
+		int i;
+		for (i=0;i<mHeaders.size();i++){
+			get.addHeader(mHeaders.get(i).getName(), mHeaders.get(i).getValue());
+		}
 		
 		//add headers to request
 		
