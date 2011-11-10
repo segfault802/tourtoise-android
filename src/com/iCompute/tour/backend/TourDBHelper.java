@@ -1,4 +1,4 @@
-package com.iCompute.tour.db;
+package com.iCompute.tour.backend;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
