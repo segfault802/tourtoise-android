@@ -4,5 +4,4 @@ gen
 .*.swp
 *.apk
 proguard
-local.properties
 .DS
