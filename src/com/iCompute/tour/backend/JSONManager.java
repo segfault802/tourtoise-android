@@ -15,17 +15,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import org.json.JSONObject;
 import java.util.Date;
-import java.util.TimeZone;
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
-/*
- * "Authorization:
-JMoEudX2ESn5ZNiUcMbFd25ynBErffCF7l4ezRWRe959PENv6XVYNckiImF7P34Q:OGJkYTM5YzA1MDIxYzA0YWZmZjNkNjlkYmJkNGU4ZDQzODEwNzMxYg==:bGlmZWlzbXVzaWM0MzRAZ21haWwuY29t:cGFzc3dvcmQ="   
- */
 
 public class JSONManager{
 	
-	private final String BASE_URL = "https://eebsy.com/api/tours:1";
+	private final String BASE_URL = "https://www.eebsy.com/api/tour/1";
 
 	private JSONObject mObject;
 	private ArrayList<NameValuePair> mHeaders;
@@ -44,22 +40,21 @@ public class JSONManager{
 	
 	public void getToursJSON(){
 		HttpClient client = new DefaultHttpClient();
-		HttpGet get = new HttpGet(BASE_URL);
+		HttpGet getRequest = new HttpGet(BASE_URL);
 		
+		//add required headers
 		mHeaders.add(new BasicNameValuePair("Authorization:", AUTH_STRING));
-		mHeaders.add(new BasicNameValuePair("Date:", mDateString));
-		
+		//mHeaders.add(new BasicNameValuePair("Date:", mDateString));
 		int i;
 		for (i=0;i<mHeaders.size();i++){
-			get.addHeader(mHeaders.get(i).getName(), mHeaders.get(i).getValue());
+			getRequest.addHeader(mHeaders.get(i).getName(), mHeaders.get(i).getValue());
 		}
-		
-		//add headers to request
-		
+		getRequest.setHeader("Date:", mDateString);
+		Log.i("Request: ",getRequest.toString());
 		
 		HttpResponse response;
 	    try {
-	        response = client.execute(get);
+	        response = client.execute(getRequest);
 	        // Examine the response status
 	        Log.i("Response: ",response.getStatusLine().toString());
 
