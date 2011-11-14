@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+    <TextView android:text="Tour Title" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:id="@+id/tourTitleViewStopsTextView"></TextView>
+    <TextView android:text="Stops remaining: x" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:id="@+id/remainingStopsViewStopsTextView"></TextView>
+    <ListView android:id="@android:id/list" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight="1" android:isScrollContainer="true" android:scrollbarAlwaysDrawVerticalTrack="true"></ListView>
+    <TextView android:id="@android:id/empty"
+               android:text="No stops" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/linearLayout1">
+        <Button android:layout_weight="1" android:layout_height="wrap_content" android:text="Set Next" android:layout_width="wrap_content" android:id="@+id/setNextViewStopsButton"></Button>
+        <Button android:layout_weight="1" android:layout_height="wrap_content" android:text="Skip To" android:layout_width="wrap_content" android:id="@+id/skipToViewStopsButton"></Button>
+    </LinearLayout>
+               
+</LinearLayout>

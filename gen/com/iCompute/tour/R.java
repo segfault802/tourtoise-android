@@ -20,18 +20,21 @@ public final class R {
     public static final class id {
         public static final int EditStopsListMyLocButton=0x7f06002c;
         public static final int EditStopsListOnMapButton=0x7f06002d;
-        public static final int accessibleNumberViewTourTextView=0x7f06003f;
+        public static final int accessibleNumberViewTourTextView=0x7f06004d;
         public static final int addImageButton=0x7f06002f;
         public static final int addTourImagesButton=0x7f060029;
         public static final int addTourStopButton=0x7f060027;
         public static final int additionalOptionStub=0x7f060010;
+        public static final int audioLayoutHolder=0x7f06003a;
         public static final int audioSeekBar=0x7f060030;
         public static final int button2=0x7f060036;
         public static final int button3=0x7f060037;
+        public static final int categoryViewStopTextView=0x7f06003f;
         public static final int createTourButton=0x7f060035;
         public static final int currAudioTimeTextView=0x7f060031;
+        public static final int currTimeViewStopTextView=0x7f06003b;
         public static final int deleteEditTourStopsListItemImgButton=0x7f06001e;
-        public static final int descriptionViewTourTextView=0x7f060040;
+        public static final int descriptionViewTourTextView=0x7f06004e;
         public static final int discardStopButton=0x7f060013;
         public static final int discardTourButton=0x7f06002b;
         public static final int drivingTourradioButton=0x7f060026;
@@ -49,7 +52,9 @@ public final class R {
         public static final int editStopsListItemImageIcon=0x7f06001c;
         public static final int editStopsListItemStopNameTextView=0x7f06001b;
         public static final int editTourStopsButton=0x7f060028;
-        public static final int imagesViewTourGallery=0x7f06003d;
+        public static final int handicapViewStopTextView=0x7f060040;
+        public static final int imagesViewStopGallery=0x7f060039;
+        public static final int imagesViewTourGallery=0x7f06004b;
         public static final int linearLayout=0x7f06002e;
         public static final int linearLayout1=0x7f060001;
         public static final int linearLayout2=0x7f060003;
@@ -59,31 +64,40 @@ public final class R {
         public static final int mapViewHolder=0x7f060002;
         public static final int mvDownEditTourStopsListItemImgButton=0x7f060020;
         public static final int mvUpEditTourStopsListItemImgButton=0x7f06001f;
+        public static final int pausePlayViewTourImgButton=0x7f06003e;
         public static final int playAudioButton=0x7f060033;
         public static final int recAudioButton=0x7f060034;
-        public static final int remainingStopsViewStopsTextView=0x7f060039;
+        public static final int remainingStopsViewStopsTextView=0x7f060047;
         public static final int saveStopButton=0x7f060012;
         public static final int saveTourButton=0x7f06002a;
-        public static final int setNextViewStopsButton=0x7f06003a;
-        public static final int skipToViewStopsButton=0x7f06003b;
+        public static final int seekBar1=0x7f06003c;
+        public static final int setNextViewStopButton=0x7f060042;
+        public static final int setNextViewStopsButton=0x7f060048;
+        public static final int skipToViewStopButton=0x7f060043;
+        public static final int skipToViewStopsButton=0x7f060049;
+        public static final int skipViewStopButton=0x7f060045;
         public static final int stopCategorySpinner=0x7f06000b;
+        public static final int stopDescriptionViewTourTextView=0x7f060041;
         public static final int stopHandicapCheckBox=0x7f06000c;
         public static final int stopNameEditText=0x7f060007;
-        public static final int stopsNumberViewTourTextView=0x7f06003e;
+        public static final int stopNameViewStopTextView=0x7f060038;
+        public static final int stopsNumberViewTourTextView=0x7f06004c;
         public static final int textView1=0x7f060006;
         public static final int textView2=0x7f060008;
         public static final int textView3=0x7f06000a;
         public static final int textView5=0x7f060015;
         public static final int textView6=0x7f060018;
         public static final int totalAudioTimeTextView=0x7f060032;
+        public static final int totalTimeViewStopTextView=0x7f06003d;
         public static final int tourDescriptionEditText=0x7f060022;
         public static final int tourTagsEditText=0x7f060023;
         public static final int tourTitleEditText=0x7f060021;
-        public static final int tourTitleViewStopsTextView=0x7f060038;
-        public static final int tourTitleViewTourTextView=0x7f06003c;
+        public static final int tourTitleViewStopsTextView=0x7f060046;
+        public static final int tourTitleViewTourTextView=0x7f06004a;
         public static final int tourTypeRadioGroup=0x7f060024;
-        public static final int viewNextViewTourButton=0x7f060042;
-        public static final int viewStopsViewTourButton=0x7f060041;
+        public static final int viewNextViewTourButton=0x7f060050;
+        public static final int viewStopsViewTourButton=0x7f06004f;
+        public static final int visitedViewStopButton=0x7f060044;
         public static final int walkingTourRadioButton=0x7f060025;
     }
     public static final class layout {
@@ -94,8 +108,9 @@ public final class R {
         public static final int edit_tour_stops_list_layout=0x7f030004;
         public static final int image_selector_layout=0x7f030005;
         public static final int main=0x7f030006;
-        public static final int view_stops_list_layout=0x7f030007;
-        public static final int view_tour_layout=0x7f030008;
+        public static final int view_stop_layout=0x7f030007;
+        public static final int view_stops_list_layout=0x7f030008;
+        public static final int view_tour_layout=0x7f030009;
     }
     public static final class string {
         public static final int app_name=0x7f040001;

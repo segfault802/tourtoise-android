@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+    <TextView android:text="Stop Name" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/stopNameViewStopTextView"></TextView>
+    <Gallery android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/imagesViewStopGallery"></Gallery>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/audioLayoutHolder">
+        <TextView android:text="0:00" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/currTimeViewStopTextView"></TextView>
+        <SeekBar android:id="@+id/seekBar1" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight="1"></SeekBar>
+        <TextView android:text="x:xx" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/totalTimeViewStopTextView"></TextView>
+        <ImageButton android:layout_width="wrap_content" android:src="@android:drawable/ic_media_play" android:layout_height="wrap_content" android:id="@+id/pausePlayViewTourImgButton"></ImageButton>
+    </LinearLayout>
+    <LinearLayout android:layout_width="fill_parent" android:id="@+id/linearLayout2" android:layout_height="wrap_content">
+        <TextView android:text="Category" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_height="wrap_content" android:id="@+id/categoryViewStopTextView" android:layout_weight="1"></TextView>
+        <TextView android:text="Handicap Accesible" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_height="wrap_content" android:id="@+id/handicapViewStopTextView"></TextView>
+    </LinearLayout>
+    <TextView android:text="TextView" android:id="@+id/stopDescriptionViewTourTextView" android:layout_height="wrap_content" android:inputType="textImeMultiLine" android:layout_weight="1" android:layout_width="fill_parent"></TextView>
+    <LinearLayout android:layout_width="fill_parent" android:id="@+id/linearLayout3" android:layout_height="wrap_content">
+        <Button android:text="Go To Next" android:id="@+id/setNextViewStopButton" android:layout_height="wrap_content" android:layout_weight="1" android:layout_width="fill_parent"></Button>
+        <Button android:text="Skip To" android:id="@+id/skipToViewStopButton" android:layout_height="wrap_content" android:layout_weight="1" android:layout_width="fill_parent"></Button>
+        <Button android:text="Visited" android:id="@+id/visitedViewStopButton" android:layout_height="wrap_content" android:layout_weight="1" android:layout_width="fill_parent"></Button>
+        <Button android:text="Skip" android:id="@+id/skipViewStopButton" android:layout_height="wrap_content" android:layout_weight="1" android:layout_width="fill_parent"></Button>
+    </LinearLayout>
+    
+</LinearLayout>
