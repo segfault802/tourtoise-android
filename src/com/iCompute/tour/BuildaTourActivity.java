@@ -29,10 +29,23 @@ public class BuildaTourActivity extends Activity {
         		m.getToursJSON();
         	}
         });
+        
+        Button viewTour = (Button) findViewById(R.id.button3);
+        viewTour.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				viewTour();
+			}
+        });
     }
     
     private void createTour()
     {
     	startActivity(new Intent(getBaseContext(), EditTourActivity.class));
+    }
+    
+    private void viewTour()
+    {
+    	startActivity(new Intent (getBaseContext(), ViewTourActivity.class));
     }
 }
