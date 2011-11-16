@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" android:background="@drawable/background_dots">
-    <Button android:text="Create Tour" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/createTourButton"></Button>
-    <Button android:text="JSON" android:id="@+id/button2" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-    <Button android:text="View Tour" android:id="@+id/button3" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    android:layout_height="fill_parent" android:background="@drawable/background_dots" android:orientation="vertical">
+    <LinearLayout android:id="@+id/linearLayout1" android:layout_width="wrap_content" android:orientation="horizontal" android:layout_height="wrap_content">
+        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/createTourButton" android:text="Create Tour"></Button>
+        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/button2" android:text="JSON"></Button>
+        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/button3" android:text="View Tour"></Button>
+    </LinearLayout>
+    <RelativeLayout android:id="@+id/relativeLayout1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <RelativeLayout android:layout_height="wrap_content" android:layout_centerInParent="true" android:id="@+id/relativeLayout2" android:layout_width="wrap_content">
+            <ImageButton android:src="@android:drawable/ic_input_add" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" android:id="@+id/addTourMainImgButton"></ImageButton>
+            <ImageButton android:src="@android:drawable/ic_menu_search" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentRight="true" android:layout_alignParentTop="true" android:id="@+id/searchMainImgButton"></ImageButton>
+            <ImageButton android:src="@android:drawable/btn_star_big_on" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentLeft="true" android:layout_alignParentBottom="true" android:id="@+id/myToursMainImgButotn"></ImageButton>
+            <ImageButton android:src="@android:drawable/ic_menu_manage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentRight="true" android:layout_alignParentBottom="true" android:id="@+id/settingsMainImgButton"></ImageButton>
+        </RelativeLayout>
+    </RelativeLayout>
 </LinearLayout>
