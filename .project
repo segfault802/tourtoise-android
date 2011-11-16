@@ -30,4 +30,11 @@
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>res/drawable-hdpi/background_dots.png</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/Owner/My Documents/My Pictures/background_dots.png</location>
+		</link>
+	</linkedResources>
 </projectDescription>

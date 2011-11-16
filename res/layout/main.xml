@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
+    android:layout_height="fill_parent" android:background="@drawable/background_dots">
     <Button android:text="Create Tour" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/createTourButton"></Button>
     <Button android:text="JSON" android:id="@+id/button2" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
     <Button android:text="View Tour" android:id="@+id/button3" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>

@@ -3,7 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:orientation="vertical"
   android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
+  android:layout_height="fill_parent" android:background="@drawable/background_dots">
     <TextView android:text="Tour Title" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:id="@+id/tourTitleViewStopsTextView"></TextView>
     <TextView android:text="Stops remaining: x" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:id="@+id/remainingStopsViewStopsTextView"></TextView>
     <ListView android:id="@android:id/list" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight="1" android:isScrollContainer="true" android:scrollbarAlwaysDrawVerticalTrack="true"></ListView>
