@@ -23,6 +23,8 @@
         <activity android:name=".ViewTourActivity"></activity>
         <activity android:name=".ViewTourStopsListActivity"></activity>
         <activity android:name=".ViewStopActivity"></activity>
+        <activity android:name=".SearchToursActivity"></activity>
+        <activity android:name=".ToursListActivity"></activity>
 
     </application>
 </manifest>

@@ -7,12 +7,16 @@
         <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/button2" android:text="JSON"></Button>
         <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/button3" android:text="View Tour"></Button>
     </LinearLayout>
-    <RelativeLayout android:id="@+id/relativeLayout1" android:layout_width="wrap_content" android:layout_height="wrap_content">
-        <RelativeLayout android:layout_height="wrap_content" android:layout_centerInParent="true" android:id="@+id/relativeLayout2" android:layout_width="wrap_content">
-            <ImageButton android:src="@android:drawable/ic_input_add" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" android:id="@+id/addTourMainImgButton"></ImageButton>
-            <ImageButton android:src="@android:drawable/ic_menu_search" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentRight="true" android:layout_alignParentTop="true" android:id="@+id/searchMainImgButton"></ImageButton>
-            <ImageButton android:src="@android:drawable/btn_star_big_on" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentLeft="true" android:layout_alignParentBottom="true" android:id="@+id/myToursMainImgButotn"></ImageButton>
-            <ImageButton android:src="@android:drawable/ic_menu_manage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentRight="true" android:layout_alignParentBottom="true" android:id="@+id/settingsMainImgButton"></ImageButton>
-        </RelativeLayout>
+    <RelativeLayout android:id="@+id/relativeLayout1" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <TableLayout android:layout_height="wrap_content" android:id="@+id/TableLayout1" android:layout_width="wrap_content" android:layout_centerInParent="true">
+            <TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <ImageButton android:src="@android:drawable/ic_input_add" android:layout_height="wrap_content" android:id="@+id/addTourMainImgButton" android:layout_width="wrap_content"></ImageButton>
+                <ImageButton android:src="@android:drawable/ic_menu_search" android:layout_height="wrap_content" android:id="@+id/searchMainImgButton" android:layout_width="wrap_content"></ImageButton>
+            </TableRow>
+            <TableRow android:id="@+id/tableRow2" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <ImageButton android:src="@android:drawable/btn_star_big_on" android:layout_height="wrap_content" android:id="@+id/myToursMainImgButton" android:layout_width="wrap_content"></ImageButton>
+                <ImageButton android:src="@android:drawable/ic_menu_manage" android:layout_height="wrap_content" android:id="@+id/settingsMainImgButton" android:layout_width="wrap_content"></ImageButton>
+            </TableRow>
+        </TableLayout>
     </RelativeLayout>
 </LinearLayout>

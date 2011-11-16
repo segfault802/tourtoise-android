@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
 import com.iCompute.tour.backend.JSONManager;
 
 public class BuildaTourActivity extends Activity {
@@ -37,6 +40,39 @@ public class BuildaTourActivity extends Activity {
 				viewTour();
 			}
         });
+        
+        ImageButton addImgButton=(ImageButton)findViewById(R.id.addTourMainImgButton);
+        addImgButton.setOnClickListener(new OnClickListener(){
+        	@Override
+        	public void onClick(View v)
+        	{
+        		createTour();
+        	}
+        });
+        ImageButton searchBtn=(ImageButton)findViewById(R.id.searchMainImgButton);
+        searchBtn.setOnClickListener(new OnClickListener(){
+        	@Override
+        	public void onClick(View v)
+        	{
+        		searchTours();
+        	}
+        });
+        ImageButton myTours=(ImageButton)findViewById(R.id.myToursMainImgButton);
+        myTours.setOnClickListener(new OnClickListener(){
+        	@Override
+        	public void onClick(View v)
+        	{
+        		myTours();
+        	}
+        });
+        ImageButton settingsBtn=(ImageButton)findViewById(R.id.settingsMainImgButton);
+        settingsBtn.setOnClickListener(new OnClickListener(){
+        	@Override
+        	public void onClick(View v)
+        	{
+        		openSettings();
+        	}
+        });
     }
     
     private void createTour()
@@ -47,5 +83,17 @@ public class BuildaTourActivity extends Activity {
     private void viewTour()
     {
     	startActivity(new Intent (getBaseContext(), ViewTourActivity.class));
+    }
+    private void searchTours()
+    {
+    	startActivity(new Intent(getBaseContext(), SearchToursActivity.class));
+    }
+    private void myTours()
+    {
+    	startActivity(new Intent(getBaseContext(), ToursListActivity.class));
+    }
+    private void openSettings()
+    {
+    	Toast.makeText(this, "This Button will open settings(english vs metric, text, duration)",Toast.LENGTH_LONG).show(); 
     }
 }

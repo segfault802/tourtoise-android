@@ -116,4 +116,9 @@
         <item>Beaches</item>
         <item>Historical</item>
     </string-array>
+    <string-array name="stop_categories_array">
+        <item>Bar</item>
+        <item>Park</item>
+        <item>Building</item>
+    </string-array>
 </resources>

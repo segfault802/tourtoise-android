@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/mvUpStopListContextGroup">
+    	<item android:titleCondensed="First" android:title="Move to First" android:id="@+id/mvFirstStopListContextItem" android:alphabeticShortcut="F"></item>
+    	<item android:titleCondensed="Up" android:id="@+id/mvUpStopListContextItem" android:title="Move Up" android:alphabeticShortcut="U"></item>
+    </group>
+    <group android:id="@+id/mvDownStopListContextGroup">
+    	<item android:titleCondensed="Down" android:id="@+id/mvDownStopListContextItem" android:title="Move Down" android:alphabeticShortcut="D"></item>
+    	<item android:titleCondensed="Last" android:id="@+id/mvLastStopListContextItem" android:title="Move to Last" android:alphabeticShortcut="L"></item>
+    </group>
+    <item android:alphabeticShortcut="D" android:titleCondensed="Del" android:title="Delete Stop" android:id="@+id/delStopListContextItem"></item>
+    
+    
+    
+    
+</menu>

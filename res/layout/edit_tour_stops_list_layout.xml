@@ -6,7 +6,7 @@
     <ListView android:id="@android:id/list" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight="1"></ListView>
     <TextView android:id="@android:id/empty"
                android:text="No stops" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-    
+               
     <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout1" android:layout_width="fill_parent">
         <Button android:text="Add My Loc" android:id="@+id/EditStopsListMyLocButton" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
         <Button android:text="Add On Map" android:id="@+id/EditStopsListOnMapButton" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
