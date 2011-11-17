@@ -111,4 +111,9 @@
         <item>Switchback</item>
         <item>Zero Gravity</item>
     </string-array>
+    <string-array name="temp_tour_names">
+        <item>Breweries</item>
+        <item>Beaches</item>
+        <item>Historical</item>
+    </string-array>
 </resources>

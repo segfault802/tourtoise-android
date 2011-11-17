@@ -3,7 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:orientation="vertical"
   android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
+  android:layout_height="fill_parent" android:background="@drawable/background_dots">
     <TextView android:text="Stop Name" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/stopNameViewStopTextView"></TextView>
     <Gallery android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/imagesViewStopGallery"></Gallery>
     <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/audioLayoutHolder">

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/linearLayout"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" android:orientation="vertical">
+    android:layout_height="fill_parent" android:orientation="vertical" android:background="@drawable/background_dots">
     <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/linearLayout1">
         <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="Tour/Stop Media Title" android:textAppearance="?android:attr/textAppearanceLarge" android:id="@+id/textView1"></TextView>
         <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/addImageButton" android:text="Add"></Button>

@@ -79,6 +79,7 @@ public class JSONManager{
 		}
 		catch (Exception e){
 			e.printStackTrace();
+			Log.i("Oh noes","Threw an exception");
 			authString = "foo";
 		}
 
