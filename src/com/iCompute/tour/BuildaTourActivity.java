@@ -1,5 +1,8 @@
 package com.iCompute.tour;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +14,10 @@ import android.widget.Toast;
 
 import com.iCompute.tour.backend.JSONManager;
 
-public class BuildaTourActivity extends Activity {
+public class BuildaTourActivity extends Activity{
     /** Called when the activity is first created. */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         Button create= (Button)findViewById(R.id.createTourButton);
@@ -29,7 +32,7 @@ public class BuildaTourActivity extends Activity {
         	@Override
         	public void onClick(View v) {
         		JSONManager m = new JSONManager();
-        		m.getToursJSON();
+        		m.fetchToursList();
         	}
         });
         
