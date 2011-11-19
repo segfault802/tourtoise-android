@@ -4,16 +4,18 @@ import java.util.ArrayList;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ViewTourStopsListActivity extends ListActivity {
+public class ViewTourStopsListActivity extends ListActivity implements OnClickListener {
 
 	ListView list;
 	StopsListAdapter adapter;
@@ -31,9 +33,36 @@ public class ViewTourStopsListActivity extends ListActivity {
 		updateStopCounter();
 	}
 	
+	@Override
+	public void onClick(View v)
+	{
+		StopTemp temp=((StopsListAdapter.ViewHolder)((View)v.getParent()).getTag()).mStop;
+		startActivity(new Intent(this, ViewStopActivity.class));
+	}
+	
 	private void updateStopCounter()
 	{
 		counter.setText("Stops remaining: "+adapter.getCount());
+	}
+	
+	public void deleteButtonClicked(View v)
+	{
+		int pos=list.getPositionForView((View) v.getParent().getParent());
+		adapter.stopSkipped(pos);
+	}
+	
+	public void moveItem(View v)
+	{
+		if(v.getId()==R.id.mvDownEditTourStopsListItemImgButton)
+		{
+			adapter.moveItem(list.getPositionForView((View) v.getParent().getParent()),
+					false);
+		}
+		else if(v.getId()==R.id.mvUpEditTourStopsListItemImgButton)
+		{
+			adapter.moveItem(list.getPositionForView((View) v.getParent().getParent()),
+					true);
+		}
 	}
 	
 	
@@ -195,14 +224,17 @@ public class ViewTourStopsListActivity extends ListActivity {
 				holder = new ViewHolder();
 				holder.mTitle=(TextView)view.findViewById(R.id.editStopsListItemStopNameTextView);
 				holder.mStopIcon=(ImageView)view.findViewById(R.id.editStopListCatImg);
-				holder.mAudioIndicator=(ImageView)view.findViewById(R.id.editStopsListItemAudioIcon);
-				holder.mPicIndicator=(ImageView)view.findViewById(R.id.editStopsListItemImageIcon);
+				holder.mAudioIndicator=(ImageView)view.findViewById(R.id.audioEditStopsListItemIcon);
+				holder.mPicIndicator=(ImageView)view.findViewById(R.id.imageEditStopsListItemIcon);
 				
 				view.setTag(holder);
 			}else{
 				holder=(ViewHolder)view.getTag();
 			}
 			
+			
+			view.findViewById(R.id.stopInfoEditStopsListItemLL).setOnClickListener(ViewTourStopsListActivity.this);
+			view.findViewById(R.id.editStopListCatImg).setOnClickListener(ViewTourStopsListActivity.this);
 			holder.mStop= getItem(i);
 			holder.mTitle.setText(holder.mStop.stopName);
 			//holder.mAudioIndicator.setVisibility(visibility); View.GONE or View.VISIBLE

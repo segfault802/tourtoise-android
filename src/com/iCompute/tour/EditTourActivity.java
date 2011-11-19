@@ -18,11 +18,11 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_tour_layout);
 		
-		((Button) findViewById(R.id.saveTourButton)).setOnClickListener(this);
-		((Button) findViewById(R.id.discardTourButton)).setOnClickListener(this);
-		((Button) findViewById(R.id.addTourStopButton)).setOnClickListener(this);
-		((Button) findViewById(R.id.addTourImagesButton)).setOnClickListener(this);
-		((Button) findViewById(R.id.editTourStopsButton)).setOnClickListener(this);
+		((Button) findViewById(R.id.saveEditTourButton)).setOnClickListener(this);
+		((Button) findViewById(R.id.discardEditTourButton)).setOnClickListener(this);
+		((Button) findViewById(R.id.addStopEditTourButton)).setOnClickListener(this);
+		((Button) findViewById(R.id.imagesEditTourButton)).setOnClickListener(this);
+		((Button) findViewById(R.id.editStopsEditTourButton)).setOnClickListener(this);
 		
 	}
 	
@@ -48,19 +48,19 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 	public void onClick(View v)
 	{
 		switch(v.getId()){
-		case R.id.saveTourButton:
+		case R.id.saveEditTourButton:
 			showDialog(0);
 			break;
-		case R.id.discardTourButton:
+		case R.id.discardEditTourButton:
 			showDialog(1);
 			break;
-		case R.id.addTourStopButton:
+		case R.id.addStopEditTourButton:
 			addTourStop();
 			break;
-		case R.id.addTourImagesButton:
+		case R.id.imagesEditTourButton:
 			addMedia();
 			break;
-		case R.id.editTourStopsButton:
+		case R.id.editStopsEditTourButton:
 			editStops();
 			break;
 		default:

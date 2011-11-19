@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/editStopScrollView"
-    android:scrollbarAlwaysDrawVerticalTrack="true" android:layout_width="fill_parent" android:layout_height="fill_parent">
-    <LinearLayout
-      android:orientation="vertical"
-      android:weightSum="1" android:layout_height="fill_parent" android:layout_width="fill_parent" android:background="@drawable/background_dots">
-        <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout1" android:layout_width="fill_parent">
-            <View android:id="@+id/mapViewHolder" android:background="#ffff00" android:layout_width="221dp" android:layout_height="119dp"></View>
-            <LinearLayout android:id="@+id/linearLayout2" android:orientation="vertical" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content">
-                <Button android:text="My Loc" android:id="@+id/editStopMyLocationButton" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-                <Button android:text="Pin Center" android:id="@+id/editStopPinButton" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-            </LinearLayout>
+    android:id="@+id/LinearLayout1"
+    android:scrollbarAlwaysDrawVerticalTrack="true" android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical">
+    <LinearLayout android:id="@+id/linearLayout1" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <View android:background="#ffff00" android:layout_width="199dp" android:layout_height="114dp" android:id="@+id/mapEditStopViewHolder"></View>
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:id="@+id/linearLayout2" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <Button android:text="My Loc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/myLocationEditStopButton"></Button>
+            <Button android:text="Pin Center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/pinCenterEditStopButton"></Button>
         </LinearLayout>
-        <TextView android:text="Stop Name" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/textView1" android:layout_width="wrap_content"></TextView>
-        <EditText android:id="@+id/stopNameEditText" android:layout_height="wrap_content" android:layout_width="fill_parent">
-            <requestFocus></requestFocus>
-        </EditText>
-        <TextView android:text="Description" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/textView2"></TextView>
-        <EditText android:id="@+id/editStopDescriptionEditText" android:layout_height="wrap_content" android:inputType="textMultiLine" android:layout_weight="0.16" android:layout_width="fill_parent"></EditText>
-        <TextView android:text="Category" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/textView3"></TextView>
-        <Spinner android:id="@+id/stopCategorySpinner" android:layout_height="wrap_content" android:layout_width="fill_parent"></Spinner>
-        <CheckBox android:text="  Handicap Accessible" android:id="@+id/stopHandicapCheckBox" android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
-        <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout3" android:layout_width="fill_parent">
-            <Button android:text="Media..." android:id="@+id/editStopMediaButton" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-            <Button android:text="Show Additional Options" android:id="@+id/editStopAddOptButton" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-        </LinearLayout>
-        <ViewStub android:id="@+id/additionalOptionStub" android:layout_height="wrap_content" android:layout="@layout/edit_stop_options_stub" android:layout_width="fill_parent"></ViewStub>
-        <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout4" android:layout_width="fill_parent">
-            <Button android:text="Save" android:id="@+id/saveStopButton" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-            <Button android:text="Discard" android:id="@+id/discardStopButton" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-        </LinearLayout>
-        
     </LinearLayout>
-</ScrollView>
+    <TextView android:text="Stop Name" android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/textView1" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+    <EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="0" android:id="@+id/nameEditStopEditText"></EditText>
+    <TextView android:text="Description" android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/textView2" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+    <EditText android:inputType="textMultiLine" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/descriptionEditStopEditText"></EditText>
+    <LinearLayout android:id="@+id/linearLayout6" android:layout_height="wrap_content" android:layout_width="match_parent">
+        <LinearLayout android:id="@+id/linearLayout7" android:orientation="vertical" android:layout_height="wrap_content" android:layout_width="match_parent" android:layout_weight="1">
+            <TextView android:text="Category" android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/textView3" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+            <Spinner android:layout_weight="1" android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/categoryEditStopSpinner"></Spinner>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/linearLayout8" android:orientation="vertical" android:layout_gravity="right" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView android:layout_weight="1" android:text="Age Rating" android:id="@+id/textView4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+            <Spinner android:layout_weight="1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/ageEditStopSpinner"></Spinner>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:id="@+id/linearLayout5" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <CheckBox android:text="Handicap Accessible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:id="@+id/handicapEditStopCheckBox"></CheckBox>
+        <Button android:text="Media..." android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="right" android:id="@+id/mediadEditStopButton"></Button>
+    </LinearLayout>
+    <LinearLayout android:id="@+id/linearLayout4" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <Button android:text="Save" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/saveEditStopButton"></Button>
+        <Button android:text="Discard" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/discardEditStopButton"></Button>
+    </LinearLayout>
+</LinearLayout>

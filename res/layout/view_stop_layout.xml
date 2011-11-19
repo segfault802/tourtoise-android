@@ -6,9 +6,9 @@
   android:layout_height="fill_parent" android:background="@drawable/background_dots">
     <TextView android:text="Stop Name" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/stopNameViewStopTextView"></TextView>
     <Gallery android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/imagesViewStopGallery"></Gallery>
-    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/audioLayoutHolder">
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/audioViewStopLayoutHolder">
         <TextView android:text="0:00" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/currTimeViewStopTextView"></TextView>
-        <SeekBar android:id="@+id/seekBar1" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight="1"></SeekBar>
+        <SeekBar android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight="1" android:id="@+id/audioViewStopSeekBar"></SeekBar>
         <TextView android:text="x:xx" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/totalTimeViewStopTextView"></TextView>
         <ImageButton android:layout_width="wrap_content" android:src="@android:drawable/ic_media_play" android:layout_height="wrap_content" android:id="@+id/pausePlayViewTourImgButton"></ImageButton>
     </LinearLayout>
@@ -17,11 +17,14 @@
         <TextView android:text="Handicap Accesible" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_height="wrap_content" android:id="@+id/handicapViewStopTextView"></TextView>
     </LinearLayout>
     <TextView android:text="TextView" android:id="@+id/stopDescriptionViewTourTextView" android:layout_height="wrap_content" android:inputType="textImeMultiLine" android:layout_weight="1" android:layout_width="fill_parent"></TextView>
-    <LinearLayout android:layout_width="fill_parent" android:id="@+id/linearLayout3" android:layout_height="wrap_content">
-        <Button android:text="Go To Next" android:id="@+id/setNextViewStopButton" android:layout_height="wrap_content" android:layout_weight="1" android:layout_width="fill_parent"></Button>
-        <Button android:text="Skip To" android:id="@+id/skipToViewStopButton" android:layout_height="wrap_content" android:layout_weight="1" android:layout_width="fill_parent"></Button>
-        <Button android:text="Visited" android:id="@+id/visitedViewStopButton" android:layout_height="wrap_content" android:layout_weight="1" android:layout_width="fill_parent"></Button>
-        <Button android:text="Skip" android:id="@+id/skipViewStopButton" android:layout_height="wrap_content" android:layout_weight="1" android:layout_width="fill_parent"></Button>
+    <LinearLayout android:id="@+id/linearLayout1" android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="vertical">
+        <TextView android:text="Stop is: (status)" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/statusViewStopTextView"></TextView>
+        <LinearLayout android:id="@+id/linearLayout3" android:layout_height="wrap_content" android:layout_width="fill_parent">
+            <ImageButton android:layout_weight="1" android:src="@android:drawable/ic_menu_revert" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/backViewStopImgButton"></ImageButton>
+            <ImageButton android:layout_weight="1" android:src="@android:drawable/ic_menu_compass" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/mapViewStopImgButton"></ImageButton>
+            <ImageButton android:layout_weight="1" android:src="@android:drawable/ic_menu_myplaces" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/visitedViewStopImgButton"></ImageButton>
+            <ImageButton android:layout_weight="1" android:src="@android:drawable/ic_delete" android:layout_height="match_parent" android:layout_width="match_parent" android:id="@+id/skipViewStopImgButton"></ImageButton>
+        </LinearLayout>
     </LinearLayout>
     
 </LinearLayout>

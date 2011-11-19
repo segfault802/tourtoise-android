@@ -3,16 +3,16 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
     <ImageView android:src="@android:drawable/ic_menu_view" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/editStopListCatImg"></ImageView>
-    <LinearLayout android:layout_height="fill_parent" android:id="@+id/linearLayout1" android:orientation="vertical" android:layout_width="wrap_content" android:layout_weight="1">
+    <LinearLayout android:layout_height="fill_parent" android:orientation="vertical" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/stopInfoEditStopsListItemLL">
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Stop Name" android:id="@+id/editStopsListItemStopNameTextView"></TextView>
         <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/linearLayout2">
-            <ImageView android:layout_height="wrap_content" android:layout_width="wrap_content" android:src="@android:drawable/ic_menu_gallery" android:id="@+id/editStopsListItemImageIcon" android:visibility="visible"></ImageView>
-            <ImageView android:layout_height="wrap_content" android:layout_width="wrap_content" android:src="@android:drawable/ic_lock_silent_mode_off" android:id="@+id/editStopsListItemAudioIcon" android:visibility="visible"></ImageView>
+            <ImageView android:layout_height="wrap_content" android:layout_width="wrap_content" android:src="@android:drawable/ic_menu_gallery" android:visibility="visible" android:id="@+id/imageEditStopsListItemIcon"></ImageView>
+            <ImageView android:layout_height="wrap_content" android:layout_width="wrap_content" android:src="@android:drawable/ic_lock_silent_mode_off" android:visibility="visible" android:id="@+id/audioEditStopsListItemIcon"></ImageView>
         </LinearLayout>
     </LinearLayout>
-    <ImageButton android:src="@android:drawable/ic_delete" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/deleteEditTourStopsListItemImgButton" android:onClick="deleteButtonClicked"></ImageButton>
+    <ImageButton android:src="@android:drawable/ic_delete" android:layout_height="wrap_content" android:layout_width="wrap_content" android:onClick="deleteButtonClicked" android:id="@+id/deleteEditTourStopsListItemImgButton"></ImageButton>
     <LinearLayout android:layout_height="fill_parent" android:layout_width="wrap_content" android:id="@+id/linearLayout3" android:orientation="vertical">
-        <ImageButton android:src="@android:drawable/arrow_up_float" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:onClick="moveItem" android:id="@+id/mvUpEditTourStopsListItemImgButton"></ImageButton>
+        <ImageButton android:src="@android:drawable/arrow_up_float" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/mvUpEditTourStopsListItemImgButton" android:onClick="moveItem"></ImageButton>
         <ImageButton android:src="@android:drawable/arrow_down_float" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:onClick="moveItem" android:id="@+id/mvDownEditTourStopsListItemImgButton"></ImageButton>
     </LinearLayout>
     

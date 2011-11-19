@@ -12,32 +12,36 @@ import android.widget.Spinner;
 
 public class EditTourStopActivity extends Activity {
 
-	private Boolean optionsExpanded=false;
-	private Button addOptButton;
-	private View optionsStub;
-	private Spinner ageMin;
-	private Spinner ageMax;
+	
+	private Spinner ageSpinner;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_stop_layout);
-		View map = findViewById(R.id.mapViewHolder);
-		addOptButton = (Button) findViewById(R.id.editStopAddOptButton);
-		Button media = (Button) findViewById(R.id.editStopMediaButton);
+		View map = findViewById(R.id.mapEditStopViewHolder);
 		
-		addOptButton.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View arg0) {
-				toggleOptions();
-			}
-		});
+		Button media = (Button) findViewById(R.id.mediadEditStopButton);
 		media.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View view) {
 				addMedia();
 			}
 		});
+		
+		//age spinner setup
+		ageSpinner = (Spinner) findViewById(R.id.ageEditStopSpinner);
+		ArrayAdapter<CharSequence> ageMinAdapt = ArrayAdapter.createFromResource(this, R.array.age_range, android.R.layout.simple_spinner_item);
+		ageMinAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    ageSpinner.setAdapter(ageMinAdapt);	
+	    
+	    //category spinner setup
+	    ArrayAdapter<CharSequence> catAdapter = ArrayAdapter.createFromResource(this, R.array.stop_categories_array, android.R.layout.simple_spinner_item);
+	    catAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	    ((Spinner)findViewById(R.id.categoryEditStopSpinner)).setAdapter(catAdapter);
+	    
+	    
 	}
 	
 	private void addMedia()
@@ -45,32 +49,5 @@ public class EditTourStopActivity extends Activity {
 		startActivity(new Intent(this, ImageSelectorActivity.class));
 	}
 	
-	private void toggleOptions()
-	{
-		if(!optionsExpanded)
-		{
-			if(optionsStub==null)
-			{
-				optionsStub = ((ViewStub)findViewById(R.id.additionalOptionStub)).inflate();
-				
-				ageMin = (Spinner) findViewById(R.id.editStopMinAgeSpinner);
-				ArrayAdapter<CharSequence> ageMinAdapt = ArrayAdapter.createFromResource(this, R.array.age_range, android.R.layout.simple_spinner_item);
-				
-				ageMinAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			    ageMin.setAdapter(ageMinAdapt);				
-			}
-			else
-			{
-				optionsStub.setVisibility(View.VISIBLE);
-			}
-			optionsExpanded=true;
-			addOptButton.setText("Hide Additional Options");
-		}
-		else
-		{
-			optionsStub.setVisibility(View.GONE);
-			optionsExpanded=false;
-			addOptButton.setText("Show Additional Options");
-		}
-	}
+	
 }

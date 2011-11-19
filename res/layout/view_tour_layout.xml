@@ -10,11 +10,12 @@
         <TextView android:text="Stops: #" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/stopsNumberViewTourTextView"></TextView>
         <TextView android:text="Handicap accessible: #" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:layout_width="wrap_content" android:id="@+id/accessibleNumberViewTourTextView"></TextView>
     </LinearLayout>
-    <TextView android:text="Multiline tour description \n bla bla bla\n" android:layout_width="wrap_content" android:inputType="textMultiLine" android:id="@+id/descriptionViewTourTextView" android:layout_height="wrap_content"></TextView>
+    <TextView android:text="Multiline tour description \n bla bla bla\n" android:inputType="textMultiLine" android:id="@+id/descriptionViewTourTextView" android:layout_height="match_parent" android:layout_width="match_parent" android:layout_weight="1"></TextView>
     <ListView android:id="@android:id/list" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight="1" android:isScrollContainer="true" android:scrollbarAlwaysDrawVerticalTrack="true"></ListView>
     <TextView android:id="@android:id/empty"
                android:text="No stops" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
     <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/linearLayout2">
+        <Button android:layout_height="wrap_content" android:text="Download Tour" android:layout_width="fill_parent" android:layout_weight="1" android:id="@+id/downloadTourViewTourButton"></Button>
         <Button android:layout_height="wrap_content" android:text="View Stops" android:layout_width="fill_parent" android:layout_weight="1" android:id="@+id/viewStopsViewTourButton"></Button>
         <Button android:layout_height="wrap_content" android:text="Next Stop" android:layout_width="fill_parent" android:layout_weight="1" android:id="@+id/viewNextViewTourButton"></Button>
     </LinearLayout>

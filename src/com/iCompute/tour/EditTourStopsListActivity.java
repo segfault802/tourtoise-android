@@ -194,8 +194,8 @@ public class EditTourStopsListActivity extends ListActivity {
 				holder = new ViewHolder();
 				holder.mTitle=(TextView)view.findViewById(R.id.editStopsListItemStopNameTextView);
 				holder.mStopIcon=(ImageView)view.findViewById(R.id.editStopListCatImg);
-				holder.mAudioIndicator=(ImageView)view.findViewById(R.id.editStopsListItemAudioIcon);
-				holder.mPicIndicator=(ImageView)view.findViewById(R.id.editStopsListItemImageIcon);
+				holder.mAudioIndicator=(ImageView)view.findViewById(R.id.audioEditStopsListItemIcon);
+				holder.mPicIndicator=(ImageView)view.findViewById(R.id.imageEditStopsListItemIcon);
 				
 				view.setTag(holder);
 			}else{

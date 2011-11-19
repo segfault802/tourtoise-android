@@ -2,12 +2,17 @@ package com.iCompute.tour;
 
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -16,37 +21,126 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ToursListActivity extends ListActivity {
+public class ToursListActivity extends ListActivity implements View.OnClickListener{
 	
-	ListView list;
-	TourListAdapter adapter;
+	private ListView list;
+	private TourListAdapter adapter;
+	private boolean isSearch;
+	private int tourToDelete=-1;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tours_list_layout);
+		Intent intent=getIntent();
+		isSearch=!intent.getBooleanExtra("myTours", false);
+		if(isSearch)
+		{
+			//TODO search query from intent
+			CharSequence title="Search Query";
+			((TextView)findViewById(R.id.searchTitleToursListTextView)).setText(title);
+		}
+		else
+		{
+			((TextView)findViewById(R.id.searchTitleToursListTextView)).setText("My Tours");
+		}
+		
 		list=getListView();
-		adapter=new TourListAdapter(this, getResources().getStringArray(R.array.temp_tour_names));
+		adapter=new TourListAdapter(this, getResources().getStringArray(R.array.temp_tour_names), isSearch);
 		list.setAdapter(adapter);
-		list.setOnItemClickListener(new OnItemClickListener(){
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				startActivity(new Intent(ToursListActivity.this, ViewTourActivity.class));
-			}
-		});
+		
 	}
 	
 	
+	@Override
+	public void onClick(View v)
+	{
+		switch(v.getId())
+		{
+		case R.id.delToursListItemImgButton:
+			tourToDelete=list.getPositionForView((View) v.getParent());
+			showDialog(0);
+			break;
+		case R.id.editToursListItemButton:
+			editTour();
+			break;
+		case R.id.tourInfoToursListItemLL:
+			viewTour();
+			break;
+		}
+	}
+	
+	@Override
+	public Dialog onCreateDialog(int i)
+	{
+		Dialog d;
+		switch(i)
+		{
+		case 0:
+			d=createDeleteConfirmDialog();
+			break;
+		default:
+			d=null;
+			break;
+		}
+		return d;
+	}
+	
+	private void editTour()
+	{
+		Intent i=new Intent(ToursListActivity.this, EditTourActivity.class);
+		startActivity(i);
+	}
+	
+	private void viewTour()
+	{
+		Intent i=new Intent(ToursListActivity.this, ViewTourActivity.class);
+		i.putExtra("isLocal", !isSearch);
+		startActivity(i);
+	}
+	
+	private void confirmDeleteTour()
+	{
+		adapter.removeItem(tourToDelete);
+		tourToDelete=-1;
+	}
+	private void cancelDeleteTour()
+	{
+		tourToDelete=-1;
+	}
+	
+	private Dialog createDeleteConfirmDialog()
+	{
+		AlertDialog.Builder builder=new AlertDialog.Builder(this);
+		builder.setTitle("Delete Tour");
+		builder.setMessage("Are you sure you would like to delete this tour from your device?");
+		builder.setPositiveButton("Delete", new Dialog.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				confirmDeleteTour();
+				dialog.dismiss();
+			}
+		});
+		builder.setNegativeButton("Cancel", new Dialog.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				cancelDeleteTour();
+				dialog.dismiss();
+			}
+		});
+		return builder.create();
+	}
 	
 	private class TourListAdapter extends BaseAdapter{
 
 		private LayoutInflater mInflater;
 		private ArrayList<String> mTours;
-		
-		public TourListAdapter(Context context, String[] strings){
+		private boolean mIsSearch;
+		public TourListAdapter(Context context, String[] strings, boolean isSearch){
 			mInflater= LayoutInflater.from(context);
 			mTours=new ArrayList<String>();
+			mIsSearch=isSearch;
 			for(String str:strings)
 			{
 				
@@ -69,30 +163,6 @@ public class ToursListActivity extends ListActivity {
 			return mTours;
 		}
 		
-		/*
-		public void moveItem(int pos, Boolean mvUp)
-		{
-			StopTemp temp;
-			if(mvUp&&pos!=0)
-			{
-				temp=mStops.get(pos);
-				mStops.remove(pos);
-				mStops.add(pos-1, temp);
-				if(pos==nextStop)
-					nextStop--;
-				this.notifyDataSetChanged();
-			}
-			else if(!mvUp&&pos!=mStops.size()-1)
-			{
-				temp=mStops.get(pos);
-				mStops.remove(pos);
-				mStops.add(pos+1, temp);
-				if(pos==nextStop)
-					nextStop++;
-				this.notifyDataSetChanged();
-			}
-		}
-		*/
 		@Override
 		public int getCount() {
 			return mTours.size();
@@ -124,6 +194,21 @@ public class ToursListActivity extends ListActivity {
 			}else{
 				holder=(ViewHolder)view.getTag();
 			}
+			
+			if(mIsSearch)
+			{
+				view.findViewById(R.id.delToursListItemImgButton).setVisibility(View.GONE);
+				view.findViewById(R.id.editToursListItemButton).setVisibility(View.GONE);
+			}
+			else// if tour is downloaded
+			{
+				//findViewById(R.id.editToursListItemButton).setVisibility(View.GONE);
+			}
+			
+			//setting click listeners
+			view.findViewById(R.id.delToursListItemImgButton).setOnClickListener(ToursListActivity.this);
+			view.findViewById(R.id.editToursListItemButton).setOnClickListener(ToursListActivity.this);
+			view.findViewById(R.id.tourInfoToursListItemLL).setOnClickListener(ToursListActivity.this);
 			
 			holder.mStop= getItem(i);
 			holder.mTitle.setText(holder.mStop);

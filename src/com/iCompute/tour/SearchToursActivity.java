@@ -19,9 +19,9 @@ import android.widget.Spinner;
 public class SearchToursActivity extends Activity {
 
 	EditText categories;
-	boolean[] selectedCategories;
 	boolean[] clickedCategories;
 	String[] categoryStrings;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -36,7 +36,6 @@ public class SearchToursActivity extends Activity {
 			}
 		});
 		categoryStrings=getResources().getStringArray(R.array.stop_categories_array);
-		selectedCategories=new boolean[categoryStrings.length];
 		clickedCategories=new boolean[categoryStrings.length];
 		categories=(EditText)findViewById(R.id.categoriesSearchEditText);
 		categories.setOnClickListener(new OnClickListener(){
@@ -68,40 +67,41 @@ public class SearchToursActivity extends Activity {
 	{
 		AlertDialog.Builder builder=new AlertDialog.Builder(this);
 		builder.setTitle("Select Categories");
-		builder.setMultiChoiceItems(categoryStrings, selectedCategories, new OnMultiChoiceClickListener(){
+		builder.setMultiChoiceItems(categoryStrings, clickedCategories, new OnMultiChoiceClickListener(){
 			@Override
-			public void onClick(DialogInterface dialog, int which,
-					boolean isChecked) {
-					clickedCategories[which]=isChecked;
-			}			
+			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+				clickedCategories[which]=isChecked;
+			}
 		});
 		builder.setPositiveButton("OK", new Dialog.OnClickListener(){
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				setSelectedItems();
-			}
-		});
-		builder.setNegativeButton("Cancel", new Dialog.OnClickListener(){
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				clearSelectedItems();
-				dialog.cancel();
+				setCategories();
+				dialog.dismiss();
 			}
 		});
 		
 		return builder.create();
 	}
-	private void setSelectedItems()
+	
+	private void setCategories()
 	{
-		
+		StringBuilder sb=new StringBuilder();
+		for(int i=0; i<clickedCategories.length;i++)
+		{
+			if(clickedCategories[i])
+			{
+				sb.append((sb.length()==0?"":", ")+categoryStrings[i]);
+			}
+		}
+		categories.setText(sb.toString());
 	}
-	private void clearSelectedItems()
-	{
-		
-	}
+	
 	private void searchTours()
 	{
-		startActivity(new Intent(this, ToursListActivity.class));
+		Intent i=new Intent(this, ToursListActivity.class);
+		i.putExtra("isLocal", false);
+		startActivity(i);
 	}
 	
 }

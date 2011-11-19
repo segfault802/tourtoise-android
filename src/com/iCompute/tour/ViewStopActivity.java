@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ViewStopActivity extends Activity {
+public class ViewStopActivity extends Activity  implements View.OnClickListener{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -25,12 +25,28 @@ public class ViewStopActivity extends Activity {
 		Gallery gallery = (Gallery) findViewById(R.id.imagesViewStopGallery);
 	    gallery.setAdapter(new ImageAdapter(this));
 	
-	    gallery.setOnItemClickListener(new OnItemClickListener() {
-	        public void onItemClick(AdapterView parent, View v, int position, long id) {
-	            Toast.makeText(ViewStopActivity.this, "" + position, Toast.LENGTH_SHORT).show();
-	        }
-	    });
+	    findViewById(R.id.backViewStopImgButton).setOnClickListener(this);
+	    findViewById(R.id.mapViewStopImgButton).setOnClickListener(this);
+	    findViewById(R.id.visitedViewStopImgButton).setOnClickListener(this);
+	    findViewById(R.id.skipViewStopImgButton).setOnClickListener(this);
 	    
+	    
+	}
+	@Override
+	public void onClick(View v)
+	{
+		switch(v.getId())
+		{
+		case R.id.backViewStopImgButton:
+			finish();
+			break;
+		case R.id.mapViewStopImgButton:
+			break;
+		case R.id.visitedViewStopImgButton:
+			break;
+		case R.id.skipViewStopImgButton:
+			break;
+		}
 	}
 	
 	
