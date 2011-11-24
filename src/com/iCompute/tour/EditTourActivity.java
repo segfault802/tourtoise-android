@@ -57,7 +57,8 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 			String description = ((EditText)findViewById(R.id.descriptionEditTourEditText)).getText().toString();
 			String tags = ((EditText)findViewById(R.id.tagsEditTourEditText)).getText().toString();
 			boolean isWalk = ((RadioButton)findViewById(R.id.walkingEditTourRadioButton)).isChecked();
-			boolean added = ((TourApplication)getApplication()).tours.add(new Tour(name,description,tags,isWalk));
+			TourApplication app = (TourApplication)getApplication();
+			boolean added = app.tours.add(new Tour(name,description,tags,isWalk));
 			
 			//showDialog(0);
 			break;
