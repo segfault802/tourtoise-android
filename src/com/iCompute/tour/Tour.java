@@ -13,6 +13,7 @@ public class Tour{
 	private String mTags;
 	private int mNumDownloads;
 	private StopList mStops;
+	private int numStops = 0;
 	
 	public Tour(String name, String description, String tags, boolean isWalkable){
 		try{
@@ -25,12 +26,16 @@ public class Tour{
 			else{
 				mAccess = Access.Drive;
 			}
+			mStops = new StopList();
 		}
 		catch(Exception e){}
 		
 		//mStops = s;	
 	}
 	
+	public int getStopCount(){
+		return numStops;
+	}
 	
 	public String getTitle(){
 		return mTitle;
@@ -43,6 +48,7 @@ public class Tour{
 	
 	public void addStop(Stop s){
 		mStops.add(s);
+		numStops++;
 	}
 	
 	public void update(String name, String description, String tags, Access a){

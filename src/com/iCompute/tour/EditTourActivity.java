@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+//TODO figure out how to distinguish between an add and an update
+//TODO When we're updating, pass in the ID of the tour via the intent
+
 public class EditTourActivity extends Activity implements View.OnClickListener{
 	
 	@Override
@@ -19,6 +22,12 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_tour_layout);
+		/*
+		 * if we're updating, check the id of the tour passed via the intent,
+		 * pull the relevant tour from the list by its id and auto populate the fields
+		 * also pass in a flag so we can call the appropriate function when we hit 'save'
+		 */
+		
 		
 		((Button) findViewById(R.id.saveEditTourButton)).setOnClickListener(this);
 		((Button) findViewById(R.id.discardEditTourButton)).setOnClickListener(this);
@@ -52,7 +61,6 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 		switch(v.getId()){
 		case R.id.saveEditTourButton:
 			//For now, we'll add the tour into the global list here
-			//TODO figure out how to distinguish between an add and an update
 			String name = ((EditText)findViewById(R.id.nameEditTourEditText)).getText().toString();
 			String description = ((EditText)findViewById(R.id.descriptionEditTourEditText)).getText().toString();
 			String tags = ((EditText)findViewById(R.id.tagsEditTourEditText)).getText().toString();

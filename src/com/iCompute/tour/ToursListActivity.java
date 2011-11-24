@@ -24,6 +24,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.iCompute.tour.ToursList;
 
 public class ToursListActivity extends ListActivity implements View.OnClickListener{
+	//TODO modify this to pass in the tours list to the TourListAdapter so we can build the list properly
+	
 	
 	private ListView list;
 	private TourListAdapter adapter;
@@ -50,7 +52,7 @@ public class ToursListActivity extends ListActivity implements View.OnClickListe
 		
 
 		list=getListView();
-		adapter=new TourListAdapter(this, ((TourApplication)getApplication()).tours.getNames(), isSearch);
+		adapter=new TourListAdapter(this, ((TourApplication)getApplication()).tours, isSearch);
 		list.setAdapter(adapter);
 		
 	}
@@ -135,20 +137,16 @@ public class ToursListActivity extends ListActivity implements View.OnClickListe
 		return builder.create();
 	}
 	
+	//TODO modify this to display the list and bind the buttons correctly
 	private class TourListAdapter extends BaseAdapter{
 
 		private LayoutInflater mInflater;
-		private ArrayList<String> mTours;
+		private ToursList mTours;
 		private boolean mIsSearch;
-		public TourListAdapter(Context context, String[] strings, boolean isSearch){
+		public TourListAdapter(Context context, ToursList tours, boolean isSearch){
 			mInflater= LayoutInflater.from(context);
-			mTours=new ArrayList<String>();
+			mTours = tours;
 			mIsSearch=isSearch;
-			for(String str:strings)
-			{
-				
-				mTours.add(str);
-			}
 		}
 		
 		public void removeItem(int i)
@@ -161,7 +159,7 @@ public class ToursListActivity extends ListActivity implements View.OnClickListe
 		}
 		
 				
-		public ArrayList<String> getItems()
+		public ToursList getItems()
 		{
 			return mTours;
 		}
@@ -172,7 +170,7 @@ public class ToursListActivity extends ListActivity implements View.OnClickListe
 		}
 
 		@Override
-		public String getItem(int i) {
+		public Tour getItem(int i) {
 			
 			return mTours.get(i);
 		}
@@ -223,7 +221,8 @@ public class ToursListActivity extends ListActivity implements View.OnClickListe
 		}
 		
 		public class ViewHolder{
-			String mStop;
+			String mName;
+			int mNumStops;
 			TextView mTitle;
 			
 		}
