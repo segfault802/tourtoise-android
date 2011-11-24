@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class EditTourActivity extends Activity implements View.OnClickListener{
@@ -49,7 +51,15 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 	{
 		switch(v.getId()){
 		case R.id.saveEditTourButton:
-			showDialog(0);
+			//For now, we'll add the tour into the global list here
+			//TODO figure out how to distinguish between an add and an update
+			String name = ((EditText)findViewById(R.id.nameEditTourEditText)).getText().toString();
+			String description = ((EditText)findViewById(R.id.descriptionEditTourEditText)).getText().toString();
+			String tags = ((EditText)findViewById(R.id.tagsEditTourEditText)).getText().toString();
+			boolean isWalk = ((RadioButton)findViewById(R.id.walkingEditTourRadioButton)).isChecked();
+			boolean added = ((TourApplication)getApplication()).tours.add(new Tour(name,description,tags,isWalk));
+			
+			//showDialog(0);
 			break;
 		case R.id.discardEditTourButton:
 			showDialog(1);
@@ -68,6 +78,11 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 		
 		}
 	}
+	
+	private void saveTour(){
+		
+	}
+	
 	private AlertDialog saveButtonClick()
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -102,6 +117,7 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 	
 	private void editStops()
 	{
+		//TODO send the id of the tour we're editing in the intent
 		startActivity(new Intent(this, EditTourStopsListActivity.class));
 	}
 	
@@ -140,10 +156,12 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 	
 	private void saveTourLocal()
 	{
+		//TODO save the tour locally somehow
 		Toast.makeText(getBaseContext(), "Save Tour Locally", Toast.LENGTH_SHORT).show();
 	}
 	private void publishTour()
 	{
+		//TODO push the tour to the server
 		Toast.makeText(getBaseContext(), "Publish Tour", Toast.LENGTH_SHORT).show();
 		saveTourLocal();
 	}

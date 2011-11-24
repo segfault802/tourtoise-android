@@ -36,7 +36,7 @@ public class JSONManager{
 	private JSONObject mObject;
 	private ArrayList<NameValuePair> mHeaders;
 	
-	private final String AUTH_STRING = "JMoEudX2ESn5ZNiUcMbFd25ynBErffCF7l4ezRWRe959PENv6XVYNckiImF7P34Q:MDM1YjcwZDRmZTU1Y2FiNjk0MzJiNDllZjFiOTVkNGExYzQ3YTllYg==:bGlmZWlzbXVzaWM0MzRAZ21haWwuY29t:cGFzc3dvcmQ=";
+	//private final String AUTH_STRING = "JMoEudX2ESn5ZNiUcMbFd25ynBErffCF7l4ezRWRe959PENv6XVYNckiImF7P34Q:MDM1YjcwZDRmZTU1Y2FiNjk0MzJiNDllZjFiOTVkNGExYzQ3YTllYg==:bGlmZWlzbXVzaWM0MzRAZ21haWwuY29t:cGFzc3dvcmQ=";
 	private String mDateString;
 	
 	public JSONManager(){
@@ -66,8 +66,6 @@ public class JSONManager{
 			url = BASE_URL + Integer.toString(id);
 		}	
 		HttpGet getRequest = new HttpGet(url);
-		
-		//MessageDigest digester = MessageDigest.getInstance("MD5");
 
 		
 		try{
@@ -82,10 +80,6 @@ public class JSONManager{
 			Log.i("Oh noes","Threw an exception");
 			authString = "foo";
 		}
-
-		
-		//String privateString = 
-		
 		
 		
 		//add required headers

@@ -25,6 +25,8 @@ public class ViewTourActivity extends ListActivity implements View.OnClickListen
 	Button stopListBtn;
 	Button nextBtn;
 	boolean isLocal;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{

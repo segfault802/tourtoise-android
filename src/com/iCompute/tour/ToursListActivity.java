@@ -3,6 +3,7 @@ package com.iCompute.tour;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.AlertDialog.Builder;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import com.iCompute.tour.ToursList;
 
 public class ToursListActivity extends ListActivity implements View.OnClickListener{
 	
@@ -46,8 +48,9 @@ public class ToursListActivity extends ListActivity implements View.OnClickListe
 			((TextView)findViewById(R.id.searchTitleToursListTextView)).setText("My Tours");
 		}
 		
+
 		list=getListView();
-		adapter=new TourListAdapter(this, getResources().getStringArray(R.array.temp_tour_names), isSearch);
+		adapter=new TourListAdapter(this, ((TourApplication)getApplication()).tours.getNames(), isSearch);
 		list.setAdapter(adapter);
 		
 	}
