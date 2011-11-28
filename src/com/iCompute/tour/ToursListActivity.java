@@ -21,10 +21,13 @@ import android.widget.ListAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.AdapterView.OnItemClickListener;
 import com.iCompute.tour.ToursList;
 
-public class ToursListActivity extends ListActivity implements OnClickListener, OnItemClickListener{
+public class ToursListActivity extends ListActivity implements OnClickListener{ //OnItemClickListener{
 	//TODO modify this to pass in the tours list to the TourListAdapter so we can build the list properly
 	
 	
@@ -53,6 +56,8 @@ public class ToursListActivity extends ListActivity implements OnClickListener, 
 		
 
 		list=getListView();
+		
+		//list.setOnItemClickListener(this);
 		adapter=new TourListAdapter(this, ((TourApplication)getApplication()).tours, isSearch);
 		list.setAdapter(adapter);
 		
@@ -60,10 +65,22 @@ public class ToursListActivity extends ListActivity implements OnClickListener, 
 	
 	
 	
-	@Override
-	public void onItemClick(AdapterView<?> parent, View v, int position, long id){
-		
-	}
+	//@Override
+	/*public void onItemClick(AdapterView<?> parent, View v, int position, long id){
+		switch(v.getId())
+		{
+		case R.id.delToursListItemImgButton:
+			tourToDelete=id;
+			showDialog(0);
+			break;
+		case R.id.editToursListItemButton:
+			editTour();
+			break;
+		case R.id.tourInfoToursListItemLL:
+			viewTour();
+			break;
+		}
+	}*/
 	
 	
 	@Override
@@ -115,7 +132,7 @@ public class ToursListActivity extends ListActivity implements OnClickListener, 
 	
 	private void confirmDeleteTour()
 	{
-		adapter.removeItem(tourToDelete);
+		adapter.removeItem((int)tourToDelete);
 		tourToDelete=-1;
 	}
 	private void cancelDeleteTour()
@@ -191,16 +208,22 @@ public class ToursListActivity extends ListActivity implements OnClickListener, 
 		
 		@Override
 		public View getView(int i, View v, ViewGroup group) {
-			//final ViewHolder holder; //create a new view holder
-			//View view = v;
+			ViewHolder holder; //create a new view holder
 			if(v==null||v.getTag()==null){ //if view is null
 				v=mInflater.inflate(R.layout.tour_list_item, null);
-				//holder = new ViewHolder();
-				//holder.mTitle=(TextView)v.findViewById(R.id.tourNameTourListItemTextView);
-				
-				//v.setTag(holder);
+				holder = new ViewHolder();
+				holder.mTitle=(TextView)v.findViewById(R.id.tourNameTourListItemTextView);
+				holder.mItem = (LinearLayout)v.findViewById(R.id.tourInfoToursListItemLL);
+				holder.mStopCount = (TextView)v.findViewById(R.id.stopCountTourListItemTextView);
+				holder.mHStopCount = (TextView)v.findViewById(R.id.handicapStopsTourListItemTextView); 
+				holder.mEditButton = (Button)v.findViewById(R.id.editToursListItemButton);
+				holder.mRemoveButton = (ImageButton)v.findViewById(R.id.delToursListItemImgButton);
+				holder.mItem.setOnClickListener(ToursListActivity.this);
+				holder.mEditButton.setOnClickListener(ToursListActivity.this);
+				holder.mRemoveButton.setOnClickListener(ToursListActivity.this);
+				v.setTag(holder);
 			}else{
-				//holder=(ViewHolder)v.getTag();
+				holder=(ViewHolder)v.getTag();
 			}
 			
 			/*if(mIsSearch)
@@ -212,13 +235,11 @@ public class ToursListActivity extends ListActivity implements OnClickListener, 
 			//{
 				//findViewById(R.id.editToursListItemButton).setVisibility(View.GONE);
 			//}
+	
 			
-			//setting click listeners
-			v.findViewById(R.id.delToursListItemImgButton).setOnClickListener(ToursListActivity.this);
-			v.findViewById(R.id.editToursListItemButton).setOnClickListener(ToursListActivity.this);
-			v.findViewById(R.id.tourInfoToursListItemLL).setOnClickListener(ToursListActivity.this);
-			
-			(TextView)v.findViewById(R.id.tourNameTourListItemTextView).setText(getItem())
+			//set the view's title field to the title of the tour
+			//TODO: set other fields here too
+			((TextView)v.findViewById(R.id.tourNameTourListItemTextView)).setText(getItem(i).getTitle().toString());
 			
 			//holder.mTitle= ;
 			//holder.mTitle.setText(holder.mStop);
@@ -229,12 +250,14 @@ public class ToursListActivity extends ListActivity implements OnClickListener, 
 			return v;
 		}
 		
-		/*public class ViewHolder{
-			String mName;
-			int mNumStops;
+		public class ViewHolder{
+			LinearLayout mItem;
 			TextView mTitle;
-			
-		}*/
+			TextView mStopCount;
+			TextView mHStopCount;
+			Button mEditButton;
+			ImageButton mRemoveButton;
+		}
 	}
 
 }
