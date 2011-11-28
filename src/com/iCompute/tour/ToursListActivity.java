@@ -17,13 +17,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import com.iCompute.tour.ToursList;
 
-public class ToursListActivity extends ListActivity implements View.OnClickListener{
+public class ToursListActivity extends ListActivity implements OnClickListener, OnItemClickListener{
 	//TODO modify this to pass in the tours list to the TourListAdapter so we can build the list properly
 	
 	
@@ -54,6 +55,13 @@ public class ToursListActivity extends ListActivity implements View.OnClickListe
 		list=getListView();
 		adapter=new TourListAdapter(this, ((TourApplication)getApplication()).tours, isSearch);
 		list.setAdapter(adapter);
+		
+	}
+	
+	
+	
+	@Override
+	public void onItemClick(AdapterView<?> parent, View v, int position, long id){
 		
 	}
 	
@@ -138,22 +146,22 @@ public class ToursListActivity extends ListActivity implements View.OnClickListe
 	}
 	
 	//TODO modify this to display the list and bind the buttons correctly
-	private class TourListAdapter extends BaseAdapter{
+	private class TourListAdapter extends BaseAdapter implements ListAdapter{
 
 		private LayoutInflater mInflater;
-		private ToursList mTours;
+		private ToursList mToursList;
 		private boolean mIsSearch;
 		public TourListAdapter(Context context, ToursList tours, boolean isSearch){
 			mInflater= LayoutInflater.from(context);
-			mTours = tours;
+			mToursList = tours;
 			mIsSearch=isSearch;
 		}
 		
 		public void removeItem(int i)
 		{
-			if(i>=0&&i<mTours.size()-1)
+			if(i>=0&&i<mToursList.size()-1)
 			{
-				mTours.remove(i);
+				mToursList.remove(i);
 				this.notifyDataSetChanged();
 			}
 		}
@@ -161,71 +169,72 @@ public class ToursListActivity extends ListActivity implements View.OnClickListe
 				
 		public ToursList getItems()
 		{
-			return mTours;
+			return mToursList;
 		}
 		
 		@Override
 		public int getCount() {
-			return mTours.size();
+			return mToursList.size();
 		}
 
 		@Override
 		public Tour getItem(int i) {
 			
-			return mTours.get(i);
+			return mToursList.get(i);
 		}
 
-		@Override
-		public long getItemId(int i) {
-			
+		@Override //not sure what purpose this serves
+		public long getItemId(int i) {		
 			return i;
 		}
 		
 		
 		@Override
 		public View getView(int i, View v, ViewGroup group) {
-			final ViewHolder holder;
-			View view= v;
-			if(view==null||view.getTag()==null){
-				view=mInflater.inflate(R.layout.tour_list_item, null);
-				holder = new ViewHolder();
-				holder.mTitle=(TextView)view.findViewById(R.id.tourNameTourListItemTextView);
+			//final ViewHolder holder; //create a new view holder
+			//View view = v;
+			if(v==null||v.getTag()==null){ //if view is null
+				v=mInflater.inflate(R.layout.tour_list_item, null);
+				//holder = new ViewHolder();
+				//holder.mTitle=(TextView)v.findViewById(R.id.tourNameTourListItemTextView);
 				
-				view.setTag(holder);
+				//v.setTag(holder);
 			}else{
-				holder=(ViewHolder)view.getTag();
+				//holder=(ViewHolder)v.getTag();
 			}
 			
-			if(mIsSearch)
+			/*if(mIsSearch)
 			{
 				view.findViewById(R.id.delToursListItemImgButton).setVisibility(View.GONE);
 				view.findViewById(R.id.editToursListItemButton).setVisibility(View.GONE);
-			}
-			else// if tour is downloaded
-			{
+			}*/
+			//else// if tour is downloaded
+			//{
 				//findViewById(R.id.editToursListItemButton).setVisibility(View.GONE);
-			}
+			//}
 			
 			//setting click listeners
-			view.findViewById(R.id.delToursListItemImgButton).setOnClickListener(ToursListActivity.this);
-			view.findViewById(R.id.editToursListItemButton).setOnClickListener(ToursListActivity.this);
-			view.findViewById(R.id.tourInfoToursListItemLL).setOnClickListener(ToursListActivity.this);
+			v.findViewById(R.id.delToursListItemImgButton).setOnClickListener(ToursListActivity.this);
+			v.findViewById(R.id.editToursListItemButton).setOnClickListener(ToursListActivity.this);
+			v.findViewById(R.id.tourInfoToursListItemLL).setOnClickListener(ToursListActivity.this);
 			
-			holder.mStop= getItem(i);
-			holder.mTitle.setText(holder.mStop);
+			(TextView)v.findViewById(R.id.tourNameTourListItemTextView).setText(getItem())
+			
+			//holder.mTitle= ;
+			//holder.mTitle.setText(holder.mStop);
 			//holder.mAudioIndicator.setVisibility(visibility); View.GONE or View.VISIBLE
 			//holder.mPicIndicator.setVisibility(visibility); View.GONE or View.VISIBLE
 			//holder.mStopIcon.setImageResource(resId); //set icon image from resource
 			
-			return view;
+			return v;
 		}
 		
-		public class ViewHolder{
+		/*public class ViewHolder{
 			String mName;
 			int mNumStops;
 			TextView mTitle;
 			
-		}
+		}*/
 	}
 
 }
