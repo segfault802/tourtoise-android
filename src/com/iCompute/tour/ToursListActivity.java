@@ -34,7 +34,7 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 	private ListView list;
 	private TourListAdapter adapter;
 	private boolean isSearch;
-	private int tourToDelete=-1;
+	private int tourID;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -86,17 +86,17 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 	@Override
 	public void onClick(View v)
 	{
+		tourID=list.getPositionForView((View)v.getParent());
 		switch(v.getId())
 		{
-		case R.id.delToursListItemImgButton:
-			tourToDelete=list.getPositionForView((View) v.getParent());
-			showDialog(0);
+		case R.id.tourInfoToursListItemLL:
+			viewTour();
 			break;
 		case R.id.editToursListItemButton:
 			editTour();
 			break;
-		case R.id.tourInfoToursListItemLL:
-			viewTour();
+		case R.id.delToursListItemImgButton:
+			showDialog(0);
 			break;
 		}
 	}
@@ -117,12 +117,6 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 		return d;
 	}
 	
-	private void editTour()
-	{
-		Intent i=new Intent(ToursListActivity.this, EditTourActivity.class);
-		startActivity(i);
-	}
-	
 	private void viewTour()
 	{
 		Intent i=new Intent(ToursListActivity.this, ViewTourActivity.class);
@@ -130,14 +124,21 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 		startActivity(i);
 	}
 	
+	private void editTour()
+	{
+		Intent i=new Intent(ToursListActivity.this, EditTourActivity.class);
+		//TODO add extras to set the ID and update flag
+		startActivity(i);
+	}
+	
 	private void confirmDeleteTour()
 	{
-		adapter.removeItem((int)tourToDelete);
-		tourToDelete=-1;
+		adapter.removeItem(tourID);
+		tourID=-1;
 	}
 	private void cancelDeleteTour()
 	{
-		tourToDelete=-1;
+		tourID=-1;
 	}
 	
 	private Dialog createDeleteConfirmDialog()
@@ -176,7 +177,7 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 		
 		public void removeItem(int i)
 		{
-			if(i>=0&&i<mToursList.size()-1)
+			if(i>=0&&i < mToursList.size())
 			{
 				mToursList.remove(i);
 				this.notifyDataSetChanged();
@@ -211,6 +212,7 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 			ViewHolder holder; //create a new view holder
 			if(v==null||v.getTag()==null){ //if view is null
 				v=mInflater.inflate(R.layout.tour_list_item, null);
+				//holder contains references to the widgets, this is to minimize calls to findViewById
 				holder = new ViewHolder();
 				holder.mTitle=(TextView)v.findViewById(R.id.tourNameTourListItemTextView);
 				holder.mItem = (LinearLayout)v.findViewById(R.id.tourInfoToursListItemLL);
@@ -218,9 +220,15 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 				holder.mHStopCount = (TextView)v.findViewById(R.id.handicapStopsTourListItemTextView); 
 				holder.mEditButton = (Button)v.findViewById(R.id.editToursListItemButton);
 				holder.mRemoveButton = (ImageButton)v.findViewById(R.id.delToursListItemImgButton);
+				
+				//add onClickListeners to each widget
 				holder.mItem.setOnClickListener(ToursListActivity.this);
 				holder.mEditButton.setOnClickListener(ToursListActivity.this);
 				holder.mRemoveButton.setOnClickListener(ToursListActivity.this);
+				
+				//set the title based on the tour
+				//TODO set other fields here
+				holder.mTitle.setText(getItem(i).getTitle().toString());
 				v.setTag(holder);
 			}else{
 				holder=(ViewHolder)v.getTag();
@@ -239,7 +247,6 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 			
 			//set the view's title field to the title of the tour
 			//TODO: set other fields here too
-			((TextView)v.findViewById(R.id.tourNameTourListItemTextView)).setText(getItem(i).getTitle().toString());
 			
 			//holder.mTitle= ;
 			//holder.mTitle.setText(holder.mStop);
