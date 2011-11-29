@@ -128,6 +128,8 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 	{
 		Intent i=new Intent(ToursListActivity.this, EditTourActivity.class);
 		//TODO add extras to set the ID and update flag
+		i.putExtra("isUpdate", true);
+		i.putExtra("tourID", tourID);
 		startActivity(i);
 	}
 	

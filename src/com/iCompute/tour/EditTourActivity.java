@@ -11,22 +11,38 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
+import com.iCompute.tour.Tour;
+import com.iCompute.tour.ToursList;
 
 //TODO figure out how to distinguish between an add and an update
 //TODO When we're updating, pass in the ID of the tour via the intent
 
 public class EditTourActivity extends Activity implements View.OnClickListener{
 	
+	private int tourID;
+	private ToursList tours;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_tour_layout);
+		//get a reference to the tours list
+		tours = ((TourApplication)getApplication()).tours;
+		
 		/*
 		 * if we're updating, check the id of the tour passed via the intent,
 		 * pull the relevant tour from the list by its id and auto populate the fields
 		 * also pass in a flag so we can call the appropriate function when we hit 'save'
 		 */
+		Intent i = getIntent();
+		if(i.getBooleanExtra("isUpdate",false)){
+			tourID = i.getIntExtra("tourID", -1);
+			Tour tour = tours.get(tourID);
+			((EditText)findViewById(R.id.nameEditTourEditText)).setText(tour.getTitle().toString());
+			((EditText)findViewById(R.id.descriptionEditTourEditText)).setText(tour.getDescription().toString());
+			((EditText)findViewById(R.id.tagsEditTourEditText)).setText(tour.getTags().toString());
+		}
 		
 		
 		((Button) findViewById(R.id.saveEditTourButton)).setOnClickListener(this);
@@ -65,8 +81,7 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 			String description = ((EditText)findViewById(R.id.descriptionEditTourEditText)).getText().toString();
 			String tags = ((EditText)findViewById(R.id.tagsEditTourEditText)).getText().toString();
 			boolean isWalk = ((RadioButton)findViewById(R.id.walkingEditTourRadioButton)).isChecked();
-			TourApplication app = (TourApplication)getApplication();
-			boolean added = app.tours.add(new Tour(name,description,tags,isWalk));
+			boolean added = tours.add(new Tour(name,description,tags,isWalk));
 			
 			//showDialog(0);
 			break;

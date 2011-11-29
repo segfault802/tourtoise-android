@@ -19,7 +19,7 @@ public class Tour{
 		try{
 			mTitle = name;
 			mDescription = description;
-			
+			mTags = tags;
 			if(isWalkable){
 				mAccess = Access.Walk;
 			}
@@ -43,6 +43,10 @@ public class Tour{
 	
 	public String getDescription(){
 		return mDescription;
+	}
+	
+	public String getTags(){
+		return mTags;
 	}
 	
 	
