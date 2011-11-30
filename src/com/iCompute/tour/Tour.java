@@ -49,15 +49,23 @@ public class Tour{
 		return mTags;
 	}
 	
+	public boolean isWalkable(){
+		return mAccess == Access.Walk;
+	}
 	
 	public void addStop(Stop s){
 		mStops.add(s);
 		numStops++;
 	}
 	
-	public void update(String name, String description, String tags, Access a){
+	public void update(String name, String description, String tags, boolean isWalkable){
 		mTitle = name;
 		mDescription = description;
-		mAccess = a;
+		if(isWalkable){
+			mAccess = Access.Walk;
+		}
+		else{
+			mAccess = Access.Drive;
+		}
 	}
 }

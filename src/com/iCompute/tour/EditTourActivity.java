@@ -21,6 +21,7 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 	
 	private int tourID;
 	private ToursList tours;
+	private boolean updating;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -37,11 +38,15 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 		 */
 		Intent i = getIntent();
 		if(i.getBooleanExtra("isUpdate",false)){
+			updating = true;
 			tourID = i.getIntExtra("tourID", -1);
 			Tour tour = tours.get(tourID);
 			((EditText)findViewById(R.id.nameEditTourEditText)).setText(tour.getTitle().toString());
 			((EditText)findViewById(R.id.descriptionEditTourEditText)).setText(tour.getDescription().toString());
 			((EditText)findViewById(R.id.tagsEditTourEditText)).setText(tour.getTags().toString());
+			if(tour.isWalkable()){
+				((RadioButton)findViewById(R.id.walkingEditTourRadioButton)).setChecked(true);
+			}
 		}
 		
 		
@@ -81,8 +86,15 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 			String description = ((EditText)findViewById(R.id.descriptionEditTourEditText)).getText().toString();
 			String tags = ((EditText)findViewById(R.id.tagsEditTourEditText)).getText().toString();
 			boolean isWalk = ((RadioButton)findViewById(R.id.walkingEditTourRadioButton)).isChecked();
-			boolean added = tours.add(new Tour(name,description,tags,isWalk));
 			
+			if(updating){
+				Tour t = tours.get(tourID);
+				t.update(name, description, tags, isWalk);
+			}
+			else{
+				boolean added = tours.add(new Tour(name,description,tags,isWalk));
+			}
+			//TODO after saving, we should bounce back to the main screen instead of staying in this activity.
 			//showDialog(0);
 			break;
 		case R.id.discardEditTourButton:

@@ -28,7 +28,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.iCompute.tour.ToursList;
 
 public class ToursListActivity extends ListActivity implements OnClickListener{ //OnItemClickListener{
-	//TODO modify this to pass in the tours list to the TourListAdapter so we can build the list properly
+	//TODO need to make it so that changes made when updating a tour are visible when returning to the tours list
 	
 	
 	private ListView list;
@@ -82,6 +82,14 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 		}
 	}*/
 	
+	@Override
+	public void onResume(){
+		super.onResume();
+		//doesn't work as intended...
+		adapter.notifyDataSetChanged();
+		//maybe this will?
+		list=getListView();
+	}
 	
 	@Override
 	public void onClick(View v)
@@ -127,7 +135,6 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 	private void editTour()
 	{
 		Intent i=new Intent(ToursListActivity.this, EditTourActivity.class);
-		//TODO add extras to set the ID and update flag
 		i.putExtra("isUpdate", true);
 		i.putExtra("tourID", tourID);
 		startActivity(i);
@@ -246,15 +253,6 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 				//findViewById(R.id.editToursListItemButton).setVisibility(View.GONE);
 			//}
 	
-			
-			//set the view's title field to the title of the tour
-			//TODO: set other fields here too
-			
-			//holder.mTitle= ;
-			//holder.mTitle.setText(holder.mStop);
-			//holder.mAudioIndicator.setVisibility(visibility); View.GONE or View.VISIBLE
-			//holder.mPicIndicator.setVisibility(visibility); View.GONE or View.VISIBLE
-			//holder.mStopIcon.setImageResource(resId); //set icon image from resource
 			
 			return v;
 		}
