@@ -172,7 +172,7 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 		return builder.create();
 	}
 	
-	//TODO modify this to display the list and bind the buttons correctly
+
 	private class TourListAdapter extends BaseAdapter implements ListAdapter{
 
 		private LayoutInflater mInflater;

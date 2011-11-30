@@ -47,6 +47,9 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 			if(tour.isWalkable()){
 				((RadioButton)findViewById(R.id.walkingEditTourRadioButton)).setChecked(true);
 			}
+			else{
+				((RadioButton)findViewById(R.id.drivingEditTourRadioButton)).setChecked(true);
+			}
 		}
 		
 		
