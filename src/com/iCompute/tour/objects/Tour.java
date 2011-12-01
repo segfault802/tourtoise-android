@@ -1,7 +1,6 @@
-package com.iCompute.tour;
+package com.iCompute.tour.objects;
 
-import com.iCompute.tour.Common.*;
-import com.iCompute.tour.StopList;
+import com.iCompute.tour.objects.Common.Access;
 
 public class Tour{
 	

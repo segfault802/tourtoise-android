@@ -11,8 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
-import com.iCompute.tour.Tour;
-import com.iCompute.tour.ToursList;
+
+import com.iCompute.tour.objects.Tour;
+import com.iCompute.tour.objects.ToursList;
 
 //TODO figure out how to distinguish between an add and an update
 //TODO When we're updating, pass in the ID of the tour via the intent

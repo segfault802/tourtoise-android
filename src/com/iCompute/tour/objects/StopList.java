@@ -1,6 +1,7 @@
-package com.iCompute.tour;
+package com.iCompute.tour.objects;
 
-import com.iCompute.tour.Stop;
+import com.iCompute.tour.objects.Stop;
+
 import java.util.LinkedList;
 
 public class StopList extends LinkedList<Stop> {

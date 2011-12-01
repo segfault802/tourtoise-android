@@ -1,5 +1,7 @@
 package com.iCompute.tour;
 
+import com.iCompute.tour.objects.ToursList;
+
 import android.app.Application;
 
 public class TourApplication extends Application {

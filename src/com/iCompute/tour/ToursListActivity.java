@@ -26,7 +26,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-import com.iCompute.tour.ToursList;
+
+import com.iCompute.tour.objects.Tour;
+import com.iCompute.tour.objects.ToursList;
 
 public class ToursListActivity extends ListActivity implements OnClickListener{ //OnItemClickListener{
 	//TODO need to make it so that changes made when updating a tour are visible when returning to the tours list
