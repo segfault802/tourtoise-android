@@ -15,11 +15,25 @@ public class Stop{
 	private String mEndTime;
 	private int mTourID;
 	
-	public Stop(String name, String description, int category, AgeAccess a, boolean accessible){
+	public Stop(String name, String description, int category, int access, boolean accessible){
 		mTitle = name;
 		mDescription = description;
 		mCategory = category;
-		mAgeAccess = a;
+		
+		switch(access){
+		case 0:
+			mAgeAccess = AgeAccess.G;
+			break;
+		case 1:
+			mAgeAccess = AgeAccess.PG;
+			break;
+		case 2:
+			mAgeAccess = AgeAccess.PG13;
+			break;
+		case 3:
+			mAgeAccess = AgeAccess.R;
+			break;
+		}
 		mAccessible = accessible;
 	}
 	

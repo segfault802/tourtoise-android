@@ -152,7 +152,12 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 		
 		return builder.create();
 	}
-
+	
+	private void addTourStop()
+	{
+		//my location or on map dialog
+		startActivity(new Intent(getBaseContext(), EditTourStopActivity.class));
+	}
 	
 	private void editStops()
 	{
@@ -186,12 +191,7 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 		
 		return builder.create();
 	}
-	
-	private void addTourStop()
-	{
-		//my location or on map dialog
-		startActivity(new Intent(getBaseContext(), EditTourStopActivity.class));
-	}
+
 	
 	private void saveTourLocal()
 	{

@@ -1,7 +1,8 @@
 package com.iCompute.tour;
 
 import com.iCompute.tour.Tour;
-import java.util.LinkedList;;
+import java.util.LinkedList;
+import org.json.JSONObject;
 
 public class ToursList extends LinkedList<Tour>{
 
@@ -28,7 +29,9 @@ public class ToursList extends LinkedList<Tour>{
 		super.add(index,t);
 	}
 	
-	
+	public JSONObject tourInfoToJSON(){
+		return new JSONObject();
+	}
 	
 	
 }

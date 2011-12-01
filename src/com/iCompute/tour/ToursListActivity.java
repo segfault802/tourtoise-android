@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import com.iCompute.tour.ToursList;
 
@@ -89,6 +90,7 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 		adapter.notifyDataSetChanged();
 		//maybe this will?
 		list=getListView();
+		Toast.makeText(this, "onResume called", Toast.LENGTH_LONG).show();
 	}
 	
 	@Override
@@ -218,7 +220,7 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 		
 		@Override
 		public View getView(int i, View v, ViewGroup group) {
-			ViewHolder holder; //create a new view holder
+			final ViewHolder holder; //create a new view holder
 			if(v==null||v.getTag()==null){ //if view is null
 				v=mInflater.inflate(R.layout.tour_list_item, null);
 				//holder contains references to the widgets, this is to minimize calls to findViewById
@@ -237,11 +239,14 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 				
 				//set the title based on the tour
 				//TODO set other fields here
-				holder.mTitle.setText(getItem(i).getTitle().toString());
 				v.setTag(holder);
 			}else{
 				holder=(ViewHolder)v.getTag();
 			}
+			
+			//set the title based on the tour
+			//TODO set other fields here
+			holder.mTitle.setText(getItem(i).getTitle().toString());
 			
 			/*if(mIsSearch)
 			{

@@ -32,6 +32,7 @@ public class JSONManager{
 	private final String PASS = "chupacabra";
 	
 	private final String BASE_URL = "https://www.eebsy.com/api/tour/";
+	//private final String BASE_URL = "https://www.eebsy.com";
 
 	private JSONObject mObject;
 	private ArrayList<NameValuePair> mHeaders;
@@ -42,9 +43,9 @@ public class JSONManager{
 	public JSONManager(){
 		mHeaders = new ArrayList<NameValuePair>();
 		Date now = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy kk:mm:ss Z");
+		SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy kk:mm:ss");
 		format.setTimeZone(TimeZone.getTimeZone("GMT"));
-		mDateString  = new StringBuilder(format.format(now)).toString();
+		mDateString  = new StringBuilder(format.format(now)).toString() + " +0000";
 	}
 	
 	public void fetchToursList(){
@@ -70,7 +71,13 @@ public class JSONManager{
 		
 		try{
 			String privateString = SHA1(PRIVATE_KEY + "\n" + mDateString);
+			Log.i("private String", privateString);
 			privateString = Base64.encodeToString(privateString.getBytes(),0);
+			Log.i("private String", privateString);
+			String test = SHA1("shizzle");
+			Log.i("test sha1", test);
+			test = Base64.encodeToString(privateString.getBytes(),0);
+			Log.i("test base64", test);
 			String user = Base64.encodeToString(USER.getBytes(),0);
 			String pass = Base64.encodeToString(PASS.getBytes(),0);
 			authString = PUBLIC_KEY + ":" + privateString + ":" + user + ":" + pass;
@@ -85,8 +92,8 @@ public class JSONManager{
 		//add required headers
 		Log.i("Key: ", authString);
 		Log.i("Date: " ,mDateString);
-		mHeaders.add(new BasicNameValuePair("Authorization", authString));
 		mHeaders.add(new BasicNameValuePair("Date", mDateString));
+		mHeaders.add(new BasicNameValuePair("Authorization", authString));
 		int i;
 		for (i=0;i<mHeaders.size();i++){
 			getRequest.addHeader(mHeaders.get(i).getName(), mHeaders.get(i).getValue());

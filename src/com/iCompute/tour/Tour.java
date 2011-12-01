@@ -12,6 +12,7 @@ public class Tour{
 	private int mRating;
 	private String mTags;
 	private int mNumDownloads;
+	private boolean isDownloaded;
 	private StopList mStops;
 	private int numStops = 0;
 	
@@ -53,8 +54,9 @@ public class Tour{
 		return mAccess == Access.Walk;
 	}
 	
-	public void addStop(Stop s){
-		mStops.add(s);
+	public void addStop(String name, String description, int category, int access, boolean accessible){
+		//this shouldn't work, add returns boolean...
+		mStops.add(new Stop(name,description,category,access,accessible));
 		numStops++;
 	}
 	
