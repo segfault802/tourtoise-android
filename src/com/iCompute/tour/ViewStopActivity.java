@@ -1,8 +1,13 @@
 package com.iCompute.tour;
 
 
+import com.iCompute.tour.backend.ToursManager;
+import com.iCompute.tour.objects.Media;
+import com.iCompute.tour.objects.Stop;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +21,27 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class ViewStopActivity extends Activity  implements View.OnClickListener{
 
+	private long tourID=-1;
+	private long stopID=-1;
+	private Stop mStop;
+	private ToursManager manager;
+	private Media media;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_stop_layout);
+		manager=((TourApplication)getApplication()).getToursManager();
+		Intent intent=getIntent();
+		tourID=intent.getLongExtra("tourID", -1);
+		stopID=intent.getLongExtra("stopID", -1);
 		
+		mStop=manager.getStop(tourID, stopID);
+		media=manager.getMediaForStop(tourID, stopID);
+		
+		//TODO apply media to layout
 		Gallery gallery = (Gallery) findViewById(R.id.imagesViewStopGallery);
 	    gallery.setAdapter(new ImageAdapter(this));
 	
@@ -31,6 +51,11 @@ public class ViewStopActivity extends Activity  implements View.OnClickListener{
 	    findViewById(R.id.skipViewStopImgButton).setOnClickListener(this);
 	    
 	    
+	}
+	
+	private void setUpLayout()
+	{
+		//TODO apply stop data to layout
 	}
 	@Override
 	public void onClick(View v)

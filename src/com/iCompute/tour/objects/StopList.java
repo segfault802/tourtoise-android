@@ -17,4 +17,18 @@ public class StopList extends LinkedList<Stop> {
 	}
 
 
+	public boolean changeOrder(int pos, Boolean mvUp) {
+		return mvUp;
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public int getNextStop() {
+		// TODO Auto-generated method stub
+		//next as in next stop status
+		return 0;
+	}
+
+
 }

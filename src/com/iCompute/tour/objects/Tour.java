@@ -4,16 +4,16 @@ import com.iCompute.tour.objects.Common.Access;
 
 public class Tour{
 	
-	private int mID;
-	private String mTitle;
-	private String mDescription;
-	private Access mAccess;
-	private int mRating;
-	private String mTags;
-	private int mNumDownloads;
-	private boolean isDownloaded;
+	private long mID=-1;
+	public String mTitle;
+	public String mDescription;
+	public Access mAccess;
+	private int mRating=0;
+	public String mTags;
+	private int mNumDownloads=0;
+	private boolean isDownloaded=false;
 	private StopList mStops;
-	private int numStops = 0;
+	private int mHandicapStops=0;
 	
 	public Tour(String name, String description, String tags, boolean isWalkable){
 		try{
@@ -34,7 +34,7 @@ public class Tour{
 	}
 	
 	public int getStopCount(){
-		return numStops;
+		return mStops.size();
 	}
 	
 	public String getTitle(){
@@ -52,11 +52,29 @@ public class Tour{
 	public boolean isWalkable(){
 		return mAccess == Access.Walk;
 	}
-	
+	public boolean isDownloaded()
+	{
+		return isDownloaded;
+	}
+	public long getTourID()
+	{
+		return mID;
+	}
+	public int getHandicapStopCount()
+	{
+		return mHandicapStops;
+	}
 	public void addStop(String name, String description, int category, int access, boolean accessible){
 		//this shouldn't work, add returns boolean...
 		mStops.add(new Stop(name,description,category,access,accessible));
-		numStops++;
+		if(accessible)
+			mHandicapStops++;
+	}
+	public void removeStop(int pos)
+	{
+		if(mStops.get(pos).mAccessible)
+			mHandicapStops--;
+		mStops.remove(pos);
 	}
 	
 	public void update(String name, String description, String tags, boolean isWalkable){
@@ -68,5 +86,10 @@ public class Tour{
 		else{
 			mAccess = Access.Drive;
 		}
+	}
+
+	public Stop getNextStop() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -5,8 +5,22 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" android:orientation="vertical" android:background="@drawable/background_dots">
     <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/linearLayout1">
-        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="Tour/Stop Media Title" android:textAppearance="?android:attr/textAppearanceLarge" android:id="@+id/textView1"></TextView>
-        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="Add" android:id="@+id/addMediaButton"></Button>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tour/Stop Media Title"
+            android:textAppearance="?android:attr/textAppearanceLarge" >
+</TextView>
+
+        <ImageButton
+            android:id="@+id/addMediaImgButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_input_add" />
+
     </LinearLayout>
     <GridView
       android:orientation="vertical"
@@ -14,7 +28,12 @@
       android:layout_weight="1" android:layout_height="wrap_content">
         
     </GridView>
-    <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/linearLayout2">
+
+    <LinearLayout
+        android:id="@+id/audioHolderImageSelectorLL"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
         <SeekBar android:layout_height="wrap_content" android:layout_weight="10" android:layout_width="wrap_content" android:id="@+id/audioMediaSeekBar"></SeekBar>
         <LinearLayout android:layout_width="wrap_content" android:id="@+id/linearLayout3" android:layout_weight="1" android:orientation="vertical" android:layout_height="wrap_content">
             <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:text="0:00" android:textAppearance="?android:attr/textAppearanceSmall" android:id="@+id/currTimeMediaTextView"></TextView>
