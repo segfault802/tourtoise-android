@@ -2,10 +2,12 @@ package com.iCompute.tour;
 
 import com.iCompute.tour.Common.*;
 import com.iCompute.tour.StopList;
+import org.json.JSONObject;
 
 public class Tour{
 	
 	private int mID;
+	private int mLocalID;
 	private String mTitle;
 	private String mDescription;
 	private Access mAccess;
@@ -15,6 +17,7 @@ public class Tour{
 	private boolean isDownloaded;
 	private StopList mStops;
 	private int numStops = 0;
+	
 	
 	public Tour(String name, String description, String tags, boolean isWalkable){
 		try{
@@ -69,5 +72,10 @@ public class Tour{
 		else{
 			mAccess = Access.Drive;
 		}
+	}
+	
+	public JSONObject tourToJSON(){
+		JSONObject j = new JSONObject();
+		j.put(", value)
 	}
 }
