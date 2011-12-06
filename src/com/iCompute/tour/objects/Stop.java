@@ -3,6 +3,8 @@ package com.iCompute.tour.objects;
 import java.util.Date;
 
 import com.iCompute.tour.objects.Common.*;
+import org.json.JSONObject;
+import org.json.JSONException;
 
 public class Stop{
 	
@@ -41,6 +43,26 @@ public class Stop{
 	public long getStopID()
 	{
 		return mID;
+	}
+	
+	public JSONObject stopToJSON(){
+		JSONObject j = new JSONObject();
+		try{
+			j.put("id", mID);
+			j.put("title", mTitle);
+			j.put("description", mDescription);
+			j.put("accessible", mAccessible);
+			j.put("admission", mAdmission);
+			j.put("category", mCategory);
+			j.put("ageAccess", mAgeAccess);
+			j.put("startTime", mStartTime);
+			j.put("endTime", mEndTime);
+			j.put("tourID",mTourID);
+		}
+		catch(JSONException e){
+			e.printStackTrace();		
+		}
+		return j;
 	}
 	
 	
