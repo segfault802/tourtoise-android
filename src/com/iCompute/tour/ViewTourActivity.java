@@ -1,5 +1,10 @@
 package com.iCompute.tour;
 
+import com.iCompute.tour.backend.ToursManager;
+import com.iCompute.tour.objects.Media;
+import com.iCompute.tour.objects.Stop;
+import com.iCompute.tour.objects.Tour;
+
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -24,21 +29,32 @@ public class ViewTourActivity extends ListActivity implements View.OnClickListen
 	Button downloadBtn;
 	Button stopListBtn;
 	Button nextBtn;
-	boolean isLocal;
 	
+	private boolean isLocal;
+	private long tourID=-1;
+	
+	private ToursManager manager;
+	private Tour mTour;
+	private Media tourMedia;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_tour_layout);
+		manager=((TourApplication)getApplication()).getToursManager();
+		Intent intent=getIntent();
+		tourID=intent.getLongExtra("tourID", -1);
 		
+		mTour=manager.getTour(tourID);
+		//TODO apply media to adapter if time
+		tourMedia=manager.getMediaForTour(tourID);
 		Gallery gallery = (Gallery) findViewById(R.id.imagesViewTourGallery);
 	    gallery.setAdapter(new ImageAdapter(this));
 	    
 	    //Stops list set up
 	    list=getListView();
-	    ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.temp_stop_names));
+	    ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_list_item_1, manager.getTourStopNames(tourID));
 		list.setAdapter(adapter);
 		
 		downloadBtn=(Button)findViewById(R.id.downloadTourViewTourButton);
@@ -49,8 +65,7 @@ public class ViewTourActivity extends ListActivity implements View.OnClickListen
 		stopListBtn.setOnClickListener(this);
 		nextBtn.setOnClickListener(this);
 		
-		Intent i= getIntent();
-		isLocal=i.getBooleanExtra("isLocal", false);
+		isLocal=intent.getBooleanExtra("isLocal", false);
 		layoutIsLocalTour(isLocal);
 	}
 
@@ -72,6 +87,21 @@ public class ViewTourActivity extends ListActivity implements View.OnClickListen
 		}
 		
 	}
+	private void viewStopsList()
+	{
+		Intent i=new Intent(this, ViewTourStopsListActivity.class);
+		i.putExtra("tourID", tourID);
+		startActivity(i);
+	}
+	
+	private void viewNextStop()
+	{
+		long nextID=mTour.getNextStop().getStopID();
+		Intent i=new Intent(this, ViewStopActivity.class);
+		i.putExtra("stopID", nextID);
+		i.putExtra("tourID", tourID);
+		startActivity(i);
+	}
 	
 	private void layoutIsLocalTour(boolean local)
 	{
@@ -79,9 +109,13 @@ public class ViewTourActivity extends ListActivity implements View.OnClickListen
 		{
 			list.setVisibility(View.GONE);
 			downloadBtn.setVisibility(View.GONE);
+			stopListBtn.setVisibility(View.VISIBLE);
+			nextBtn.setVisibility(View.VISIBLE);
 		}
 		else
 		{
+			list.setVisibility(View.VISIBLE);
+			downloadBtn.setVisibility(View.VISIBLE);
 			stopListBtn.setVisibility(View.GONE);
 			nextBtn.setVisibility(View.GONE);
 		}

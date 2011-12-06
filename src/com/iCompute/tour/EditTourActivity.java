@@ -11,16 +11,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
-import com.iCompute.tour.Tour;
-import com.iCompute.tour.ToursList;
+
+import com.iCompute.tour.backend.ToursManager;
+import com.iCompute.tour.objects.Common.Access;
+import com.iCompute.tour.objects.Tour;
+import com.iCompute.tour.objects.ToursList;
 
 //TODO figure out how to distinguish between an add and an update
 //TODO When we're updating, pass in the ID of the tour via the intent
 
 public class EditTourActivity extends Activity implements View.OnClickListener{
 	
-	private int tourID;
-	private ToursList tours;
+	private static final int SAVE_DIALOG = 0;
+	private static final int DISCARD_DIALOG = 1;
+	private static final int INVALID_TOUR_DIALOG = 2;
+	
+	private long tourID;
+	private ToursManager manager;
+	private Tour mTour;
 	private boolean updating;
 	
 	@Override
@@ -28,8 +36,8 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_tour_layout);
-		//get a reference to the tours list
-		tours = ((TourApplication)getApplication()).tours;
+		//get a reference to the tours list manager
+		manager = ((TourApplication)getApplication()).getToursManager();
 		
 		/*
 		 * if we're updating, check the id of the tour passed via the intent,
@@ -37,19 +45,24 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 		 * also pass in a flag so we can call the appropriate function when we hit 'save'
 		 */
 		Intent i = getIntent();
-		if(i.getBooleanExtra("isUpdate",false)){
+		tourID = i.getLongExtra("tourID", -1);
+		if(tourID==-1){
 			updating = true;
-			tourID = i.getIntExtra("tourID", -1);
-			Tour tour = tours.get(tourID);
-			((EditText)findViewById(R.id.nameEditTourEditText)).setText(tour.getTitle().toString());
-			((EditText)findViewById(R.id.descriptionEditTourEditText)).setText(tour.getDescription().toString());
-			((EditText)findViewById(R.id.tagsEditTourEditText)).setText(tour.getTags().toString());
-			if(tour.isWalkable()){
+			mTour = manager.getTour(tourID);
+			((EditText)findViewById(R.id.nameEditTourEditText)).setText(mTour.getTitle().toString());
+			((EditText)findViewById(R.id.descriptionEditTourEditText)).setText(mTour.getDescription().toString());
+			((EditText)findViewById(R.id.tagsEditTourEditText)).setText(mTour.getTags().toString());
+			if(mTour.isWalkable()){
 				((RadioButton)findViewById(R.id.walkingEditTourRadioButton)).setChecked(true);
 			}
 			else{
 				((RadioButton)findViewById(R.id.drivingEditTourRadioButton)).setChecked(true);
 			}
+		}
+		else
+		{
+			mTour=manager.getTemporaryTour();
+			tourID=mTour.getTourID();
 		}
 		
 		
@@ -67,11 +80,14 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 		Dialog dialog;
 		
 		switch(i){
-		case 0:
+		case SAVE_DIALOG:
 			dialog = saveButtonClick();
 			break;
-		case 1:
+		case DISCARD_DIALOG:
 			dialog = discardButtonClick();
+			break;
+		case INVALID_TOUR_DIALOG:
+			dialog=invalidTourDialog();
 			break;
 		default:
 			dialog = null;
@@ -84,26 +100,16 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 	{
 		switch(v.getId()){
 		case R.id.saveEditTourButton:
-			//For now, we'll add the tour into the global list here
-			String name = ((EditText)findViewById(R.id.nameEditTourEditText)).getText().toString();
-			String description = ((EditText)findViewById(R.id.descriptionEditTourEditText)).getText().toString();
-			String tags = ((EditText)findViewById(R.id.tagsEditTourEditText)).getText().toString();
-			boolean isWalk = ((RadioButton)findViewById(R.id.walkingEditTourRadioButton)).isChecked();
-			
-			if(updating){
-				Tour t = tours.get(tourID);
-				t.update(name, description, tags, isWalk);
-			}
-			else{
-				boolean added = tours.add(new Tour(name,description,tags,isWalk));
-			}
-			//TODO after saving, we should bounce back to the main screen instead of staying in this activity.
-			//showDialog(0);
+			if(validateTour())
+				showDialog(SAVE_DIALOG);
+			else
+				showDialog(INVALID_TOUR_DIALOG);
 			break;
 		case R.id.discardEditTourButton:
-			showDialog(1);
+			showDialog(DISCARD_DIALOG);
 			break;
 		case R.id.addStopEditTourButton:
+			//TODO my location or on map location dialog
 			addTourStop();
 			break;
 		case R.id.imagesEditTourButton:
@@ -118,8 +124,25 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 		}
 	}
 	
-	private void saveTour(){
-		
+	private void addTourStop()
+	{
+		Intent intent=new Intent(getBaseContext(), EditTourStopActivity.class);
+		intent.putExtra("tourID", tourID);
+		startActivity(intent);
+	}
+	
+	private void editStops()
+	{
+		Intent intent=new Intent(this, EditTourStopsListActivity.class);
+		intent.putExtra("tourID", tourID);
+		startActivity(intent);
+	}
+	
+	private void addMedia()
+	{
+		Intent intent=new Intent(this, ImageSelectorActivity.class);
+		intent.putExtra("tourID", tourID);
+		startActivity(intent);
 	}
 	
 	private AlertDialog saveButtonClick()
@@ -131,18 +154,15 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 		builder.setPositiveButton("Save Local", new Dialog.OnClickListener(){
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				saveTourLocal();
-				EditTourActivity.this.finish();
+				saveTour(false);
 			}
 		});
 		builder.setNeutralButton("Publish", new Dialog.OnClickListener(){
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				publishTour();
-				EditTourActivity.this.finish();
+				saveTour(true);
 			}
 		});
-		//builder.setCancelable(false);
 		builder.setNegativeButton("Cancel", new Dialog.OnClickListener(){
 			@Override
 			public void onClick(DialogInterface dialog, int which){
@@ -151,23 +171,6 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 		});
 		
 		return builder.create();
-	}
-	
-	private void addTourStop()
-	{
-		//my location or on map dialog
-		startActivity(new Intent(getBaseContext(), EditTourStopActivity.class));
-	}
-	
-	private void editStops()
-	{
-		//TODO send the id of the tour we're editing in the intent
-		startActivity(new Intent(this, EditTourStopsListActivity.class));
-	}
-	
-	private void addMedia()
-	{
-		startActivity(new Intent(this, ImageSelectorActivity.class));
 	}
 	
 	private AlertDialog discardButtonClick()
@@ -179,7 +182,6 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				discardTourChanges();
-				EditTourActivity.this.finish();
 			}
 		});
 		builder.setNegativeButton("Cancel", new Dialog.OnClickListener(){
@@ -191,21 +193,67 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 		
 		return builder.create();
 	}
-
 	
-	private void saveTourLocal()
+	private AlertDialog invalidTourDialog()
 	{
-		//TODO save the tour locally somehow
-		Toast.makeText(getBaseContext(), "Save Tour Locally", Toast.LENGTH_SHORT).show();
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Invalid Tour");
+		builder.setMessage("Make sure that there is a tour name and description");
+		
+		builder.setNeutralButton("OK", new Dialog.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		
+		return builder.create();
 	}
-	private void publishTour()
+	
+	private boolean validateTour()
 	{
-		//TODO push the tour to the server
-		Toast.makeText(getBaseContext(), "Publish Tour", Toast.LENGTH_SHORT).show();
-		saveTourLocal();
+		String name = ((EditText)findViewById(R.id.nameEditTourEditText)).getText().toString();
+		String description = ((EditText)findViewById(R.id.descriptionEditTourEditText)).getText().toString();
+		if(name==null||name==""||description==null||description=="")
+		{
+			return false;
+		}
+		else
+		{
+			String tags = ((EditText)findViewById(R.id.tagsEditTourEditText)).getText().toString();
+			boolean isWalk = ((RadioButton)findViewById(R.id.walkingEditTourRadioButton)).isChecked();
+			mTour.mTitle=name;
+			mTour.mDescription=description;
+			mTour.mTags=tags;
+			mTour.mAccess=(isWalk?Access.Walk:Access.Drive);
+			
+			return true;
+		}
 	}
+	
+	private void saveTour(boolean publish){
+		
+		if(updating){
+			manager.updateTour(tourID, mTour);
+		}
+		else
+		{
+			manager.saveTemporaryTour(tourID, mTour);
+		}
+		
+		if(publish)
+		{
+			manager.publishToServer(tourID);
+			Toast.makeText(getBaseContext(), "Publishing tour to server", Toast.LENGTH_SHORT).show();
+		}
+		finish();
+		
+	}
+	
 	private void discardTourChanges()
 	{
+		manager.discardTemporaryTour(tourID);
 		Toast.makeText(getBaseContext(), "Discarded Changes", Toast.LENGTH_SHORT).show();
+		finish();
 	}
 }

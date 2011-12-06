@@ -1,6 +1,7 @@
-package com.iCompute.tour;
+package com.iCompute.tour.objects;
 
-import com.iCompute.tour.Tour;
+import com.iCompute.tour.objects.Tour;
+
 import java.util.LinkedList;
 import org.json.JSONObject;
 

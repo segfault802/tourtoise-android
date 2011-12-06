@@ -57,13 +57,23 @@ public class SearchToursActivity extends Activity {
 	@Override
 	public Dialog onCreateDialog(int i)
 	{
-		Dialog d=createDialog();
+		Dialog d;
+		
+		switch(i)
+		{
+		case 0:
+			d=createCategoryDialog();
+			break;
+		default:
+			d=null;
+			break;
+		}
 		
 		return d;
 	}
 	
 	
-	private Dialog createDialog()
+	private Dialog createCategoryDialog()
 	{
 		AlertDialog.Builder builder=new AlertDialog.Builder(this);
 		builder.setTitle("Select Categories");
@@ -100,6 +110,7 @@ public class SearchToursActivity extends Activity {
 	private void searchTours()
 	{
 		Intent i=new Intent(this, ToursListActivity.class);
+		//TODO build search query
 		i.putExtra("isLocal", false);
 		startActivity(i);
 	}

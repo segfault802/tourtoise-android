@@ -26,7 +26,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-import com.iCompute.tour.ToursList;
+
+import com.iCompute.tour.backend.ToursManager;
+import com.iCompute.tour.objects.Common.Access;
+import com.iCompute.tour.objects.Tour;
+import com.iCompute.tour.objects.ToursList;
 
 public class ToursListActivity extends ListActivity implements OnClickListener{ //OnItemClickListener{
 	//TODO need to make it so that changes made when updating a tour are visible when returning to the tours list
@@ -34,14 +38,17 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 	
 	private ListView list;
 	private TourListAdapter adapter;
+	
+	private ToursManager manager;
 	private boolean isSearch;
-	private int tourID;
+	private int tourItemToDelete=-1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tours_list_layout);
+		
 		Intent intent=getIntent();
 		isSearch=!intent.getBooleanExtra("myTours", false);
 		if(isSearch)
@@ -49,17 +56,17 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 			//TODO search query from intent
 			CharSequence title="Search Query";
 			((TextView)findViewById(R.id.searchTitleToursListTextView)).setText(title);
+			adapter=new TourListAdapter(this, manager.searchServerTours("search query"), isSearch);
 		}
 		else
 		{
 			((TextView)findViewById(R.id.searchTitleToursListTextView)).setText("My Tours");
+			adapter=new TourListAdapter(this, manager.getLocalTours(), isSearch);
 		}
 		
 
 		list=getListView();
 		
-		//list.setOnItemClickListener(this);
-		adapter=new TourListAdapter(this, ((TourApplication)getApplication()).tours, isSearch);
 		list.setAdapter(adapter);
 		
 	}
@@ -84,28 +91,19 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 	}*/
 	
 	@Override
-	public void onResume(){
-		super.onResume();
-		//doesn't work as intended...
-		adapter.notifyDataSetChanged();
-		//maybe this will?
-		list=getListView();
-		Toast.makeText(this, "onResume called", Toast.LENGTH_LONG).show();
-	}
-	
-	@Override
 	public void onClick(View v)
 	{
-		tourID=list.getPositionForView((View)v.getParent());
+		
 		switch(v.getId())
 		{
 		case R.id.tourInfoToursListItemLL:
-			viewTour();
+			viewTour(v);
 			break;
 		case R.id.editToursListItemButton:
-			editTour();
+			editTour(v);
 			break;
 		case R.id.delToursListItemImgButton:
+			tourItemToDelete=list.getPositionForView((View) v.getParent());
 			showDialog(0);
 			break;
 		}
@@ -127,29 +125,31 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 		return d;
 	}
 	
-	private void viewTour()
+	private void viewTour(View v)
 	{
+		long tourID=((TourListAdapter.ViewHolder)((View)v.getParent()).getTag()).mTour.getTourID();
 		Intent i=new Intent(ToursListActivity.this, ViewTourActivity.class);
 		i.putExtra("isLocal", !isSearch);
+		i.putExtra("tourID", tourID);
 		startActivity(i);
 	}
 	
-	private void editTour()
+	private void editTour(View v)
 	{
+		long tourID=((TourListAdapter.ViewHolder)((View)v.getParent()).getTag()).mTour.getTourID();
 		Intent i=new Intent(ToursListActivity.this, EditTourActivity.class);
-		i.putExtra("isUpdate", true);
 		i.putExtra("tourID", tourID);
 		startActivity(i);
 	}
 	
 	private void confirmDeleteTour()
 	{
-		adapter.removeItem(tourID);
-		tourID=-1;
+		adapter.removeItem(tourItemToDelete);
+		tourItemToDelete=-1;
 	}
 	private void cancelDeleteTour()
 	{
-		tourID=-1;
+		tourItemToDelete=-1;
 	}
 	
 	private Dialog createDeleteConfirmDialog()
@@ -175,12 +175,13 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 	}
 	
 
-	private class TourListAdapter extends BaseAdapter implements ListAdapter{
+	private class TourListAdapter extends BaseAdapter{
 
 		private LayoutInflater mInflater;
-		private ToursList mToursList;
+		private ArrayList<Tour> mToursList;
 		private boolean mIsSearch;
-		public TourListAdapter(Context context, ToursList tours, boolean isSearch){
+		
+		public TourListAdapter(Context context, ArrayList<Tour> tours, boolean isSearch){
 			mInflater= LayoutInflater.from(context);
 			mToursList = tours;
 			mIsSearch=isSearch;
@@ -191,14 +192,8 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 			if(i>=0&&i < mToursList.size())
 			{
 				mToursList.remove(i);
-				this.notifyDataSetChanged();
+				notifyDataSetChanged();
 			}
-		}
-		
-				
-		public ToursList getItems()
-		{
-			return mToursList;
 		}
 		
 		@Override
@@ -212,63 +207,63 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 			return mToursList.get(i);
 		}
 
-		@Override //not sure what purpose this serves
+		@Override //must be implemented from BaseAdapter
 		public long getItemId(int i) {		
 			return i;
 		}
 		
 		
 		@Override
-		public View getView(int i, View v, ViewGroup group) {
-			final ViewHolder holder; //create a new view holder
-			if(v==null||v.getTag()==null){ //if view is null
+		public View getView(int i, View v, ViewGroup group)
+		{
+			final ViewHolder holder;
+			if(v==null||v.getTag()==null)
+			{
 				v=mInflater.inflate(R.layout.tour_list_item, null);
 				//holder contains references to the widgets, this is to minimize calls to findViewById
 				holder = new ViewHolder();
+				holder.mTour=getItem(i);
 				holder.mTitle=(TextView)v.findViewById(R.id.tourNameTourListItemTextView);
-				holder.mItem = (LinearLayout)v.findViewById(R.id.tourInfoToursListItemLL);
 				holder.mStopCount = (TextView)v.findViewById(R.id.stopCountTourListItemTextView);
 				holder.mHStopCount = (TextView)v.findViewById(R.id.handicapStopsTourListItemTextView); 
-				holder.mEditButton = (Button)v.findViewById(R.id.editToursListItemButton);
-				holder.mRemoveButton = (ImageButton)v.findViewById(R.id.delToursListItemImgButton);
-				
+				holder.mTransport=(TextView)v.findViewById(R.id.transportTourListItemTextView);
 				//add onClickListeners to each widget
-				holder.mItem.setOnClickListener(ToursListActivity.this);
-				holder.mEditButton.setOnClickListener(ToursListActivity.this);
-				holder.mRemoveButton.setOnClickListener(ToursListActivity.this);
+				v.findViewById(R.id.tourInfoToursListItemLL).setOnClickListener(ToursListActivity.this);
+				v.findViewById(R.id.editToursListItemButton).setOnClickListener(ToursListActivity.this);
+				v.findViewById(R.id.delToursListItemImgButton).setOnClickListener(ToursListActivity.this);
 				
-				//set the title based on the tour
-				//TODO set other fields here
 				v.setTag(holder);
-			}else{
+			}
+			else
+			{
 				holder=(ViewHolder)v.getTag();
 			}
 			
-			//set the title based on the tour
-			//TODO set other fields here
-			holder.mTitle.setText(getItem(i).getTitle().toString());
-			
-			/*if(mIsSearch)
+			holder.mTitle.setText(holder.mTour.mTitle);
+			holder.mStopCount.setText("Stops: "+holder.mTour.getStopCount());
+			holder.mHStopCount.setText("Handicap Stops: "+holder.mTour.getHandicapStopCount());
+			holder.mTransport.setText((holder.mTour.mAccess==Access.Drive?"Driving":"Walking"));
+
+			if(mIsSearch)
 			{
-				view.findViewById(R.id.delToursListItemImgButton).setVisibility(View.GONE);
-				view.findViewById(R.id.editToursListItemButton).setVisibility(View.GONE);
-			}*/
-			//else// if tour is downloaded
-			//{
-				//findViewById(R.id.editToursListItemButton).setVisibility(View.GONE);
-			//}
+				v.findViewById(R.id.delToursListItemImgButton).setVisibility(View.GONE);
+				v.findViewById(R.id.editToursListItemButton).setVisibility(View.GONE);
+			}
+			else// if tour is downloaded
+			{
+				findViewById(R.id.editToursListItemButton).setVisibility(holder.mTour.isDownloaded()?View.GONE:View.VISIBLE);	
+			}
 	
 			
 			return v;
 		}
 		
 		public class ViewHolder{
-			LinearLayout mItem;
+			Tour mTour;
 			TextView mTitle;
 			TextView mStopCount;
 			TextView mHStopCount;
-			Button mEditButton;
-			ImageButton mRemoveButton;
+			TextView mTransport;
 		}
 	}
 

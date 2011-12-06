@@ -1,12 +1,18 @@
 package com.iCompute.tour;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+
+import com.iCompute.tour.backend.ToursManager;
+import com.iCompute.tour.objects.Stop;
+import com.iCompute.tour.objects.StopList;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,24 +22,80 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class EditTourStopsListActivity extends ListActivity {
+public class EditTourStopsListActivity extends ListActivity implements View.OnClickListener{
 
+	private static final int EDIT_STOP = 1000;
+	private static final int ADD_STOP = 1001;
 	private ListView list;
 	private StopsListAdapter adapter;
+	
+	private long tourID=-1;
 	private int itemToDelete=-1;
+	private ToursManager manager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_tour_stops_list_layout);
+		manager=((TourApplication)getApplication()).getToursManager();
+		
+		Intent intent=getIntent();
+		tourID=intent.getLongExtra("tourID", -1);
+		if(tourID==-1)
+		{
+			Toast.makeText(this, "No tour ID given", Toast.LENGTH_LONG).show();
+			finish();
+		}
 		
 		list=getListView();
-		adapter = new StopsListAdapter(this, getResources().getStringArray(R.array.temp_stop_names));
+		adapter = new StopsListAdapter(this, manager.getTourStops(tourID));
+		manager.cacheTour(tourID);
 		list.setAdapter(adapter);
-		setListListeners();
+		
+		findViewById(R.id.myLocEditStopsListButton).setOnClickListener(this);
+		findViewById(R.id.onMapEditStopsListButton).setOnClickListener(this);
+	}
+	
+	@Override
+	protected void onDestroy()
+	{
+		manager.releaseTour(tourID);
+		super.onDestroy();
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if(resultCode==RESULT_OK)
+		{
+			adapter.notifyDataSetChanged();
+		}
+	}
+	
+	@Override
+	public void onClick(View v)
+	{
+		switch(v.getId())
+		{
+		case R.id.myLocEditStopsListButton:
+			addStop(true);
+			break;
+		case R.id.onMapEditStopsListButton:
+			addStop(false);
+			break;
+		}
+	}
+	
+	private void addStop(boolean myLoc)
+	{
+		Intent intent=new Intent(this, EditTourStopActivity.class);
+		intent.putExtra("tourID", tourID);
+		intent.putExtra("myLocation", myLoc);
+		startActivityForResult(intent, ADD_STOP);
 	}
 	
 	@Override
@@ -79,17 +141,6 @@ public class EditTourStopsListActivity extends ListActivity {
 		return builder.create();
 	}
 	
-	private void setListListeners()
-	{
-		ListView list = getListView();
-		list.setOnItemClickListener(new OnItemClickListener(){
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int id, long pos) {
-				itemClicked(id);
-			}
-		});
-	}
-	
 	private void confirmDeleteStopItem()
 	{
 		adapter.removeItem(itemToDelete);
@@ -99,6 +150,18 @@ public class EditTourStopsListActivity extends ListActivity {
 	private void cancelDeleteStopItem()
 	{
 		itemToDelete=1;
+	}
+	/*
+	 * Click listeners for list items declared in list item xml layout
+	 */
+	public void editStopClicked(View v)
+	{
+		long stopID=((StopsListAdapter.ViewHolder)((View) v.getParent()).getTag()).mStop.getStopID();
+		Intent intent=new Intent(this, EditTourStopActivity.class);
+		intent.putExtra("stopID", stopID);
+		intent.putExtra("tourID", tourID);
+		
+		startActivityForResult(intent, EDIT_STOP);
 	}
 	
 	public void deleteButtonClicked(View v)
@@ -116,23 +179,14 @@ public class EditTourStopsListActivity extends ListActivity {
 			adapter.moveItem(pos, false);
 	}
 	
-	private void itemClicked(int id)
-	{
-		//start editStopActivity for result
-	}
-	
 	private class StopsListAdapter extends BaseAdapter{
 
 		private LayoutInflater mInflater;
-		private ArrayList<String> mStops;
+		private StopList mStops;
 		
-		public StopsListAdapter(Context context, String[] strings){
+		public StopsListAdapter(Context context, StopList stops){
 			mInflater= LayoutInflater.from(context);
-			mStops=new ArrayList<String>();
-			for(String str:strings)
-			{
-				mStops.add(str);
-			}
+			mStops=stops;
 		}
 		
 		public void removeItem(int i)
@@ -144,13 +198,14 @@ public class EditTourStopsListActivity extends ListActivity {
 			}
 		}
 		
-		public ArrayList<String> getItems()
-		{
-			return mStops;
-		}
-		
 		public void moveItem(int pos, Boolean mvUp)
 		{
+			if(mStops.changeOrder(pos, mvUp))
+			{
+				notifyDataSetChanged();
+			}
+			
+			/*
 			String temp;
 			if(mvUp&&pos!=0)
 			{
@@ -165,7 +220,7 @@ public class EditTourStopsListActivity extends ListActivity {
 				mStops.remove(pos);
 				mStops.add(pos+1, temp);
 				this.notifyDataSetChanged();
-			}
+			}*/
 		}
 		
 		@Override
@@ -174,7 +229,7 @@ public class EditTourStopsListActivity extends ListActivity {
 		}
 
 		@Override
-		public CharSequence getItem(int i) {
+		public Stop getItem(int i) {
 			
 			return mStops.get(i);
 		}
@@ -202,10 +257,10 @@ public class EditTourStopsListActivity extends ListActivity {
 				holder=(ViewHolder)view.getTag();
 			}
 			
-			holder.mStop= getItem(i);
-			holder.mTitle.setText(holder.mStop);
-			//holder.mAudioIndicator.setVisibility(visibility); View.GONE or View.VISIBLE
-			//holder.mPicIndicator.setVisibility(visibility); View.GONE or View.VISIBLE
+			holder.mStop=getItem(i);
+			holder.mTitle.setText(holder.mStop.mTitle);
+			holder.mAudioIndicator.setVisibility(View.GONE); //View.GONE or View.VISIBLE
+			holder.mPicIndicator.setVisibility(View.GONE); //View.GONE or View.VISIBLE
 			//holder.mStopIcon.setImageResource(resId); //set icon image from resource
 			
 			view.setTag(holder);
@@ -214,7 +269,7 @@ public class EditTourStopsListActivity extends ListActivity {
 		}
 		
 		public class ViewHolder{
-			CharSequence mStop;
+			Stop mStop;
 			ImageView mStopIcon;
 			TextView mTitle;
 			ImageView mPicIndicator;

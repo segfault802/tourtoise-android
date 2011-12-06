@@ -1,6 +1,8 @@
 package com.iCompute.tour;
 
-import java.util.ArrayList;
+import com.iCompute.tour.backend.ToursManager;
+import com.iCompute.tour.objects.Stop;
+import com.iCompute.tour.objects.StopList;
 
 import android.app.ListActivity;
 import android.content.Context;
@@ -8,43 +10,54 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ViewTourStopsListActivity extends ListActivity implements OnClickListener {
+public class ViewTourStopsListActivity extends ListActivity{
 
-	ListView list;
-	StopsListAdapter adapter;
-	TextView counter;
+	private ListView list;
+	private StopsListAdapter adapter;
+	private TextView counter;
+	
+	private ToursManager manager;
+	private long tourID=-1;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_stops_list_layout);
+		manager=((TourApplication)getApplication()).getToursManager();
+		Intent intent = getIntent();
+		tourID=intent.getLongExtra("tourID", -1);
 		
 		list=getListView();
-		adapter=new StopsListAdapter(this, getResources().getStringArray(R.array.temp_stop_names));
+		adapter=new StopsListAdapter(this, manager.getTourStops(tourID));
+		manager.cacheTour(tourID);
 		list.setAdapter(adapter);
 		counter=(TextView)findViewById(R.id.remainingStopsViewStopsTextView);
 		updateStopCounter();
 	}
 	
-	@Override
-	public void onClick(View v)
-	{
-		StopTemp temp=((StopsListAdapter.ViewHolder)((View)v.getParent()).getTag()).mStop;
-		startActivity(new Intent(this, ViewStopActivity.class));
-	}
-	
 	private void updateStopCounter()
 	{
-		counter.setText("Stops remaining: "+adapter.getCount());
+		counter.setText("Stops remaining: "+adapter.nonVisitedStops());
 	}
 	
+	//only called editStop because the layout is reused from the edit stops layout
+	public void editStopClicked(View v)
+	{
+		Stop stop=((StopsListAdapter.ViewHolder)((View)v.getParent()).getTag()).mStop;
+		Intent intent=new Intent(this, ViewStopActivity.class);
+		intent.putExtra("tourID", stop.mTourID);
+		intent.putExtra("stopID", stop.getStopID());
+		startActivity(intent);
+		
+	}
 	public void deleteButtonClicked(View v)
 	{
 		int pos=list.getPositionForView((View) v.getParent().getParent());
@@ -69,33 +82,17 @@ public class ViewTourStopsListActivity extends ListActivity implements OnClickLi
 	private class StopsListAdapter extends BaseAdapter{
 
 		private LayoutInflater mInflater;
-		private ArrayList<StopTemp> mStops;
+		private StopList mStops;
 		private int nextStop;
 		private static final int PENDING=0;
 		private static final int NEXT=1;
 		private static final int VISITED=2;
 		private static final int SKIPPED=3;
 		
-		public StopsListAdapter(Context context, String[] strings){
+		public StopsListAdapter(Context context, StopList stops){
 			mInflater= LayoutInflater.from(context);
-			mStops=new ArrayList<StopTemp>();
-			for(String str:strings)
-			{
-				StopTemp temp = new StopTemp();
-				temp.stopName=str;
-				temp.stopStatus=PENDING;
-				mStops.add(temp);
-			}
-			nextStop=(mStops.size()==0?-1:0);
-		}
-		
-		public void removeItem(int i)
-		{
-			if(i>=0&&i<mStops.size()-1)
-			{
-				mStops.remove(i);
-				this.notifyDataSetChanged();
-			}
+			mStops=stops;
+			nextStop=mStops.getNextStop();
 		}
 		
 		public void stopPending(int i)
@@ -142,15 +139,10 @@ public class ViewTourStopsListActivity extends ListActivity implements OnClickLi
 			}
 		}
 		
-		public ArrayList<StopTemp> getItems()
-		{
-			return mStops;
-		}
-		
 		public int nonVisitedStops()
 		{
 			int count=0;
-			for(StopTemp temp:mStops)
+			for(Stop temp:mStops)
 			{
 				if(temp.stopStatus==PENDING||temp.stopStatus==NEXT)
 					count++;
@@ -160,24 +152,11 @@ public class ViewTourStopsListActivity extends ListActivity implements OnClickLi
 		
 		public void moveItem(int pos, Boolean mvUp)
 		{
-			StopTemp temp;
-			if(mvUp&&pos!=0)
+			if(mStops.changeOrder(pos, mvUp))
 			{
-				temp=mStops.get(pos);
-				mStops.remove(pos);
-				mStops.add(pos-1, temp);
-				if(pos==nextStop)
-					nextStop--;
-				this.notifyDataSetChanged();
-			}
-			else if(!mvUp&&pos!=mStops.size()-1)
-			{
-				temp=mStops.get(pos);
-				mStops.remove(pos);
-				mStops.add(pos+1, temp);
-				if(pos==nextStop)
-					nextStop++;
-				this.notifyDataSetChanged();
+				notifyDataSetChanged();
+				if(nextStop==pos)
+					pos+=(mvUp?-1:1);
 			}
 		}
 		
@@ -187,7 +166,7 @@ public class ViewTourStopsListActivity extends ListActivity implements OnClickLi
 		}
 
 		@Override
-		public StopTemp getItem(int i) {
+		public Stop getItem(int i) {
 			
 			return mStops.get(i);
 		}
@@ -233,10 +212,8 @@ public class ViewTourStopsListActivity extends ListActivity implements OnClickLi
 			}
 			
 			
-			view.findViewById(R.id.stopInfoEditStopsListItemLL).setOnClickListener(ViewTourStopsListActivity.this);
-			view.findViewById(R.id.editStopListCatImg).setOnClickListener(ViewTourStopsListActivity.this);
 			holder.mStop= getItem(i);
-			holder.mTitle.setText(holder.mStop.stopName);
+			holder.mTitle.setText(holder.mStop.mTitle);
 			//holder.mAudioIndicator.setVisibility(visibility); View.GONE or View.VISIBLE
 			//holder.mPicIndicator.setVisibility(visibility); View.GONE or View.VISIBLE
 			//holder.mStopIcon.setImageResource(resId); //set icon image from resource
@@ -262,20 +239,13 @@ public class ViewTourStopsListActivity extends ListActivity implements OnClickLi
 		}
 		
 		public class ViewHolder{
-			StopTemp mStop;
+			Stop mStop;
 			ImageView mStopIcon;
 			TextView mTitle;
 			ImageView mPicIndicator;
 			ImageView mAudioIndicator;
 			
 		}
-	}
-	
-	
-	public class StopTemp
-	{
-		CharSequence stopName;
-		int stopStatus;
 	}
 	
 }

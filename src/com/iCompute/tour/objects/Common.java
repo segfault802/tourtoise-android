@@ -1,4 +1,4 @@
-package com.iCompute.tour;
+package com.iCompute.tour.objects;
 
 public class Common {
 	

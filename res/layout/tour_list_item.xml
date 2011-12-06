@@ -4,7 +4,27 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent" android:orientation="horizontal">
     <LinearLayout android:layout_height="wrap_content" android:orientation="vertical" android:layout_width="fill_parent" android:layout_weight="1" android:id="@+id/tourInfoToursListItemLL">
-        <TextView android:layout_height="wrap_content" android:text="Tour Name" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium" android:id="@+id/tourNameTourListItemTextView"></TextView>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/tourNameTourListItemTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tour Name"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/transportTourListItemTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+        </LinearLayout>
         <LinearLayout android:layout_height="wrap_content" android:id="@+id/linearLayout3" android:layout_width="fill_parent">
             <TextView android:layout_weight="1" android:layout_height="wrap_content" android:text="Stops: #" android:layout_width="wrap_content" android:id="@+id/stopCountTourListItemTextView"></TextView>
             <TextView android:layout_height="wrap_content" android:text="Handicap Stops: #" android:layout_width="wrap_content" android:id="@+id/handicapStopsTourListItemTextView"></TextView>
