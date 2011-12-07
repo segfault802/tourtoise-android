@@ -242,7 +242,7 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 			holder.mTitle.setText(holder.mTour.mTitle);
 			holder.mStopCount.setText("Stops: "+holder.mTour.getStopCount());
 			holder.mHStopCount.setText("Handicap Stops: "+holder.mTour.getHandicapStopCount());
-			holder.mTransport.setText((holder.mTour.mAccess==Access.Drive?"Driving":"Walking"));
+			holder.mTransport.setText((holder.mTour.isDriving?"Driving":"Walking"));
 
 			if(mIsSearch)
 			{

@@ -22,17 +22,12 @@ public class Tour{
 	private boolean mFinished;
 	
 	
-	public Tour(String name, String description, String tags, boolean isWalkable){
+	public Tour(String name, String description, String tags, boolean driving){
 		try{
 			mTitle = name;
 			mDescription = description;
 			mTags = tags;
-			if(isWalkable){
-				mAccess = Access.Walk;
-			}
-			else{
-				mAccess = Access.Drive;
-			}
+			isDriving = driving;
 			mStops = new StopList();
 		}
 		catch(Exception e){}
@@ -64,8 +59,8 @@ public class Tour{
 		return mTags;
 	}
 	
-	public boolean isWalkable(){
-		return mAccess == Access.Walk;
+	public boolean isDriving(){
+		return isDriving;
 	}
 	public boolean isDownloaded()
 	{
@@ -93,15 +88,10 @@ public class Tour{
 		mStops.remove(pos);
 	}
 	
-	public void update(String name, String description, String tags, boolean isWalkable){
+	public void update(String name, String description, String tags, boolean driving){
 		mTitle = name;
 		mDescription = description;
-		if(isWalkable){
-			mAccess = Access.Walk;
-		}
-		else{
-			mAccess = Access.Drive;
-		}
+		isDriving = driving;
 	}
 	
 	public JSONObject tourToJSON(){

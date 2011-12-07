@@ -52,7 +52,7 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 			((EditText)findViewById(R.id.nameEditTourEditText)).setText(mTour.getTitle().toString());
 			((EditText)findViewById(R.id.descriptionEditTourEditText)).setText(mTour.getDescription().toString());
 			((EditText)findViewById(R.id.tagsEditTourEditText)).setText(mTour.getTags().toString());
-			if(mTour.isWalkable()){
+			if(!mTour.isDriving){
 				((RadioButton)findViewById(R.id.walkingEditTourRadioButton)).setChecked(true);
 			}
 			else{
@@ -225,7 +225,7 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 			mTour.mTitle=name;
 			mTour.mDescription=description;
 			mTour.mTags=tags;
-			mTour.mAccess=(isWalk?Access.Walk:Access.Drive);
+			mTour.isDriving=(isWalk?false:true);
 			
 			return true;
 		}

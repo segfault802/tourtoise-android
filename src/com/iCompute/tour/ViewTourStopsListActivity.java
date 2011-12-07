@@ -92,7 +92,8 @@ public class ViewTourStopsListActivity extends ListActivity{
 		public StopsListAdapter(Context context, StopList stops){
 			mInflater= LayoutInflater.from(context);
 			mStops=stops;
-			nextStop=mStops.getNextStop();
+			//TODO: fix
+			//nextStop=mStops.getNextStop();
 		}
 		
 		public void stopPending(int i)
