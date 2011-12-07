@@ -61,7 +61,7 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 		}
 		else
 		{
-			mTour=manager.getTemporaryTour();
+			//mTour=manager.getTemporaryTour();
 			tourID=mTour.getTourID();
 		}
 		

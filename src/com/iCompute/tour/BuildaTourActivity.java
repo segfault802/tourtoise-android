@@ -27,7 +27,8 @@ public class BuildaTourActivity extends Activity implements OnClickListener{
         	@Override
         	public void onClick(View v) {
         		JSONManager m = new JSONManager();
-        		m.fetchToursList();
+        		//m.fetchToursList();
+        		m.fetchTourById(1);
         	}
         });
         

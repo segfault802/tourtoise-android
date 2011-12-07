@@ -23,6 +23,7 @@ public class ToursManager {
 
 	ToursList mTours;
 	Tour mSelectedTour;
+	Tour mTempTour;
 
 	private ArrayList<Long> tourIDs;
 	
@@ -90,10 +91,10 @@ public class ToursManager {
 		return null;
 	}
 
-	public Tour getTemporaryTour() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	public Tour getTemporaryTour() {
+//		mTempTour = new Tour();
+		
+//	}
 
 	public void updateTour(long tourID, Tour mTour) {
 		// TODO Auto-generated method stub

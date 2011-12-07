@@ -1,6 +1,6 @@
 package com.iCompute.tour.objects;
 
-
+import java.util.Date;
 import org.json.JSONObject;
 import org.json.JSONException;
 import com.iCompute.tour.objects.Common.Access;
@@ -22,13 +22,21 @@ public class Tour{
 	private boolean mFinished;
 	
 	
-	public Tour(String name, String description, String tags, boolean driving){
+	public Tour(){
+		mID = (new Date().getTime()); 
+	}
+	
+	public Tour(String name, String description, String tags, boolean driving, boolean downloaded){
 		try{
 			mTitle = name;
 			mDescription = description;
 			mTags = tags;
 			isDriving = driving;
 			mStops = new StopList();
+			isDownloaded = downloaded;
+			if(!isDownloaded){
+				mID = (new Date().getTime());
+			}
 		}
 		catch(Exception e){}
 		
@@ -129,12 +137,12 @@ public class Tour{
 			//how to do Access?
 			mRating = j.getInt("rating");
 			mTags = j.getString("tags");
-			mNumDownloads = j.getInt("numDownloads");
+			mNumDownloads = j.getInt("numdownloads");
 			isDownloaded = j.getBoolean("downloaded");
 			mStops = new StopList();
 			mStops.stopListFromJSON(j.getJSONArray("stops"));
-			mHandicapStops = j.getInt("handicapStops");
-			mCurrentStop = j.getInt("currentStop");
+			mHandicapStops = j.getInt("handicapstops");
+			mCurrentStop = j.getInt("currentstop");
 			mFinished = j.getBoolean("finished");
 		}
 		catch (JSONException e){
