@@ -23,15 +23,15 @@ import com.iCompute.tour.objects.ToursList;
 
 public class ToursManager {
 
-	ToursList mTours;
-	Tour mSelectedTour; 
-	Tour mTempTour;
+	private ToursList mTours;
+
+	private ArrayList<TourHeader> tourHeaders;
+	private Tour mTempTour;
+	private Stop mTempStop;
 
 	public ToursManager(){
 		mTours = new ToursList();
 	}
-	
-	private ArrayList<TourHeader> tourHeaders;
 	
 	public Tour getTour(long tourID) {
 		return mTours.getTourByID(tourID);
@@ -74,42 +74,41 @@ public class ToursManager {
 		return mTours.getTourByID(tourID).getStops().getStop(stopID);
 	}
 
-	public void addTourStop(long tourID, Stop mStop) {
-		// TODO Auto-generated method stub
-		
+	public void addTourStop(long tourID, Stop stop) {
+		mTours.getTourByID(tourID).addStop(stop);
 	}
 
-	public void updateStop(long tourID, Stop mStop) {
-		// TODO Auto-generated method stub
-		
+	public void updateStop(long tourID, Stop stop) {
+		mTours.getTourByID(tourID).updateStop(stop);
 	}
 
 	public void discardTemporaryStop(long stopID) {
-		// TODO Auto-generated method stub
-		
+		mTempStop=null;
 	}
 
 	public Stop getTemporaryStop(long tourID) {
-		/* TODO Auto-generated method stub
-		* make a new stop but don't add to tour yet.
-		* media can be added to the new stop but if the stop is discarded the associated media will also be discarded.
-		*/ 
-		return null;
+		mTempStop=new Stop(tourID);
+		
+		return mTempStop;
 	}
 
-//	public Tour getTemporaryTour() {
-//		mTempTour = new Tour();
+	public Tour getTemporaryTour() {
+		mTempTour = new Tour();
 		
-//	}
-
-	public void updateTour(long tourID, Tour mTour) {
-		// TODO Auto-generated method stub
-		
+		return mTempTour;
+	}
+	
+	public void updateTour(long tourID, Tour tour) {
+		if(tourID==mTempTour.mID)
+		{
+			mTours.add(tour);
+		}
+		else
+			mTours.getTourByID(tourID).update(tour);
 	}
 
 	public void saveTemporaryTour(long tourID, Tour mTour) {
-		// TODO Auto-generated method stub
-		
+		mTours.add(mTour);
 	}
 
 	public void discardTemporaryTour(long tourID) {
@@ -133,8 +132,7 @@ public class ToursManager {
 	}
 
 	public String[] getTourStopNames(long tourID) {
-		// TODO Auto-generated method stub
-		return null;
+		return (String[]) mTours.getTourByID(tourID).getStops().getStopNames().toArray();
 	}
 
 	public Media getMediaForStop(long tourID, long stopID) {

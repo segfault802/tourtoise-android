@@ -4,6 +4,7 @@ import com.iCompute.tour.objects.Stop;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class StopList extends LinkedList<Stop> {
@@ -21,6 +22,16 @@ public class StopList extends LinkedList<Stop> {
 		super.add(index,s);
 	}
 
+	public ArrayList<CharSequence> getStopNames()
+	{
+		ArrayList<CharSequence> names=new ArrayList<CharSequence>();
+		for(Stop stop:this)
+		{
+			names.add(stop.mTitle);
+		}
+		return names;
+	}
+	
 	//swap the stop at poistion pos with the one before or after it based on the vaue of mvUp
 	//need to handle edge cases where the 1st stop might get moved
 	//up or the last stop might get moved down off the list
@@ -76,8 +87,22 @@ public class StopList extends LinkedList<Stop> {
 
 
 	public Stop getStop(long stopID) {
-		// TODO Auto-generated method stub
-		return null;
+		Stop stop=null;
+		for(int i=0; i<this.size();i++)
+		{
+			if(this.get(i).getStopID()==stopID)
+			{
+				stop=get(i);
+				break;
+			}
+		}
+		
+		return stop;
+	}
+
+
+	public void updateStop(Stop stop) {
+		getStop(stop.getStopID()).updateStop(stop);
 	}
 
 
