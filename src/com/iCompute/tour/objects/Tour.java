@@ -121,6 +121,27 @@ public class Tour{
 		return j;
 	}
 	
+	//set the tour's fields from the supplied JSON object
+	/*public void tourFromJSON(JSONObject j){
+		try{
+			mID = j.put("id",mID);
+			mTitle = j.put("title", mTitle);
+			mDescription = j.put("description", mDescription);
+			//how to do Access?
+			mRating = j.put("rating", mRating);
+			mTags = j.put("tags", mTags);
+			mNumDownloads = j.put("numDownloads", mNumDownloads);
+			isDownloaded = j.put("downloaded", isDownloaded);
+			j.put("stops",mStops.stopListToJSON());
+			j.put("handicapStops", mHandicapStops);
+			j.put("currentStop",mCurrentStop);
+			j.put("finished",mFinished);
+		}
+		catch (JSONException e){
+			
+		}
+	}*/
+	
 	//will return null if the last stop has been reached
 	//whatever calls this will need to handle it somehow
 	public Stop getNextStop() {
@@ -134,5 +155,15 @@ public class Tour{
 		else{
 			return null;
 		}
+	}
+	
+	//load the file containing the JSON string representation of the tour 
+	//and set fields appropriately
+	public void loadTourFromFile(long tourID){
+		
+	}
+	
+	public void saveTourToFile(){
+		
 	}
 }

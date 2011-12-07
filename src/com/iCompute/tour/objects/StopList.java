@@ -57,6 +57,10 @@ public class StopList extends LinkedList<Stop> {
 		}
 		return j;
 	}
+	
+	public void stopListFromJSON(JSONArray j){
+		
+	}
 
 
 }

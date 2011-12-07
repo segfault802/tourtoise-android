@@ -49,6 +49,7 @@ public class Stop{
 		return stopStatus;
 	}
 	
+	
 	public JSONObject stopToJSON(){
 		JSONObject j = new JSONObject();
 		try{
@@ -69,5 +70,22 @@ public class Stop{
 		return j;
 	}
 	
+	public void stopFromJSON(JSONObject j){
+		try{
+			mID = j.getLong("id");
+			mTitle = j.getString("title");
+			mDescription = j.getString("description");
+			mAccessible = j.getBoolean("accessible");
+			mAdmission = j.getDouble("admission");
+			mCategory = j.getInt("category");
+			mAgeAccess = j.getInt("ageAccess");
+			mStartTime = j.getString("startTime");
+			mEndTime = j.getString("endTime");
+			mTourID = j.getLong("tourID");
+		}
+		catch(JSONException e){
+			e.printStackTrace();		
+		}
+	}
 	
 }
