@@ -76,8 +76,22 @@ public class StopList extends LinkedList<Stop> {
 
 
 	public Stop getStop(long stopID) {
-		// TODO Auto-generated method stub
-		return null;
+		Stop stop=null;
+		for(int i=0; i<this.size();i++)
+		{
+			if(this.get(i).getStopID()==stopID)
+			{
+				stop=get(i);
+				break;
+			}
+		}
+		
+		return stop;
+	}
+
+
+	public void updateStop(Stop stop) {
+		getStop(stop.getStopID()).updateStop(stop);
 	}
 
 

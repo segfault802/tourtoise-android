@@ -87,5 +87,8 @@ public class Stop{
 			e.printStackTrace();		
 		}
 	}
+	public void updateStop(Stop stop) {
+		//TODO update stop
+	}
 	
 }

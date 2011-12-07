@@ -35,8 +35,8 @@ public class Tour{
 		//mStops = s;	
 	}
 	
-	public Tour(JSONObject jsonObject) {
-		// TODO Auto-generated constructor stub
+	public Tour(JSONObject json) {
+		tourFromJSON(json);
 	}
 
 	public StopList getStops(){
@@ -94,6 +94,7 @@ public class Tour{
 	
 	public void update(String name, String description, String tags, boolean driving){
 		mTitle = name;
+		mTags=tags;
 		mDescription = description;
 		isDriving = driving;
 	}
@@ -157,13 +158,19 @@ public class Tour{
 		}
 	}
 	
-	//load the file containing the JSON string representation of the tour 
-	//and set fields appropriately
-	public void loadTourFromFile(long tourID){
-		
-	}
-	
 	public void saveTourToFile(){
 		
+	}
+
+	public void addStop(Stop stop) {
+		mStops.add(stop);
+	}
+
+	public void updateStop(Stop stop) {
+		mStops.updateStop(stop);
+	}
+
+	public void update(Tour tour) {
+		update(tour.mTitle, tour.mDescription, tour.mTags, tour.isDriving);
 	}
 }

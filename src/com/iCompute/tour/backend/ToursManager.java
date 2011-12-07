@@ -69,14 +69,12 @@ public class ToursManager {
 		return mTours.getTourByID(tourID).getStops().getStop(stopID);
 	}
 
-	public void addTourStop(long tourID, Stop mStop) {
-		// TODO Auto-generated method stub
-		
+	public void addTourStop(long tourID, Stop stop) {
+		mTours.getTourByID(tourID).addStop(stop);	
 	}
 
-	public void updateStop(long tourID, Stop mStop) {
-		// TODO Auto-generated method stub
-		
+	public void updateStop(long tourID, Stop stop) {
+		mTours.getTourByID(tourID).updateStop(stop);
 	}
 
 	public void discardTemporaryStop(long stopID) {
@@ -97,14 +95,12 @@ public class ToursManager {
 		return null;
 	}
 
-	public void updateTour(long tourID, Tour mTour) {
-		// TODO Auto-generated method stub
-		
+	public void updateTour(long tourID, Tour tour) {
+		mTours.getTourByID(tourID).update(tour);
 	}
 
 	public void saveTemporaryTour(long tourID, Tour mTour) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void discardTemporaryTour(long tourID) {
