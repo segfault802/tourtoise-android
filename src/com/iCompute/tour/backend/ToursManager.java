@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,6 +18,7 @@ import com.iCompute.tour.objects.Media;
 import com.iCompute.tour.objects.Stop;
 import com.iCompute.tour.objects.StopList;
 import com.iCompute.tour.objects.Tour;
+import com.iCompute.tour.objects.TourHeader;
 import com.iCompute.tour.objects.ToursList;
 
 public class ToursManager {
@@ -25,7 +27,7 @@ public class ToursManager {
 	Tour mSelectedTour;
 	Tour mTempTour;
 
-	private ArrayList<Long> tourIDs;
+	private ArrayList<TourHeader> tourHeaders;
 	
 	public Tour getTour(long tourID) {
 		return mTours.getTourByID(tourID);
@@ -116,12 +118,12 @@ public class ToursManager {
 		return null;
 	}
 
-	public ArrayList<Tour> searchServerTours(String string) {
+	public ArrayList<TourHeader> searchServerTours(String string) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public ArrayList<Tour> getLocalTours() {
+	public ArrayList<TourHeader> getLocalTours() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -136,9 +138,18 @@ public class ToursManager {
 		return null;
 	}
 	
+	
+	/*
+	 * File IO stuff
+	 */
 	public void saveToursList(Context c)
 	{
-		
+		JSONArray array=new JSONArray();
+		for(TourHeader header:tourHeaders)
+		{
+			array.put(header.toJSONObject());
+		}
+		saveFile(c, "toursList", array.toString());
 	}
 	public void saveTours(Context c)
 	{
@@ -154,52 +165,81 @@ public class ToursManager {
 	public void saveTour(Context c, Tour tour)
 	{
 		String data=tour.tourToJSON().toString();
-		FileOutputStream fos;
-		try{
-			fos = c.openFileOutput("tour_"+tour.getTourID(), Context.MODE_PRIVATE);
-			fos.write(data.getBytes());
-			fos.close();
-		}
-		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		saveFile(c, "tour_"+tour.mID, data);
 	}
 	
 	public void loadAllTourData(Context c)
 	{
 		loadToursList(c);
-		for(long id:tourIDs)
+		for(TourHeader header :tourHeaders)
 		{
-			
+			this.mTours.add(loadTour(c, header.mID));
 		}
 		
 	}
 	public void loadToursList(Context c)
 	{
+		tourHeaders=new ArrayList<TourHeader>();
+		try {
+			JSONArray array=new JSONArray(getFileString(c, "toursList"));
+			for(int i=0; i<array.length();i++)
+			{
+				JSONObject obj=array.getJSONObject(i);
+				tourHeaders.add(new TourHeader(obj));
+			}
+		} catch (JSONException e) 
+		{
+			tourHeaders=new ArrayList<TourHeader>();
+		}
 		
 	}
+	
 	public Tour loadTour(Context c, long id)
 	{
 		StringBuilder sb=new StringBuilder();
 		Tour tour=null;
+		try {
+			tour=new Tour(new JSONObject(getFileString(c, "tour+"+id)));
+		} catch (JSONException e) {
+			tour=null;
+		}
+		return tour;
+	}
+	
+	/*
+	 * file IO helped functions
+	 */
+	private String getFileString(Context c, String file)
+	{
+		StringBuilder sb=new StringBuilder();
 		try
 		{
-			FileInputStream fin=c.openFileInput("tour_"+id);
+			FileInputStream fin=c.openFileInput(file);
 			int ch;
 			while((ch=fin.read())!=-1)
 			{
 				sb.append((char)ch);
 			}
-			tour=new Tour(new JSONObject(sb.toString()));
 		}
 		catch(IOException e)
 		{
-			
-		} catch (JSONException e) {
-			
+			sb=new StringBuilder();
 		}
-		return tour;
+		return sb.toString();
+	}
+	private boolean saveFile(Context c, String file, String data)
+	{
+		boolean result=true;
+		FileOutputStream fos;
+		try{
+			fos = c.openFileOutput(file, Context.MODE_PRIVATE);
+			fos.write(data.getBytes());
+			fos.close();
+		}
+		catch (IOException e) {
+			result=false;
+		}
+		return result;
 	}
 	
 }
