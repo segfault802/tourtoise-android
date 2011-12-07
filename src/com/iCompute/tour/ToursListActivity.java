@@ -30,6 +30,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.iCompute.tour.backend.ToursManager;
 import com.iCompute.tour.objects.Common.Access;
 import com.iCompute.tour.objects.Tour;
+import com.iCompute.tour.objects.TourHeader;
 import com.iCompute.tour.objects.ToursList;
 
 public class ToursListActivity extends ListActivity implements OnClickListener{ //OnItemClickListener{
@@ -127,7 +128,7 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 	
 	private void viewTour(View v)
 	{
-		long tourID=((TourListAdapter.ViewHolder)((View)v.getParent()).getTag()).mTour.getTourID();
+		long tourID=((TourListAdapter.ViewHolder)((View)v.getParent()).getTag()).mTour.mID;
 		Intent i=new Intent(ToursListActivity.this, ViewTourActivity.class);
 		i.putExtra("isLocal", !isSearch);
 		i.putExtra("tourID", tourID);
@@ -136,7 +137,7 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 	
 	private void editTour(View v)
 	{
-		long tourID=((TourListAdapter.ViewHolder)((View)v.getParent()).getTag()).mTour.getTourID();
+		long tourID=((TourListAdapter.ViewHolder)((View)v.getParent()).getTag()).mTour.mID;
 		Intent i=new Intent(ToursListActivity.this, EditTourActivity.class);
 		i.putExtra("tourID", tourID);
 		startActivity(i);
@@ -178,10 +179,10 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 	private class TourListAdapter extends BaseAdapter{
 
 		private LayoutInflater mInflater;
-		private ArrayList<Tour> mToursList;
+		private ArrayList<TourHeader> mToursList;
 		private boolean mIsSearch;
 		
-		public TourListAdapter(Context context, ArrayList<Tour> tours, boolean isSearch){
+		public TourListAdapter(Context context, ArrayList<TourHeader> tours, boolean isSearch){
 			mInflater= LayoutInflater.from(context);
 			mToursList = tours;
 			mIsSearch=isSearch;
@@ -202,7 +203,7 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 		}
 
 		@Override
-		public Tour getItem(int i) {
+		public TourHeader getItem(int i) {
 			
 			return mToursList.get(i);
 		}
@@ -240,8 +241,8 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 			}
 			
 			holder.mTitle.setText(holder.mTour.mTitle);
-			holder.mStopCount.setText("Stops: "+holder.mTour.getStopCount());
-			holder.mHStopCount.setText("Handicap Stops: "+holder.mTour.getHandicapStopCount());
+			holder.mStopCount.setText("Stops: "+holder.mTour.mStopCount);
+			holder.mHStopCount.setText("Handicap Stops: "+holder.mTour.mHandicapStopCount);
 			holder.mTransport.setText((holder.mTour.isDriving?"Driving":"Walking"));
 
 			if(mIsSearch)
@@ -251,7 +252,7 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 			}
 			else// if tour is downloaded
 			{
-				findViewById(R.id.editToursListItemButton).setVisibility(holder.mTour.isDownloaded()?View.GONE:View.VISIBLE);	
+				findViewById(R.id.editToursListItemButton).setVisibility(holder.mTour.isDownloaded?View.GONE:View.VISIBLE);	
 			}
 	
 			
@@ -259,7 +260,7 @@ public class ToursListActivity extends ListActivity implements OnClickListener{ 
 		}
 		
 		public class ViewHolder{
-			Tour mTour;
+			TourHeader mTour;
 			TextView mTitle;
 			TextView mStopCount;
 			TextView mHStopCount;

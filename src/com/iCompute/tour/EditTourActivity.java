@@ -69,7 +69,7 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 		((Button) findViewById(R.id.saveEditTourButton)).setOnClickListener(this);
 		((Button) findViewById(R.id.discardEditTourButton)).setOnClickListener(this);
 		((Button) findViewById(R.id.addStopEditTourButton)).setOnClickListener(this);
-		((Button) findViewById(R.id.imagesEditTourButton)).setOnClickListener(this);
+		((Button) findViewById(R.id.imagesEditTourButton)).setVisibility(View.INVISIBLE);//.setOnClickListener(this);
 		((Button) findViewById(R.id.editStopsEditTourButton)).setOnClickListener(this);
 		
 	}

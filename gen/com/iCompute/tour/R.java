@@ -50,7 +50,7 @@ public final class R {
         public static final int descriptionViewTourTextView=0x7f070071;
         public static final int discardEditStopButton=0x7f070016;
         public static final int discardEditTourButton=0x7f07002a;
-        public static final int distanceMetricSearchEditText=0x7f070049;
+        public static final int distanceMetricSearchTextView=0x7f070049;
         public static final int downloadTourViewTourButton=0x7f070072;
         public static final int drivingEditTourRadioButton=0x7f070025;
         public static final int editStopListCatImg=0x7f070017;

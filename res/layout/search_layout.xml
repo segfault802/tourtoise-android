@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <EditText android:id="@+id/withInSearchEditText" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1"></EditText>
-                <TextView android:text="Miles" android:id="@+id/distanceMetricSearchEditText" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+                <TextView android:text="Miles" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/distanceMetricSearchTextView"></TextView>
             </LinearLayout>
         </TableRow>
         <TableRow android:id="@+id/tableRow5" android:layout_width="wrap_content" android:layout_height="wrap_content">

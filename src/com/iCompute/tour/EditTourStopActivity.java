@@ -48,7 +48,7 @@ public class EditTourStopActivity extends Activity implements View.OnClickListen
 		stopID=intent.getLongExtra("stopID", -1);
 		isNew=(stopID==-1);
 		
-		findViewById(R.id.mediadEditStopButton).setOnClickListener(this);
+		findViewById(R.id.mediadEditStopButton).setVisibility(View.INVISIBLE);//.setOnClickListener(this);
 		findViewById(R.id.saveEditStopButton).setOnClickListener(this);
 		findViewById(R.id.discardEditStopButton).setOnClickListener(this);
 		stopTitle=(EditText)findViewById(R.id.nameEditStopEditText);

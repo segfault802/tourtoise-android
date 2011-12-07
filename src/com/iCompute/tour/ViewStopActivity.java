@@ -50,7 +50,6 @@ public class ViewStopActivity extends Activity  implements View.OnClickListener{
 	    findViewById(R.id.visitedViewStopImgButton).setOnClickListener(this);
 	    findViewById(R.id.skipViewStopImgButton).setOnClickListener(this);
 	    
-	    
 	}
 	
 	private void setUpLayout()

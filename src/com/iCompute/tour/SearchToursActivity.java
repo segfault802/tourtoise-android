@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -27,8 +28,14 @@ public class SearchToursActivity extends Activity {
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search_layout);
-		Button searchBtn=(Button)findViewById(R.id.searchSearchButton);
-		searchBtn.setOnClickListener(new OnClickListener(){
+		findViewById(R.id.clearSearchButton).setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v)
+			{
+				clearAllData();
+			}
+		});
+		findViewById(R.id.searchSearchButton).setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v)
 			{
@@ -113,6 +120,22 @@ public class SearchToursActivity extends Activity {
 		//TODO build search query
 		i.putExtra("isLocal", false);
 		startActivity(i);
+	}
+	
+	private void clearAllData()
+	{
+		((EditText)findViewById(R.id.keywordsSearchEditText)).setText("");
+		((EditText)findViewById(R.id.categoriesSearchEditText)).setText("");
+		((EditText)findViewById(R.id.admissionSearchEditText)).setText("");
+		((CheckBox)findViewById(R.id.hasAudioSearchCheckBox)).setChecked(false);
+		((CheckBox)findViewById(R.id.hasImagesSearchCheckBox)).setChecked(false);
+		((EditText)findViewById(R.id.locationSearchEditText)).setText("");
+		((EditText)findViewById(R.id.withInSearchEditText)).setText("");
+		for(int i=0; i<clickedCategories.length;i++)
+		{
+			clickedCategories[i]=false;
+		}
+		
 	}
 	
 }
