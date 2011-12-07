@@ -3,14 +3,12 @@ package com.iCompute.tour.objects;
 import java.util.Date;
 import org.json.JSONObject;
 import org.json.JSONException;
-import com.iCompute.tour.objects.Common.Access;
 
 public class Tour{
 	
 	public long mID=-1;
 	public String mTitle;
 	public String mDescription;
-	//public Access mAccess;
 	public boolean isDriving;
 	private int mRating=0;
 	public String mTags;
@@ -108,19 +106,21 @@ public class Tour{
 	
 	public JSONObject tourToJSON(){
 		JSONObject j = new JSONObject();
+		JSONObject tour = new JSONObject();
 		try{
 			j.put("id",mID);
 			j.put("title", mTitle);
 			j.put("description", mDescription);
-			//how to do Access?
+			j.put("access", isDriving?"Drive":"Walk");
 			j.put("rating", mRating);
 			j.put("tags", mTags);
-			j.put("numDownloads", mNumDownloads);
+			j.put("numdownloads", mNumDownloads);
 			j.put("downloaded", isDownloaded);
 			j.put("stops",mStops.stopListToJSON());
 			j.put("handicapStops", mHandicapStops);
 			j.put("currentStop",mCurrentStop);
 			j.put("finished",mFinished);
+			tour.put("tour", j);
 		}
 		catch (JSONException e){
 			
@@ -129,12 +129,14 @@ public class Tour{
 	}
 	
 	//set the tour's fields from the supplied JSON object
-	public void tourFromJSON(JSONObject j){
+	public void tourFromJSON(JSONObject tour){
 		try{
+			JSONObject j = tour.getJSONObject("tour");
 			mID = j.getLong("id");
 			mTitle = j.getString("title");
 			mDescription = j.getString("description");
 			//how to do Access?
+			isDriving = (j.getString("access") == "Drive");
 			mRating = j.getInt("rating");
 			mTags = j.getString("tags");
 			mNumDownloads = j.getInt("numdownloads");

@@ -56,6 +56,7 @@ public class Stop{
 	
 	public JSONObject stopToJSON(){
 		JSONObject j = new JSONObject();
+		JSONObject stop = new JSONObject();
 		try{
 			String age;
 			j.put("id", mID);
@@ -84,6 +85,7 @@ public class Stop{
 			j.put("starttime", mStartTime);
 			j.put("endtime", mEndTime);
 			j.put("tourId",mTourID);
+			stop.put("stop", j);
 		}
 		catch(JSONException e){
 			e.printStackTrace();		
@@ -93,13 +95,14 @@ public class Stop{
 	
 	public void stopFromJSON(JSONObject j){
 		try{
-			mID = j.getLong("id");
-			mTitle = j.getString("title");
-			mDescription = j.getString("description");
-			mAccessible = j.getInt("accessibility")==1?true:false;
-			mAdmission = j.getDouble("admission");
-			mCategory = j.getInt("category");
-			String age = j.getString("ageaccess");
+			JSONObject stop = j.getJSONObject("stop");
+			mID = stop.getLong("id");
+			mTitle = stop.getString("title");
+			mDescription = stop.getString("description");
+			mAccessible = stop.getInt("accessibility")==1?true:false;
+			mAdmission = stop.getDouble("admission");
+			mCategory = stop.getInt("category");
+			String age = stop.getString("ageaccess");
 			if(age.equals("G")){
 				mAgeAccess = 0;
 			}
@@ -115,9 +118,9 @@ public class Stop{
 			else{
 				mAgeAccess = 0;
 			}
-			mStartTime = j.getString("startTime");
-			mEndTime = j.getString("endTime");
-			mTourID = j.getLong("tourID");
+			mStartTime = stop.getString("starttime");
+			mEndTime = stop.getString("endtime");
+			mTourID = stop.getLong("tourId");
 		}
 		catch(JSONException e){
 			e.printStackTrace();		

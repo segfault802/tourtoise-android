@@ -17,6 +17,20 @@ public class TourApplication extends Application {
 		return toursManager;
 	}
 	
+	@Override
+	public void onCreate(){
+		super.onCreate();
+		toursManager = new ToursManager();
+		toursManager.loadAllTourData(super.getApplicationContext());
+	}
+	
+	@Override
+	public void onTerminate(){
+		super.onTerminate();
+		toursManager.saveToursList(getApplicationContext());
+		toursManager.saveTours(getApplicationContext());
+	}
+	
 
 	
 }

@@ -24,9 +24,13 @@ import com.iCompute.tour.objects.ToursList;
 public class ToursManager {
 
 	ToursList mTours;
-	Tour mSelectedTour;
+	Tour mSelectedTour; 
 	Tour mTempTour;
 
+	public ToursManager(){
+		mTours = new ToursList();
+	}
+	
 	private ArrayList<TourHeader> tourHeaders;
 	
 	public Tour getTour(long tourID) {
