@@ -72,14 +72,14 @@ public class JSONManager{
 		try{
 			String privateString = SHA1(PRIVATE_KEY + "\n" + mDateString);
 			Log.i("private String", privateString);
-			privateString = Base64.encodeToString(privateString.getBytes(),0);
+			privateString = Base64.encodeToString(privateString.getBytes(),Base64.URL_SAFE|Base64.NO_WRAP);
 			Log.i("private String", privateString);
 			String test = SHA1("shizzle");
 			Log.i("test sha1", test);
 			test = Base64.encodeToString(privateString.getBytes(),0);
 			Log.i("test base64", test);
-			String user = Base64.encodeToString(USER.getBytes(),0);
-			String pass = Base64.encodeToString(PASS.getBytes(),0);
+			String user = Base64.encodeToString(USER.getBytes(),Base64.URL_SAFE|Base64.NO_WRAP);
+			String pass = Base64.encodeToString(PASS.getBytes(),Base64.URL_SAFE|Base64.NO_WRAP);
 			authString = PUBLIC_KEY + ":" + privateString + ":" + user + ":" + pass;
 		}
 		catch (Exception e){

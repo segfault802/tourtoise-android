@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.iCompute.tour.backend.JSONManager;
 
-public class BuildaTourActivity extends Activity implements OnClickListener{
+public class BuildaTourActivity extends Activity {//implements OnClickListener{
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -28,21 +28,23 @@ public class BuildaTourActivity extends Activity implements OnClickListener{
         });
         
         //temp buttons for testing only
-        ((Button)findViewById(R.id.createTourButton)).setOnClickListener(this);
-        ((Button)findViewById(R.id.button3)).setOnClickListener(this);
+        //((Button)findViewById(R.id.createTourButton)).setOnClickListener(this);
+        
+        //breaking for some reason
+        //((Button)findViewById(R.id.button3)).setOnClickListener(this);
         
         //actual buttons
-        ((ImageButton)findViewById(R.id.addTourMainImgButton)).setOnClickListener(this);
-        ((ImageButton)findViewById(R.id.searchMainImgButton)).setOnClickListener(this);
-        ((ImageButton)findViewById(R.id.myToursMainImgButton)).setOnClickListener(this);
-        ((ImageButton)findViewById(R.id.settingsMainImgButton)).setOnClickListener(this);
+        //((ImageButton)findViewById(R.id.addTourMainImgButton)).setOnClickListener(this);
+        //((ImageButton)findViewById(R.id.searchMainImgButton)).setOnClickListener(this);
+        //((ImageButton)findViewById(R.id.myToursMainImgButton)).setOnClickListener(this);
+        //((ImageButton)findViewById(R.id.settingsMainImgButton)).setOnClickListener(this);
     }
     
     
-    @Override
+    /*@Override
     public void onClick(View v)
     {
-    	switch(v.getId()){
+    	/*switch(v.getId()){
     	case R.id.button3://button for testing
     		viewTour();
     		break;
@@ -61,7 +63,7 @@ public class BuildaTourActivity extends Activity implements OnClickListener{
     		break;
     		
     	}
-    }
+    }*/
     
     private void createTour()
     {
