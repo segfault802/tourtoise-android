@@ -1,7 +1,17 @@
 package com.iCompute.tour.backend;
 
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.content.Context;
 
 import com.iCompute.tour.objects.Media;
 import com.iCompute.tour.objects.Stop;
@@ -14,6 +24,8 @@ public class ToursManager {
 	ToursList mTours;
 	Tour mSelectedTour;
 
+	private ArrayList<Long> tourIDs;
+	
 	public Tour getTour(long tourID) {
 		return mTours.getTourByID(tourID);
 	}
@@ -52,8 +64,7 @@ public class ToursManager {
 	}
 
 	public Stop getStop(long tourID, long stopID) {
-		// TODO Auto-generated method stub
-		return null;
+		return mTours.getTourByID(tourID).getStops().getStop(stopID);
 	}
 
 	public void addTourStop(long tourID, Stop mStop) {
@@ -123,5 +134,71 @@ public class ToursManager {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	public void saveToursList(Context c)
+	{
+		
+	}
+	public void saveTours(Context c)
+	{
+		for(Tour tour:mTours)
+		{
+			saveTour(c, tour);
+		}
+	}
+	public void saveTour(Context c, long id)
+	{
+		saveTour(c, mTours.getTourByID(id));
+	}
+	public void saveTour(Context c, Tour tour)
+	{
+		String data=tour.tourToJSON().toString();
+		FileOutputStream fos;
+		try{
+			fos = c.openFileOutput("tour_"+tour.getTourID(), Context.MODE_PRIVATE);
+			fos.write(data.getBytes());
+			fos.close();
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void loadAllTourData(Context c)
+	{
+		loadToursList(c);
+		for(long id:tourIDs)
+		{
+			
+		}
+		
+	}
+	public void loadToursList(Context c)
+	{
+		
+	}
+	public Tour loadTour(Context c, long id)
+	{
+		StringBuilder sb=new StringBuilder();
+		Tour tour=null;
+		try
+		{
+			FileInputStream fin=c.openFileInput("tour_"+id);
+			int ch;
+			while((ch=fin.read())!=-1)
+			{
+				sb.append((char)ch);
+			}
+			tour=new Tour(new JSONObject(sb.toString()));
+		}
+		catch(IOException e)
+		{
+			
+		} catch (JSONException e) {
+			
+		}
+		return tour;
+	}
+	
 }

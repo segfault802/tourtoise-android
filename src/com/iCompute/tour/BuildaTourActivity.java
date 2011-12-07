@@ -11,14 +11,18 @@ import android.widget.Toast;
 
 import com.iCompute.tour.backend.JSONManager;
 
-public class BuildaTourActivity extends Activity {//implements OnClickListener{
+public class BuildaTourActivity extends Activity implements OnClickListener{
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        
+        
         setContentView(R.layout.main);
         
-        Button b = (Button)findViewById(R.id.button2);
+        
+        
+        Button b = (Button)findViewById(R.id.jsonMainButton);
         b.setOnClickListener(new OnClickListener(){
         	@Override
         	public void onClick(View v) {
@@ -28,24 +32,23 @@ public class BuildaTourActivity extends Activity {//implements OnClickListener{
         });
         
         //temp buttons for testing only
-        //((Button)findViewById(R.id.createTourButton)).setOnClickListener(this);
-        
-        //breaking for some reason
-        //((Button)findViewById(R.id.button3)).setOnClickListener(this);
+        findViewById(R.id.createTourButton).setOnClickListener(this);
+        findViewById(R.id.createTourButton).setOnClickListener(this);
+        findViewById(R.id.viewtourmainButton).setOnClickListener(this);
         
         //actual buttons
-        //((ImageButton)findViewById(R.id.addTourMainImgButton)).setOnClickListener(this);
-        //((ImageButton)findViewById(R.id.searchMainImgButton)).setOnClickListener(this);
-        //((ImageButton)findViewById(R.id.myToursMainImgButton)).setOnClickListener(this);
-        //((ImageButton)findViewById(R.id.settingsMainImgButton)).setOnClickListener(this);
+        findViewById(R.id.addTourMainImgButton).setOnClickListener(this);
+        findViewById(R.id.searchMainImgButton).setOnClickListener(this);
+        findViewById(R.id.myToursMainImgButton).setOnClickListener(this);
+        findViewById(R.id.settingsMainImgButton).setOnClickListener(this);
     }
     
     
-    /*@Override
+    @Override
     public void onClick(View v)
     {
-    	/*switch(v.getId()){
-    	case R.id.button3://button for testing
+    	switch(v.getId()){
+    	case R.id.viewtourmainButton://button for testing
     		viewTour();
     		break;
     	case R.id.settingsMainImgButton:
@@ -63,7 +66,7 @@ public class BuildaTourActivity extends Activity {//implements OnClickListener{
     		break;
     		
     	}
-    }*/
+    }
     
     private void createTour()
     {

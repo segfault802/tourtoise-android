@@ -35,6 +35,10 @@ public class Tour{
 		//mStops = s;	
 	}
 	
+	public Tour(JSONObject jsonObject) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public StopList getStops(){
 		return mStops;
 	}
