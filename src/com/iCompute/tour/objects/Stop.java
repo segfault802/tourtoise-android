@@ -45,6 +45,10 @@ public class Stop{
 		return mID;
 	}
 	
+	public int getStatus(){
+		return stopStatus;
+	}
+	
 	public JSONObject stopToJSON(){
 		JSONObject j = new JSONObject();
 		try{

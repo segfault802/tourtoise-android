@@ -22,6 +22,15 @@ public class ToursList extends LinkedList<Tour>{
 		return s;
 	}
 	
+	public Tour getTourByID(long id){
+		for(int i = 0; i < this.size(); i++){
+			if(this.get(i).getTourID() == id){
+				return this.get(i);
+			}
+		}
+		return null;
+	}
+
 	public boolean add(Tour t){
 		return super.add(t);		
 	}
@@ -30,9 +39,11 @@ public class ToursList extends LinkedList<Tour>{
 		super.add(index,t);
 	}
 	
+	//TODO: make JSON object with tours list
 	public JSONObject tourInfoToJSON(){
 		return new JSONObject();
 	}
+	
 	
 	
 }

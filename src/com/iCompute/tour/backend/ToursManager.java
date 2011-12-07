@@ -7,22 +7,25 @@ import com.iCompute.tour.objects.Media;
 import com.iCompute.tour.objects.Stop;
 import com.iCompute.tour.objects.StopList;
 import com.iCompute.tour.objects.Tour;
+import com.iCompute.tour.objects.ToursList;
 
 public class ToursManager {
 
+	ToursList mTours;
+	Tour mSelectedTour;
+
 	public Tour getTour(long tourID) {
-		// TODO Auto-generated method stub
-		return null;
+		return mTours.getTourByID(tourID);
 	}
 
 	public void updateTour(long tourID, String name, String description,
 			String tags, boolean isWalk) {
-		// TODO Auto-generated method stub
-		
+		Tour t = getTour(tourID);
+		t.update(name, description, tags, isWalk);		
 	}
 
 	public void addTour(Tour tour) {
-		// TODO Auto-generated method stub
+		mTours.add(tour);
 	}
 
 	public void publishToServer(long tourID) {
@@ -31,8 +34,7 @@ public class ToursManager {
 	}
 
 	public StopList getTourStops(long tourID) {
-		// TODO Auto-generated method stub
-		return null;
+		return mTours.getTourByID(tourID).getStops();
 	}
 
 	public void cacheTour(long tourID) {

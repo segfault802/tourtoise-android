@@ -39,6 +39,10 @@ public class Tour{
 		//mStops = s;	
 	}
 	
+	public StopList getStops(){
+		return mStops;
+	}
+	
 	public int getStopCount(){
 		return mStops.size();
 	}
@@ -106,7 +110,6 @@ public class Tour{
 			j.put("tags", mTags);
 			j.put("numDownloads", mNumDownloads);
 			j.put("downloaded", isDownloaded);
-			//stop list
 			j.put("stops",mStops.stopListToJSON());
 			j.put("handicapStops", mHandicapStops);
 			j.put("currentStop",mCurrentStop);
@@ -125,6 +128,7 @@ public class Tour{
 			if(mStops.getLast() == mStops.get(mCurrentStop)){
 				mFinished = true;
 			}
+			mStops.incrementStopIndex();
 			return mStops.get(mCurrentStop++);
 		}
 		else{
