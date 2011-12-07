@@ -35,8 +35,6 @@ public final class R {
         public static final int audioViewStopLayoutHolder=0x7f07005c;
         public static final int audioViewStopSeekBar=0x7f07005e;
         public static final int backViewStopImgButton=0x7f070065;
-        public static final int button2=0x7f070036;
-        public static final int button3=0x7f070037;
         public static final int categoriesSearchEditText=0x7f070042;
         public static final int categoryEditStopSpinner=0x7f07000d;
         public static final int categoryViewStopTextView=0x7f070061;
@@ -68,6 +66,7 @@ public final class R {
         public static final int imagesEditTourButton=0x7f070028;
         public static final int imagesViewStopGallery=0x7f07005b;
         public static final int imagesViewTourGallery=0x7f07006e;
+        public static final int jsonMainButton=0x7f070036;
         public static final int keywordsSearchEditText=0x7f070041;
         public static final int linearLayout=0x7f07002d;
         public static final int linearLayout1=0x7f070001;
@@ -142,6 +141,7 @@ public final class R {
         public static final int transportTourListItemTextView=0x7f070053;
         public static final int viewNextViewTourButton=0x7f070074;
         public static final int viewStopsViewTourButton=0x7f070073;
+        public static final int viewtourmainButton=0x7f070037;
         public static final int visitedViewStopImgButton=0x7f070067;
         public static final int walkingEditTourRadioButton=0x7f070024;
         public static final int withInSearchEditText=0x7f070048;

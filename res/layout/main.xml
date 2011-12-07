@@ -4,8 +4,8 @@
     android:layout_height="fill_parent" android:background="@drawable/background_dots" android:orientation="vertical">
     <LinearLayout android:id="@+id/linearLayout1" android:layout_width="wrap_content" android:orientation="horizontal" android:layout_height="wrap_content">
         <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/createTourButton" android:text="Create Tour"></Button>
-        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/button2" android:text="JSON"></Button>
-        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/button3" android:text="View Tour"></Button>
+        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="JSON" android:id="@+id/jsonMainButton"></Button>
+        <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="View Tour" android:id="@+id/viewtourmainButton"></Button>
     </LinearLayout>
     <RelativeLayout android:id="@+id/relativeLayout1" android:layout_width="fill_parent" android:layout_height="fill_parent">
         <TableLayout android:layout_height="wrap_content" android:id="@+id/TableLayout1" android:layout_width="wrap_content" android:layout_centerInParent="true">

@@ -63,4 +63,10 @@ public class StopList extends LinkedList<Stop> {
 	}
 
 
+	public Stop getStop(long stopID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }
