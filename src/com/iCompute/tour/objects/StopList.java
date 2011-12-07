@@ -2,6 +2,7 @@ package com.iCompute.tour.objects;
 
 import com.iCompute.tour.objects.Stop;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.LinkedList;
 
@@ -41,8 +42,8 @@ public class StopList extends LinkedList<Stop> {
 	}
 
 
-	public int getNextStop() {
-		return this.get(mCurrentStop).getStatus();
+	public int getNextStop(int currentStop) {
+		return this.get(currentStop).getStatus();
 	}
 	
 	public void incrementStopIndex(){
@@ -59,7 +60,18 @@ public class StopList extends LinkedList<Stop> {
 	}
 	
 	public void stopListFromJSON(JSONArray j){
-		
+		Stop newStop;
+		int i;
+		try{
+			for(i = 0; i < j.length(); i++){
+				newStop = new Stop();
+				newStop.stopFromJSON(j.getJSONObject(i));
+				this.add(newStop);
+			}
+		}
+		catch (JSONException e){
+			e.printStackTrace();
+		}
 	}
 
 

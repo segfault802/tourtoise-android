@@ -1,8 +1,10 @@
 package com.iCompute.tour.objects;
 
 import com.iCompute.tour.objects.Tour;
+import com.iCompute.tour.objects.TourHeader;
 
 import java.util.LinkedList;
+import java.util.ArrayList;
 import org.json.JSONObject;
 
 public class ToursList extends LinkedList<Tour>{
@@ -31,6 +33,18 @@ public class ToursList extends LinkedList<Tour>{
 		return null;
 	}
 
+	public ArrayList<TourHeader> getTourHeaders(){
+		TourHeader header;
+		ArrayList<TourHeader> list = new ArrayList<TourHeader>();
+		int i;
+		for (i = 0; i < this.size(); i++){
+			Tour t = this.get(i);
+			header = new TourHeader(t.mID,t.mTitle,t.mDescription,t.getStops().size(),t.mHandicapStops,t.isDriving,t.isDownloaded);
+			list.add(header);			
+		}
+		return list;
+	}
+	
 	public boolean add(Tour t){
 		return super.add(t);		
 	}

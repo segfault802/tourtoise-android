@@ -7,16 +7,17 @@ import com.iCompute.tour.objects.Common.Access;
 
 public class Tour{
 	
-	private long mID=-1;
+	public long mID=-1;
 	public String mTitle;
 	public String mDescription;
-	public Access mAccess;
+	//public Access mAccess;
+	public boolean isDriving;
 	private int mRating=0;
 	public String mTags;
 	private int mNumDownloads=0;
-	private boolean isDownloaded=false;
+	public boolean isDownloaded=false;
 	private StopList mStops;
-	private int mHandicapStops=0;
+	public int mHandicapStops=0;
 	private int mCurrentStop;
 	private boolean mFinished;
 	
@@ -41,6 +42,10 @@ public class Tour{
 	
 	public StopList getStops(){
 		return mStops;
+	}
+	
+	public int getCurrentStop(){
+		return mCurrentStop;
 	}
 	
 	public int getStopCount(){
@@ -122,25 +127,26 @@ public class Tour{
 	}
 	
 	//set the tour's fields from the supplied JSON object
-	/*public void tourFromJSON(JSONObject j){
+	public void tourFromJSON(JSONObject j){
 		try{
-			mID = j.put("id",mID);
-			mTitle = j.put("title", mTitle);
-			mDescription = j.put("description", mDescription);
+			mID = j.getLong("id");
+			mTitle = j.getString("title");
+			mDescription = j.getString("description");
 			//how to do Access?
-			mRating = j.put("rating", mRating);
-			mTags = j.put("tags", mTags);
-			mNumDownloads = j.put("numDownloads", mNumDownloads);
-			isDownloaded = j.put("downloaded", isDownloaded);
-			j.put("stops",mStops.stopListToJSON());
-			j.put("handicapStops", mHandicapStops);
-			j.put("currentStop",mCurrentStop);
-			j.put("finished",mFinished);
+			mRating = j.getInt("rating");
+			mTags = j.getString("tags");
+			mNumDownloads = j.getInt("numDownloads");
+			isDownloaded = j.getBoolean("downloaded");
+			mStops = new StopList();
+			mStops.stopListFromJSON(j.getJSONArray("stops"));
+			mHandicapStops = j.getInt("handicapStops");
+			mCurrentStop = j.getInt("currentStop");
+			mFinished = j.getBoolean("finished");
 		}
 		catch (JSONException e){
 			
 		}
-	}*/
+	}
 	
 	//will return null if the last stop has been reached
 	//whatever calls this will need to handle it somehow
