@@ -225,7 +225,7 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 			mTour.mTitle=name;
 			mTour.mDescription=description;
 			mTour.mTags=tags;
-			mTour.mAccess=(isWalk?Access.Walk:Access.Drive);
+			mTour.isDriving=isWalk;
 			
 			return true;
 		}
