@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import org.json.JSONObject;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -121,6 +122,11 @@ public class JSONManager{
 	            // now you have the string representation of the HTML request
 	            instream.close();
 	            mObject = new JSONObject(result);
+	            //ArrayList<String> keys = new ArrayList<String>();
+	            Iterator itr = mObject.keys();
+	            while(itr.hasNext()){
+	            	Log.i("key",itr.next().toString()); 	
+	            }
 	        }
 
 
