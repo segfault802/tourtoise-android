@@ -24,8 +24,6 @@ import com.iCompute.tour.objects.ToursList;
 public class ToursManager {
 
 	private ToursList mTours;
-
-	private ArrayList<TourHeader> tourHeaders;
 	private Tour mTempTour;
 	private Stop mTempStop;
 
@@ -147,7 +145,7 @@ public class ToursManager {
 	public void saveToursList(Context c)
 	{
 		JSONArray array=new JSONArray();
-		for(TourHeader header:tourHeaders)
+		for(TourHeader header:mTours.getTourHeaders())
 		{
 			array.put(header.toJSONObject());
 		}
@@ -173,7 +171,7 @@ public class ToursManager {
 	public void loadAllTourData(Context c)
 	{
 		loadToursList(c);
-		for(TourHeader header :tourHeaders)
+		for(TourHeader header :mTours.getTourHeaders())
 		{
 			this.mTours.add(loadTour(c, header.mID));
 		}
@@ -181,17 +179,17 @@ public class ToursManager {
 	}
 	public void loadToursList(Context c)
 	{
-		tourHeaders=new ArrayList<TourHeader>();
+		mTours.setTourHeaders(new ArrayList<TourHeader>());
 		try {
 			JSONArray array=new JSONArray(getFileString(c, "toursList"));
 			for(int i=0; i<array.length();i++)
 			{
 				JSONObject obj=array.getJSONObject(i);
-				tourHeaders.add(new TourHeader(obj));
+				mTours.getTourHeaders().add(new TourHeader(obj));
 			}
 		} catch (JSONException e) 
 		{
-			tourHeaders=new ArrayList<TourHeader>();
+			mTours.setTourHeaders(new ArrayList<TourHeader>());
 		}
 		
 	}

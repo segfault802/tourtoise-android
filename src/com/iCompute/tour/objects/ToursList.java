@@ -11,6 +11,8 @@ public class ToursList extends LinkedList<Tour>{
 
 	//private LinkedList<Tour> mTours;
 	//private int mNumTours;
+	//TODO add code to update the headers list when the actual list is modified.
+	private ArrayList<TourHeader> tourHeaders;
 	
 
 	
@@ -34,19 +36,12 @@ public class ToursList extends LinkedList<Tour>{
 	}
 
 	public ArrayList<TourHeader> getTourHeaders(){
-		TourHeader header;
-		ArrayList<TourHeader> list = new ArrayList<TourHeader>();
-		int i;
-		for (i = 0; i < this.size(); i++){
-			Tour t = this.get(i);
-			header = new TourHeader(t.mID,t.mTitle,t.mDescription,t.getStops().size(),t.mHandicapStops,t.isDriving,t.isDownloaded);
-			list.add(header);			
-		}
-		return list;
+		return tourHeaders;
 	}
 	
 	public boolean add(Tour t){
-		return super.add(t);		
+		return super.add(t);
+		//tourHeaders.add(t.)
 	}
 	
 	public void add(int index, Tour t){
@@ -58,6 +53,21 @@ public class ToursList extends LinkedList<Tour>{
 		return new JSONObject();
 	}
 	
+	public void setTourHeaders(ArrayList<TourHeader> list){
+		this.tourHeaders = list;
+	}
+	
+	public ArrayList<TourHeader> buildTourHeaders(){
+		TourHeader header;
+		ArrayList<TourHeader> list = new ArrayList<TourHeader>();
+		int i;
+		for (i = 0; i < this.size(); i++){
+			Tour t = this.get(i);
+			header = new TourHeader(t.mID,t.mTitle,t.mDescription,t.getStops().size(),t.mHandicapStops,t.isDriving,t.isDownloaded);
+			list.add(header);			
+		}
+		return list;
+	}
 	
 	
 }
