@@ -2,7 +2,6 @@ package com.iCompute.tour.objects;
 
 import java.util.Date;
 
-import com.iCompute.tour.objects.Common.*;
 import org.json.JSONObject;
 import org.json.JSONException;
 
