@@ -17,7 +17,6 @@ public class BuildaTourActivity extends Activity implements OnClickListener{
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         
-        
         setContentView(R.layout.main);
         
         
@@ -27,8 +26,8 @@ public class BuildaTourActivity extends Activity implements OnClickListener{
         	@Override
         	public void onClick(View v) {
         		JSONManager m = new JSONManager();
-        		//m.fetchToursList();
-        		m.fetchTourById(1);
+        		m.fetchToursList();
+        		//m.fetchTourById(1);
         	}
         });
         

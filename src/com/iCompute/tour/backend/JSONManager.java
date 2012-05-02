@@ -32,7 +32,7 @@ public class JSONManager{
 	private final String USER = "primehunter326@gmail.com";
 	private final String PASS = "chupacabra";
 	
-	private final String BASE_URL = "https://www.eebsy.com/api/tour/";
+	private final String BASE_URL = "http://tourtoise.cems.uvm.edu/api/tour/";
 	//private final String BASE_URL = "https://www.eebsy.com";
 
 	private JSONObject mObject;

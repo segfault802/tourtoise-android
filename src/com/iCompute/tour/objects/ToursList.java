@@ -40,13 +40,25 @@ public class ToursList extends LinkedList<Tour>{
 	}
 	
 	public boolean add(Tour t){
+		tourHeaders.add(new TourHeader(t.mID,t.mTitle,t.mDescription,t.getStopCount(),t.getHandicapStopCount(),t.isDriving,t.isDownloaded));
 		return super.add(t);
-		//tourHeaders.add(t.)
 	}
 	
 	public void add(int index, Tour t){
+		tourHeaders.add(index,new TourHeader(t.mID,t.mTitle,t.mDescription,t.getStopCount(),t.getHandicapStopCount(),t.isDriving,t.isDownloaded));
 		super.add(index,t);
 	}
+	
+	public Tour remove(int index){
+		tourHeaders.remove(index);
+		return super.remove(index);	
+	}
+	/*
+	 * 		mTitle = name;
+		mTags=tags;
+		mDescription = description;
+		isDriving = driving;
+	 */
 	
 	//TODO: make JSON object with tours list
 	public JSONObject tourInfoToJSON(){
@@ -56,6 +68,7 @@ public class ToursList extends LinkedList<Tour>{
 	public void setTourHeaders(ArrayList<TourHeader> list){
 		this.tourHeaders = list;
 	}
+	
 	
 	public ArrayList<TourHeader> buildTourHeaders(){
 		TourHeader header;

@@ -46,7 +46,7 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 		 */
 		Intent i = getIntent();
 		tourID = i.getLongExtra("tourID", -1);
-		if(tourID==-1){
+		if(tourID!=-1){ //updating
 			updating = true;
 			mTour = manager.getTour(tourID);
 			((EditText)findViewById(R.id.nameEditTourEditText)).setText(mTour.getTitle().toString());
@@ -60,9 +60,9 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 			}
 		}
 		else
-		{
+		{  //not updating
 			//mTour=manager.getTemporaryTour();
-			tourID=mTour.getTourID();
+			//tourID=mTour.getTourID(); //not necessary when not updating, this is why it's crashing
 		}
 		
 		
@@ -222,6 +222,7 @@ public class EditTourActivity extends Activity implements View.OnClickListener{
 		{
 			String tags = ((EditText)findViewById(R.id.tagsEditTourEditText)).getText().toString();
 			boolean isWalk = ((RadioButton)findViewById(R.id.walkingEditTourRadioButton)).isChecked();
+			mTour = new Tour();
 			mTour.mTitle=name;
 			mTour.mDescription=description;
 			mTour.mTags=tags;

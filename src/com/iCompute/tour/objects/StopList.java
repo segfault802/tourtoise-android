@@ -11,17 +11,39 @@ public class StopList extends LinkedList<Stop> {
 	
 	//need to make sure this and the field in Tour always match
 	private int mCurrentStop;
+	private int mStopCount=0;
 
 
+	public StopList(){
+		super();
+		mStopCount = 0;
+	}
+	
+	
+	//need to override the built in size() because caling it when no stops have been
+	//added breaks it
+	@Override
+	public int size(){
+		return mStopCount;
+	}
+	
 	public boolean add(Stop s){
+		mStopCount++;
 		return super.add(s);
 	}
 	
 	
 	public void add(int index, Stop s){
+		mStopCount++;
 		super.add(index,s);
 	}
-
+	
+	@Override
+	public Stop remove(int index){
+		mStopCount--;
+		return super.remove(index);
+	}
+	
 	public ArrayList<CharSequence> getStopNames()
 	{
 		ArrayList<CharSequence> names=new ArrayList<CharSequence>();
